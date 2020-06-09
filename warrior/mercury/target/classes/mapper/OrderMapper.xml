@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.OrderMapper">
+  <select id="listAll" resultType="com.warrior.mercury.pojo.TOrder">
+    select
+        id, order_code orderCode, order_amount orderAmount
+    from
+        t_order
+  </select>
+</mapper>

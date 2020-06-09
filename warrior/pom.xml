@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.warrior</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+
+    <properties>
+        <!-- env config -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <project.build.encoding>UTF-8</project.build.encoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <skip_maven_deploy>false</skip_maven_deploy>
+        <project.jdk.version>1.8</project.jdk.version>
+        <resource.delimiter>@</resource.delimiter>
+        <runtime.pidfile>./pid</runtime.pidfile>
+<!--        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>-->
+<!--        <thymeleaf-layout-dialect.version>2.0.4</thymeleaf-layout-dialect.version>-->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.1.1</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.4</version>
+            </dependency>
+
+            <!-- apache commons lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
+            </dependency>
+
+            <!-- fast json -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.58</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+
+<!--    <build>-->
+<!--        <pluginManagement>-->
+<!--            <plugins>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-resources-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <delimiters>-->
+<!--                            <delimiter>${resource.delimiter}</delimiter>-->
+<!--                        </delimiters>-->
+<!--                        <escapeString>\</escapeString>-->
+<!--                        <useDefaultDelimiters>false</useDefaultDelimiters>-->
+<!--                        <encoding>${project.build.encoding}</encoding>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <skipTests>true</skipTests>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+
+<!--                <plugin>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <mainClass>${start-class}</mainClass>-->
+<!--                        <arguments>-->
+<!--                            &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                            <argument>&#45;&#45;spring.profiles.active=${spring.profiles.active}</argument>-->
+<!--                        </arguments>-->
+<!--                    </configuration>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>repackage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                    <version>2.6</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <id>make-assembly</id>-->
+<!--                            <phase>package</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>single</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                    <configuration>-->
+<!--                        <descriptors>-->
+<!--                            <descriptor>${basedir}/src/main/assembly/config/assembly.xml</descriptor>-->
+<!--                        </descriptors>-->
+<!--                        <encoding>${project.build.encoding}</encoding>-->
+<!--                        <appendAssemblyId>false</appendAssemblyId>-->
+<!--                        <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}</finalName>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-jar-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <excludes>-->
+<!--                            <exclude>config/**</exclude>-->
+<!--                            <exclude>mybatis/**</exclude>-->
+<!--                        </excludes>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-deploy-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <skip>${skip_maven_deploy}</skip>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <encoding>${project.build.encoding}</encoding>-->
+<!--                        <source>${project.jdk.version}</source>-->
+<!--                        <target>${project.jdk.version}</target>-->
+<!--                        <compilerVersion>${project.jdk.version}</compilerVersion>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--            </plugins>-->
+<!--        </pluginManagement>-->
+<!--    </build>-->
+
+    <modules>
+        <module>mercury</module>
+    </modules>
+</project>
