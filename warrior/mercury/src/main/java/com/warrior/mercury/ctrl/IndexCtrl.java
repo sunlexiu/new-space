@@ -1,10 +1,16 @@
 package com.warrior.mercury.ctrl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.warrior.mercury.pojo.vo.LoginVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -18,42 +24,29 @@ public class IndexCtrl {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexCtrl.class);
 
-    @RequestMapping({"/", "/index"})
-    public String login(HttpServletRequest httpServletRequest){
+    @RequestMapping({"/", "/login"})
+    public String index(HttpServletRequest httpServletRequest){
         String remoteUser = httpServletRequest.getRemoteUser();
         LOG.info("remoteUser:{}", remoteUser);
-        if(Objects.isNull(remoteUser)) {
-            return "login";
-        } else {
-            return "index";
-        }
+        return "login";
     }
+
+    @PostMapping({"/login/in"})
+    public String login(@RequestBody LoginVo vo){
+        LOG.info(JSONObject.toJSONString(vo));
+        return "index";
+    }
+
+
 
     @RequestMapping("/register")
     public String register(Model model){
         return "register";
     }
 
-
-
-//    @RequestMapping({"/home"})
-//    public String home() {
-//        return "view/home";
-//    }
-//
-//    @RequestMapping({"/test"})
-//    public String test() {
-//        return "test";
-//    }
-//
-//    @RequestMapping("/404")
-//    public String error() {
-//        return "error404";
-//    }
-//
-//    @RequestMapping("/login")
-//    public String login(){
-//        return "login";
-//    }
+    @RequestMapping("/user/info")
+    public Object whoIm(){
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 
 }
