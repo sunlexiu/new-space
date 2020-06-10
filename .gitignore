@@ -1,6 +1,7 @@
 *.log
-/logs/
-/catalina.base_IS_UNDEFINED/
-/.idea/
-/.DS_Store
-/target/
+**/logs/
+**/catalina.base_IS_UNDEFINED/
+**/.idea/
+**/.DS_Store
+**/target/
+.gitignore

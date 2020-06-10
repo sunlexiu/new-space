@@ -1,6 +1,6 @@
 package com.warrior.mercury.component;
 
-import com.warrior.mercury.pojo.common.UserInfo;
+import com.warrior.mercury.common.UserInfo;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

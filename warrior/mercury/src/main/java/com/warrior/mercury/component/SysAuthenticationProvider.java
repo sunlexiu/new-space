@@ -1,6 +1,6 @@
 package com.warrior.mercury.component;
 
-import com.warrior.mercury.pojo.common.UserInfo;
+import com.warrior.mercury.common.UserInfo;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
