@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title></title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="_csrf_header" th:content="${_csrf.token}">
     <meta http-equiv="hg-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -105,7 +106,7 @@
                         user.roleCode = selected.getValue('valueStr');
                         $.ajax({
                             type:"POST",
-                            url:"add",
+                            url:"/user/add",
                             data:user,
                             success:function (data) {
                                 layer.alert("增加成功", {

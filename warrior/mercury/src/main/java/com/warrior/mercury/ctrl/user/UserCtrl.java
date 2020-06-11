@@ -1,6 +1,12 @@
 package com.warrior.mercury.ctrl.user;
 
+import com.alibaba.fastjson.JSONObject;
 import com.warrior.mercury.ctrl.IndexCtrl;
+import com.warrior.mercury.model.dto.ManageUser;
+import com.warrior.mercury.model.entity.auto.TSignup;
+import com.warrior.mercury.model.vo.ManagerUserVo;
+import com.warrior.mercury.model.vo.query.ManagerUserQueryPage;
+import com.warrior.mercury.service.user.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,9 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Map;
+import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author:       Charon
@@ -23,10 +30,28 @@ public class UserCtrl {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexCtrl.class);
 
+    @Resource
+    private IUserService userService;
+
     @GetMapping("/index")
     public String index() {
-        LOG.info("user:{}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        LOG.info("user:{}", SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal());
         return "view/admin/user/list";
+    }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public List<ManageUser> listUser(ManagerUserQueryPage page) {
+        List<TSignup> list = userService.pageListSignUp(page, Collections.emptyMap());
+        return list.stream().map(ManageUser::convertFromSignUpUser)
+                .collect(Collectors.toList());
+    }
+
+    @RequestMapping("/add")
+    public void addUser(ManagerUserVo user) {
+        LOG.info(JSONObject.toJSONString(user));
+        userService.insertSignUp(user.convertToSignUp());
     }
 
 }

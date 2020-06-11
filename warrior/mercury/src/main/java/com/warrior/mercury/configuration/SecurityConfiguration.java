@@ -31,12 +31,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
 //                .loginPage("/login.html")
                 .loginProcessingUrl("/login/in")
-                .defaultSuccessUrl("/index")
+                .successForwardUrl("/index")
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, Constant.PAGE_RESOURCES_PREFIX).permitAll()
                 .antMatchers(HttpMethod.GET, getStaticResourcesDir()).permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().headers().frameOptions().disable();
+//                .and().csrf().disable();
 
     }
 
