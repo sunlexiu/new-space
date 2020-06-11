@@ -9,10 +9,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
-
 import java.io.FileNotFoundException;
 
 import static com.warrior.mercury.common.Constant.STATIC_RESOURCES_DIR;
@@ -30,13 +28,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests()
-                .antMatchers("/user/**", "/login", "/login/in", "/menu").permitAll()
+        http.formLogin()
+//                .loginPage("/login.html")
+                .loginProcessingUrl("/login/in")
+                .defaultSuccessUrl("/index")
+                .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, Constant.PAGE_RESOURCES_PREFIX).permitAll()
                 .antMatchers(HttpMethod.GET, getStaticResourcesDir()).permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().headers().frameOptions().disable();
+
     }
 
     @Override

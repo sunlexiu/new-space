@@ -42,8 +42,9 @@ public class StaticResourcesScanUtil {
 
         for (File f : files) {
             if (f.isDirectory()) {
-                String expression  = f.getPath().replace(absolutePath, EMPTY_STRING) + "/" + MULTI_STAR;
-                list.add(expression.replace("\\", "/"));
+                String expression  = f.getPath().replace("\\", "/")
+                        .replace(absolutePath, EMPTY_STRING) + "/" + MULTI_STAR;
+                list.add(expression);
             }
         }
         return list;
@@ -55,13 +56,13 @@ public class StaticResourcesScanUtil {
         }
 
         path = path.trim();
-        String url = path.endsWith("\\") ? path : (path + "\\");
+        String url = path.endsWith("/") ? path : (path + "/");
         int index = 0;
         for (String suffix : suffixes) {
             suffix = suffix.trim();
-            url = url.concat(suffix.startsWith("\\") ? suffix.substring(1) : suffix);
+            url = url.concat(suffix.startsWith("/") ? suffix.substring(1) : suffix);
             if (++index != suffixes.length) {
-                url = url.concat("\\");
+                url = url.concat("/");
             }
         }
         return url;

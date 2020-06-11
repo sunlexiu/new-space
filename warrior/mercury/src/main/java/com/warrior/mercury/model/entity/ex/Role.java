@@ -1,4 +1,4 @@
-package com.warrior.mercury.pojo.entity.ex;
+package com.warrior.mercury.model.entity.ex;
 
 public class Role {
 

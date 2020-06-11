@@ -1,4 +1,4 @@
-package com.warrior.mercury.pojo.vo;
+package com.warrior.mercury.model.vo;
 
 /**
  * @author:       Charon

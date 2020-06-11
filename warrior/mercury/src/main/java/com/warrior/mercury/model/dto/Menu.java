@@ -1,4 +1,4 @@
-package com.warrior.mercury.pojo.dto;
+package com.warrior.mercury.model.dto;
 
 import java.io.Serializable;
 import java.util.List;
