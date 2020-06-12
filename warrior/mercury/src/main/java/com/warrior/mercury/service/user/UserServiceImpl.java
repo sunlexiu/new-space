@@ -44,6 +44,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public TSignup selectSignUpById(Integer id) {
+        return signupMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public TSignup getSignUpDetail(String username) {
         TSignupExample example = new TSignupExample();
         example.createCriteria().andLoginnameEqualTo(username);
@@ -66,8 +71,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public TSignup updateSignUp(TSignup manager) {
-        return null;
+    public void updateSignUp(TSignup manager) {
+        TSignup userDB = selectSignUpById(manager.getSignupid());
+        if (Objects.isNull(userDB)) {
+            throw new BusinessException(500, "用户不存在!");
+        }
+        signupMapper.updateByPrimaryKeySelective(manager);
     }
 
     @Override

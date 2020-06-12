@@ -1,4 +1,4 @@
-package com.warrior.mercury.model.param;
+package com.warrior.mercury.model.param.user;
 
 import com.warrior.mercury.model.entity.auto.TSignup;
 

@@ -22,6 +22,23 @@ public interface IUserService {
 
 
     /**
+     * 根据id查询数据
+     *
+     * @param id
+     * @return
+     */
+    TSignup selectSignUpById(Integer id);
+
+
+    /**
+     * 修改管理员账户
+     *
+     * @param manager
+     */
+    void updateSignUp(TSignup manager);
+
+
+    /**
      * 添加管理员账户
      *
      * @param manager
@@ -30,21 +47,11 @@ public interface IUserService {
 
 
     /**
-     * 修改管理员账户
-     *
-     * @param manager
-     * @return
-     */
-    TSignup updateSignUp(TSignup manager);
-
-
-    /**
      * 删除管理员账户
      *
      * @param id
      */
     void deleteSignUp(Integer id);
-
 
     /**
      * 根据用户名查询

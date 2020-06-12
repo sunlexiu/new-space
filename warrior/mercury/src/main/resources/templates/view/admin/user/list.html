@@ -108,26 +108,29 @@
         hg.msg(data.elem.name + '开关checked：' + (data.elem.checked === true ? '开启' : '禁用'));
         var isDel = 1;
         if(data.elem.checked===true)isDel = 0;
-        var user = {'username' : data.elem.name,'isDel' : isDel};
+        console.log('数据---' + JSON.stringify(data))
+        var user = {'username' : data.elem.name,'disabled' : isDel};
         var userStr = JSON.stringify(user);
         console.log("数据2"+userStr);
         $.ajax({
             type:"POST",
-            url:"stop",
+            url:"/user/update",
             data: userStr,
             dataType:'json',
             contentType: "application/json;charset=UTF-8",
             success:function (data) {
-                if(data === true){//操作成功
-                    hg.msg('操作成功！');
-                }else{//操作失败
-                    hg.msg('操作失败！');
-                };
+                hg.msg('操作成功！');
+                // if(data === true){//操作成功
+                //     hg.msg('操作成功！');
+                // }else{//操作失败
+                //     hg.msg('操作失败！');
+                // };
             },
             error: function (data,type, err) {
+                // let obj = JSON.parse(data.responseText)
                 console.log("ajax错误类型："+type);
                 console.log(err);
-                hg.msg('操作失败！');
+                hg.msg("操作失败");
             }
         });
     });
@@ -138,6 +141,13 @@
 
     var tableCols = [
         [{
+            field: 'userId',
+            width: '0',
+            title: 'id',
+            minWidth: 0,
+            style: 'color: #ff5722;',
+            sort: false
+        },{
             field: 'name',
             width: '15%',
             title: '账号',
@@ -150,7 +160,7 @@
             title: '是否禁用',
             templet: function (d) {
                 var checked = d.disabled == 0 ? 'checked' : '';
-                return '<input type="checkbox" name ="' + d.username + '" value= ' + d.disabled +
+                return '<input type="checkbox" name ="' + d.name + '" value= ' + d.disabled + ' userId=' + d.id +
                     ' lay-skin="switch" lay-text="开启|禁用" lay-filter="doflag" ' + checked + '>'
             }
         }, {
