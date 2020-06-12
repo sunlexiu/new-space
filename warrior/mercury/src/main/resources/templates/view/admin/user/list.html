@@ -108,8 +108,9 @@
         hg.msg(data.elem.name + '开关checked：' + (data.elem.checked === true ? '开启' : '禁用'));
         var isDel = 1;
         if(data.elem.checked===true)isDel = 0;
-        console.log('数据---' + JSON.stringify(data))
-        var user = {'username' : data.elem.name,'disabled' : isDel};
+
+
+        var user = {'id' : parseInt(data.elem.name),'disabled' : isDel};
         var userStr = JSON.stringify(user);
         console.log("数据2"+userStr);
         $.ajax({
@@ -127,10 +128,10 @@
                 // };
             },
             error: function (data,type, err) {
-                // let obj = JSON.parse(data.responseText)
+                var obj = JSON.parse(data.responseText)
                 console.log("ajax错误类型："+type);
                 console.log(err);
-                hg.msg("操作失败");
+                hg.msg(obj);
             }
         });
     });
@@ -141,7 +142,7 @@
 
     var tableCols = [
         [{
-            field: 'userId',
+            field: 'id',
             width: '0',
             title: 'id',
             minWidth: 0,
@@ -160,7 +161,7 @@
             title: '是否禁用',
             templet: function (d) {
                 var checked = d.disabled == 0 ? 'checked' : '';
-                return '<input type="checkbox" name ="' + d.name + '" value= ' + d.disabled + ' userId=' + d.id +
+                return '<input type="checkbox" name ="' + d.id + '" value= ' + d.disabled +
                     ' lay-skin="switch" lay-text="开启|禁用" lay-filter="doflag" ' + checked + '>'
             }
         }, {

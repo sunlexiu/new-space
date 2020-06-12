@@ -1,6 +1,6 @@
 package com.warrior.mercury.service.user;
 
-import com.warrior.mercury.exception.BusinessException;
+import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.auto.TPersonMapper;
 import com.warrior.mercury.mapper.auto.TSignupMapper;
 import com.warrior.mercury.model.entity.auto.TPerson;
@@ -81,6 +81,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteSignUp(Integer id) {
-
+        TSignup userDB = selectSignUpById(id);
+        if (Objects.isNull(userDB)) {
+            throw new BusinessException(500, "用户不存在!");
+        }
+        signupMapper.deleteByPrimaryKey(id);
     }
 }

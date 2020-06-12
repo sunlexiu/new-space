@@ -2,7 +2,7 @@ package com.warrior.mercury.ctrl.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.warrior.mercury.ctrl.IndexCtrl;
-import com.warrior.mercury.exception.BusinessException;
+import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,7 +62,7 @@ public class UserCtrl {
 
     @PostMapping("/update")
     @ResponseBody
-    public ManageUser updateUser(ManagerUserUpdateParam user) {
+    public ManageUser updateUser(@RequestBody ManagerUserUpdateParam user) {
         LOG.info(JSONObject.toJSONString(user));
         if (Objects.isNull(user.getId())) {
             throw new BusinessException(500, "参数错误");
@@ -68,6 +70,12 @@ public class UserCtrl {
 
         userService.updateSignUp(user.convertToSignUp());
         return ManageUser.convertFromSignUpUser(userService.selectSignUpById(user.getId()));
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public void deleteUser(Integer id) {
+
     }
 
 }

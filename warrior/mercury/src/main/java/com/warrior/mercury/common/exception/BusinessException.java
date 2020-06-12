@@ -1,4 +1,4 @@
-package com.warrior.mercury.exception;
+package com.warrior.mercury.common.exception;
 
 /**
  * @author:       Charon
