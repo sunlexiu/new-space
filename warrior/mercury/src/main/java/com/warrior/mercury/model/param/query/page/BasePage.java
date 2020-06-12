@@ -1,4 +1,4 @@
-package com.warrior.mercury.model.vo.query.page;
+package com.warrior.mercury.model.param.query.page;
 
 /**
  * @author:       Charon

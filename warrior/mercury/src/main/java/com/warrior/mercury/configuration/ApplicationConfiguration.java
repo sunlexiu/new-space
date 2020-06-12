@@ -29,4 +29,5 @@ public class ApplicationConfiguration {
                 .lines().collect(Collectors.joining(System.lineSeparator()));
         return new ArrayList<>(JSONObject.parseArray(json, Menu.class));
     }
+
 }

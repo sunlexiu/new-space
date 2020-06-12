@@ -30,13 +30,6 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="phone" class="layui-form-label">
-                        手机号</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off"
-                               class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
                     <label for="username" class="layui-form-label">
                         用户名</label>
                     <div class="layui-input-inline">
@@ -62,9 +55,13 @@
                 </div>
                 <div class="layui-form-item">
                     <label for="select" class="layui-form-label">
-                        角色</label>
+                        是否禁用</label>
                     <div class="layui-input-inline">
-                        <div id="select" ></div>
+<!--                        <div id="select" ></div>-->
+                        <select name="disabled" id="select" lay-filter="mySelect">
+                            <option value="0">不禁用</option>
+                            <option value="1">禁用</option>
+                        </select>
                     </div>
                 </div>
                 <input type="hidden" id="roleCode" name="roleCode" />
@@ -88,7 +85,7 @@
                             return '昵称至少得5个字符啊';
                         }
                     },
-                    phone: [/(.+){3,20}$/, '请填写正确的手机号'],
+                    //phone: [/(.+){3,20}$/, '请填写正确的手机号'],
                     password: [/(.+){6,12}$/, '密码必须6到12位'],
                     repass: function (value) {
                         if ($('#password').val() != $('#repass').val()) {
@@ -122,9 +119,8 @@
                             },
                             error: function (data,type, err) {
                                 console.log("ajax错误类型："+type);
-                                console.log(err);
-
-                                layer.alert("增加失败", {
+                                let obj = JSON.parse(data.responseText)
+                                layer.alert(obj.message, {
                                     icon: 6
                                 },
                                 function () {

@@ -1,4 +1,4 @@
-package com.warrior.mercury.model.vo;
+package com.warrior.mercury.model.param;
 
 import com.warrior.mercury.model.entity.auto.TSignup;
 
@@ -6,19 +6,19 @@ import com.warrior.mercury.model.entity.auto.TSignup;
  * @author:       Charon
  * @create:       2020/6/11 22:55
  */
-public class ManagerUserVo {
+public class ManagerUserAddParam {
 
     private String username;
 
     private String password;
 
-    private Integer disable;
+    private Integer disabled;
 
     public TSignup convertToSignUp() {
         TSignup up = new TSignup();
         up.setLoginname(username);
         up.setPassword(password);
-        up.setDisabled(disable.byteValue());
+        up.setDisabled(disabled.byteValue());
         return up;
     }
 
@@ -26,7 +26,7 @@ public class ManagerUserVo {
         return username;
     }
 
-    public ManagerUserVo setUsername(String username) {
+    public ManagerUserAddParam setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -35,17 +35,16 @@ public class ManagerUserVo {
         return password;
     }
 
-    public ManagerUserVo setPassword(String password) {
+    public ManagerUserAddParam setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public Integer getDisable() {
-        return disable;
+    public Integer getDisabled() {
+        return disabled;
     }
 
-    public ManagerUserVo setDisable(Integer disable) {
-        this.disable = disable;
-        return this;
+    public void setDisabled(Integer disabled) {
+        this.disabled = disabled;
     }
 }

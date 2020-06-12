@@ -37,13 +37,14 @@
                 <div class="layui-form">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline">
-                            <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline">
                             <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="disabled" id="select" lay-filter="mySelect">
+                                <option value>用户类型</option>
+                                <option value="0">未禁用</option>
+                                <option value="1">已禁用</option>
+                            </select>
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn layui-btn-lg layui-btn-normal" lay-submit lay-filter="sreach"><i
@@ -104,7 +105,7 @@
     }
     //监听switch操作事件
     hg.form.onswitch('doflag',function(data){
-        hg.msg(data.elem.name+'开关checked：'+(data.elem.checked===true?'开启':'禁用'));
+        hg.msg(data.elem.name + '开关checked：' + (data.elem.checked === true ? '开启' : '禁用'));
         var isDel = 1;
         if(data.elem.checked===true)isDel = 0;
         var user = {'username' : data.elem.name,'isDel' : isDel};
@@ -132,59 +133,24 @@
     });
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
-        var start = data.start;
-        var end = data.end;
-        if (start && end) {
-            if (start > end) {
-                hg.msg("时间范围错误，请重新选择!");
-                return false;
-            }
-        } else if (start || end) {
-            hg.msg("时间范围错误，请重新选择!");
-            return false;
-        }
-        hg.msg(JSON.stringify(data));
         table && table.reload(data);
     });
-    //日期控件
-    hg.datetime('#start', '#end', {
-        type: 'datetime',
-        value: hg.getdate('datetime', -30),
-        value2: hg.getdate('datetime', '23:59:59'),
-        min: hg.getdate('date', -365),
-        max: hg.getdate(),
-    });
+
     var tableCols = [
         [{
-            field: 'username',
+            field: 'name',
             width: '15%',
-            title: '用户名',
+            title: '账号',
             minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         }, {
-            field: 'password',
-            width: '15%',
-            title: '密码',
-            minWidth: 100
-        }, {
-            field: 'phone',
-            width: '30%',
-            title: '电话',
-            minWidth: 100
-        }, {
-            field: 'roleName',
-            width: '20%',
-            title: '角色权限',
-            minWidth: 100,
-            sort: true
-        }, {
-            field: 'isDel',
+            field: 'disabled',
             width: '10%',
             title: '是否禁用',
             templet: function (d) {
-                var checked = d.isDel == 0 ? 'checked' : '';
-                return '<input type="checkbox" name ="' + d.username + '" value= ' + d.isDel +
+                var checked = d.disabled == 0 ? 'checked' : '';
+                return '<input type="checkbox" name ="' + d.username + '" value= ' + d.disabled +
                     ' lay-skin="switch" lay-text="开启|禁用" lay-filter="doflag" ' + checked + '>'
             }
         }, {
@@ -201,52 +167,6 @@
             layuiicon: '&#xe608;',
             handler: function () {
                 hg.open('添加用户', '/admin/user/add.html', 600, 400);
-            }
-        },
-        {
-            text: '修改',
-            layuiicon: '&#xe642;',
-            handler: function (obj, row) {
-                if (row) {
-                    hg.open('修改用户' + row.data.username, '/admin/user/edit.html?username='+
-                        row.data.username + '&phone=' + row.data.phone + '&password=' + row.data.password +
-                        '&roleCode=' + row.data.roleCode
-                        , 600, 400);
-                } else {
-                    hg.msg('请选中一行数据，再操作！');
-                }
-            }
-        }, {
-            text: '删除',
-            layuiicon: '&#xe640;',
-            handler: function (obj, row) {
-                if (row) {
-                    hg.confirm("删除当前选中的用户，确定要删除吗？", function () {
-                        //row.del(); //只删本地数据
-                        var username = row.data.username;
-                        $.ajax({
-                            type:"POST",
-                            url:"delete",
-                            data:{"username":username},
-                            dataType:"json",
-                            success:function (data) {
-                                if(data === true){//删除成功：移除删除行
-                                    hg.msg('删除成功！');
-                                    hg.table.datatable('test', 'reload');
-                                }else{//删除失败
-                                    hg.msg('删除失败！');
-                                }
-                            },
-                            error: function (data,type, err) {
-                                console.log("ajax错误类型："+type);
-                                console.log(err);
-                                hg.msg('删除失败！');
-                            }
-                        });
-                    });
-                } else {
-                    hg.msg('请选中一行数据，再操作！');
-                }
             }
         }
     ];

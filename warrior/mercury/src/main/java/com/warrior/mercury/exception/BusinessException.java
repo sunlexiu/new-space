@@ -1,0 +1,33 @@
+package com.warrior.mercury.exception;
+
+/**
+ * @author:       Charon
+ * @create:       2020/6/12 12:01
+ */
+public class BusinessException extends RuntimeException {
+
+    private int code;
+
+    private String msg;
+
+    public BusinessException(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+}

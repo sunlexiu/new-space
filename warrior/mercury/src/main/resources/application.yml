@@ -12,6 +12,10 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  security:
+    basic:
+      enabled: false
+
   #设置静态资源路径，多个以逗号分隔
   resources:
     static-locations: classpath:static/,file:static/

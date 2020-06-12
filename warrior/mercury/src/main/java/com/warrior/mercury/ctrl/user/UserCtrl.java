@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.warrior.mercury.ctrl.IndexCtrl;
 import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TSignup;
-import com.warrior.mercury.model.vo.ManagerUserVo;
-import com.warrior.mercury.model.vo.query.ManagerUserQueryPage;
+import com.warrior.mercury.model.param.ManagerUserAddParam;
+import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
 import com.warrior.mercury.service.user.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,13 +42,14 @@ public class UserCtrl {
     @GetMapping("/list")
     @ResponseBody
     public List<ManageUser> listUser(ManagerUserQueryPage page) {
-        List<TSignup> list = userService.pageListSignUp(page, Collections.emptyMap());
+        List<TSignup> list = userService.pageListSignUp(page);
         return list.stream().map(ManageUser::convertFromSignUpUser)
                 .collect(Collectors.toList());
     }
 
     @RequestMapping("/add")
-    public void addUser(ManagerUserVo user) {
+    @ResponseBody
+    public void addUser(ManagerUserAddParam user) {
         LOG.info(JSONObject.toJSONString(user));
         userService.insertSignUp(user.convertToSignUp());
     }

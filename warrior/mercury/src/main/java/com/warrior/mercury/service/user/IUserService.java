@@ -1,10 +1,9 @@
 package com.warrior.mercury.service.user;
 
 import com.warrior.mercury.model.entity.auto.TSignup;
-import com.warrior.mercury.model.vo.query.page.BasePage;
+import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author:       Charon
@@ -17,10 +16,9 @@ public interface IUserService {
      * 分页查询管理员用户
      *
      * @param page
-     * @param conditionMap
      * @return
      */
-    List<TSignup> pageListSignUp(BasePage page, Map<String, Object> conditionMap);
+    List<TSignup> pageListSignUp(ManagerUserQueryPage page);
 
 
     /**
@@ -46,4 +44,13 @@ public interface IUserService {
      * @param id
      */
     void deleteSignUp(Integer id);
+
+
+    /**
+     * 根据用户名查询
+     *
+     * @param username
+     * @return
+     */
+    TSignup getSignUpDetail(String username);
 }

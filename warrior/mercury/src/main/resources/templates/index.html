@@ -28,6 +28,16 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        div.center-text{
+            width:200px;
+            height:200px;
+            border:1px solid green;
+            text-align:center;
+            line-height:200px;
+            overflow:hidden;
+        }
+    </style>
 
 </head>
 <body class="layui-layout-body">
@@ -131,7 +141,9 @@
 
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe src='home' frameborder="0" scrolling="yes" class="hg-iframe"></iframe>
+                        <div class="layui-inline">
+                            <h2>欢迎使用<strong>微信运营管理系统</strong> !</h2>
+                        </div>
                 </div>
             </div>
         </div>
@@ -167,7 +179,7 @@
             async : false,
             data : {},
             success: function(result){
-                data = result;
+                data = result.data;
             },
             error: function () {
                 alert("获取单位信息失败:");
