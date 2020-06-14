@@ -34,7 +34,7 @@ public class SysAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("用户名不存在");
         }
 
-        if (!userInfo.getPassword().equals("123456")) {
+        if (!userInfo.getPassword().equals(password)) {
             throw new BadCredentialsException("密码不正确");
         }
         Collection<? extends GrantedAuthority> authorities =

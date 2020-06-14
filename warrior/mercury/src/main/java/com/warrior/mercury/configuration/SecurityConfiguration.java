@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -29,13 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-//                .loginPage("/login.html")
                 .loginProcessingUrl("/login/in")
                 .defaultSuccessUrl("/index", true)
+                .failureForwardUrl("/login/fail")
                 .and().authorizeRequests()
-                .antMatchers("/", "/login", "/user/add").permitAll()
-                .antMatchers(HttpMethod.GET, Constant.PAGE_RESOURCES_PREFIX).permitAll()
-                .antMatchers(HttpMethod.GET, getStaticResourcesDir()).permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 .and().csrf().disable();
@@ -43,12 +41,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/login", "/")
+                .antMatchers(HttpMethod.GET, Constant.PAGE_RESOURCES_PREFIX)
+                .antMatchers(HttpMethod.GET, getStaticResourcesDir());
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(provider);
     }
 
-    private String[] getStaticResourcesDir() throws FileNotFoundException {
-        return StaticResourcesScanUtil.scanDirectStaticResourcesDir(STATIC_RESOURCES_DIR);
+    private String[] getStaticResourcesDir() {
+        try {
+            return StaticResourcesScanUtil.scanDirectStaticResourcesDir(STATIC_RESOURCES_DIR);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
