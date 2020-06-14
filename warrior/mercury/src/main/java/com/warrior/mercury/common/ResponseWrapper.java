@@ -1,5 +1,7 @@
 package com.warrior.mercury.common;
 
+import static com.warrior.mercury.common.exception.BusinessCode.OK;
+
 /**
  * @author:       Charon
  * @create:       2020/6/12 9:05
@@ -19,7 +21,7 @@ public class ResponseWrapper {
     }
 
     public static ResponseWrapper success(Object data) {
-        return success(0, data, "操作成功");
+        return success(OK.getCode(), data, OK.getMsg());
     }
 
     public static ResponseWrapper success(int code, Object data, String message) {

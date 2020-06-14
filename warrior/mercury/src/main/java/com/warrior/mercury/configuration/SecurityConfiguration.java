@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login/in")
                 .defaultSuccessUrl("/index", true)
                 .and().authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/", "/login", "/user/add").permitAll()
                 .antMatchers(HttpMethod.GET, Constant.PAGE_RESOURCES_PREFIX).permitAll()
                 .antMatchers(HttpMethod.GET, getStaticResourcesDir()).permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
