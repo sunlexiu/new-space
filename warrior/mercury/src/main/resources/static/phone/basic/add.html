@@ -30,49 +30,68 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="username" class="layui-form-label">
-                        用户名</label>
+                    <label for="phoneNo" class="layui-form-label">
+                        手机编号</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="username" name="username" required="" lay-verify="username"
+                        <input type="text" id="phoneNo" name="phoneNo" required="" lay-verify="phoneNo"
                                autocomplete="off" class="layui-input"></div>
                     <div class="layui-form-mid layui-word-aux">
-                        将会成为您唯一的登入名</div>
+                        用于区分手机</div>
                 </div>
+
                 <div class="layui-form-item">
-                    <label for="password" class="layui-form-label">
-                        密码</label>
+                    <label for="boughtDateTime" class="layui-form-label">
+                        购买时间</label>
                     <div class="layui-input-inline">
-                        <input type="password" id="password" name="password" required="" lay-verify="password" autocomplete="off"
-                               class="layui-input"></div>
-                    <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+<!--                        <input type="text" id="boughtDateTime" name="boughtDateTime" required="" lay-verify="boughtDateTime"-->
+<!--                               autocomplete="off" class="layui-input"></div>-->
+                        <input type="text" class="layui-input" id="boughtDateTime" name="boughtDateTime">
+                    </div>
                 </div>
+
                 <div class="layui-form-item">
-                    <label for="repass" class="layui-form-label">
-                        确认密码</label>
+                    <label for="phoneBrand" class="layui-form-label">
+                        手机品牌</label>
                     <div class="layui-input-inline">
-                        <input type="password" id="repass" name="repass" required="" lay-verify="repass"
-                            autocomplete="off" class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="select" class="layui-form-label">
-                        是否禁用</label>
-                    <div class="layui-input-inline">
-<!--                        <div id="select" ></div>-->
-                        <select name="disabled" id="select" lay-filter="mySelect">
-                            <option value="0">不禁用</option>
-                            <option value="1">禁用</option>
+                        <select id="phoneBrand" name="phoneBrand" lay-verify="">
                         </select>
                     </div>
                 </div>
-                <input type="hidden" id="roleCode" name="roleCode" />
+
                 <div class="layui-form-item">
-                    <label for="repass" class="layui-form-label"></label>
-                    <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>
+                    <label for="phoneOperatingSystem" class="layui-form-label">
+                        手机系统</label>
+                    <div class="layui-input-inline">
+                        <select id="phoneOperatingSystem" name="phoneOperatingSystem" lay-verify="">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="memorySize" class="layui-form-label">
+                        手机内存</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="memorySize" name="memorySize" required="" lay-verify="memorySize"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="remark" class="layui-form-label">
+                        备注</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="remark" name="remark" required="" lay-verify="remark"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="remark" class="layui-form-label"></label>
+                    <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+                </div>
             </form>
         </div>
     </div>
     <script>
-        layui.use(['form', 'layer', 'jquery'],
+        layui.use(['form', 'layer', 'jquery', 'laydate'],
             function () {
                 $ = layui.jquery;
                 var form = layui.form,
@@ -83,12 +102,6 @@
                     username: function (value) {
                         if (value.length < 5) {
                             return '昵称至少得5个字符啊';
-                        }
-                    },
-                    password: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function (value) {
-                        if ($('#password').val() != $('#repass').val()) {
-                            return '两次密码不一致';
                         }
                     }
                 });
@@ -135,38 +148,43 @@
                         return false;
                     });
 
-                //选框加载
-                var select = xmSelect.render({
-                    // 这里绑定css选择器
-                    el: '#select',
-                    radio: true,
-                    toolbar:{
-                        show: true,
-                    },
-                    filterable: true,
-                    autoRow: true,
-                    prop: {
-                        name: 'description',
-                        value: 'name',
-                    },
-                    // 渲染的数据
-                    data: [],
-                });
-
                 $.ajax({
                     type:"GET",
-                    url:"getAllRoles",
+                    url:"/dictionary/phone/brand",
                     data:[],
                     success:function (data) {
-                        select.update({
-                            data: data.rows,
-                            autoRow: true,
+                        $.each(data.data,function(index,item){
+                            $('#phoneBrand').append(new Option(item.brandName,item.phoneBrandID));
+                            form.render('select');
                         })
                     },
                     error: function (data,type, err) {
                         console.log("ajax错误类型："+type);
                         console.log(err);
                     }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/phone/system",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#phoneOperatingSystem').append(new Option(item.typeOfOperatingSystem,item.phoneOperatingSystemID));
+                            form.render('select');
+                        })
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                var laydate = layui.laydate;
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#boughtDateTime' //指定元素
                 });
             });
     </script>

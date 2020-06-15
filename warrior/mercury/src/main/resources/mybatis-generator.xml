@@ -38,19 +38,19 @@
         <sqlMapGenerator targetPackage="mapper.auto" targetProject="src/main/resources"/>
         <javaClientGenerator targetPackage="com.warrior.mercury.mapper.auto" targetProject="src/main/java" type="XMLMAPPER"/>
         <!-- sql占位符，表示所有的表 -->
-        <table tableName="%" enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true">
-
-        </table>
-
-<!--        <table tableName="T_Person" enableCountByExample="true" enableUpdateByExample="true"-->
+<!--        <table tableName="%" enableCountByExample="true" enableUpdateByExample="true"-->
 <!--               enableDeleteByExample="true" enableSelectByExample="true"-->
 <!--               selectByExampleQueryId="true">-->
 
-<!--            <property name="useActualColumnNames" value="true"/>-->
-<!--            <generatedKey column="PersonID" sqlStatement="MySql" identity="true"/>-->
 <!--        </table>-->
+
+        <table tableName="T_SignUp" enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="SignUpID" sqlStatement="MySql" identity="true"/>
+        </table>
 
 
     </context>

@@ -26,7 +26,7 @@
     <div class="layui-fluid">
         <div class="layui-card">
             <div class="layui-card-header">
-                <i class="iconfont">&#xe6ac;</i>用户数据表
+                <i class="iconfont">&#xe6ac;</i>手机信息表
                 <span class="layui-layout-right">
                     <a href="javascript:;" hg-event="fullscreen">
                         <i class="layui-icon layui-icon-screen-full"></i>
@@ -130,7 +130,7 @@
 
     var tableCols = [
         [{
-            field: 'id',
+            field: 'phoneID',
             hide: true,
             width: '0',
             title: 'id',
@@ -138,22 +138,50 @@
             style: 'color: #ff5722;',
             sort: false
         },{
-            field: 'name',
+            field: 'phoneNo',
             width: '15%',
-            title: '账号',
+            title: '手机编号',
             minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         }, {
-            field: 'disabled',
-            width: '10%',
-            title: '是否禁用',
-            templet: function (d) {
-                var checked = d.disabled == 0 ? 'checked' : '';
-                return '<input type="checkbox" name ="' + d.id + '" value= ' + d.disabled +
-                    ' lay-skin="switch" lay-text="开启|禁用" lay-filter="doflag" ' + checked + '>'
-            }
-        }, {
+            field: 'boughtDateTime',
+            width: '15%',
+            title: '购买时间',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'brand',
+            width: '15%',
+            title: '品牌',
+            templet: '<div>{{d.brand.brandName}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'operatingSystem',
+            width: '15%',
+            title: '操作系统',
+            templet: '<div>{{d.operatingSystem.typeOfOperatingSystem}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'memorySize',
+            width: '15%',
+            title: '内存大小',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'remark',
+            width: '15%',
+            title: '备注',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },, {
             field: 'right',
             width: '10%',
             title: '操作',
@@ -166,7 +194,7 @@
             text: '添加',
             layuiicon: '&#xe608;',
             handler: function () {
-                hg.open('添加用户', '/admin/user/add.html', 600, 400);
+                hg.open('添加手机信息', '/phone/basic/add.html', 600, 500);
             }
         }
     ];

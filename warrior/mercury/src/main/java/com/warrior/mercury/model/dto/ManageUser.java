@@ -16,8 +16,8 @@ public class ManageUser {
 
     public static ManageUser convertFromSignUpUser(TSignup up) {
         ManageUser user = new ManageUser();
-        user.setId(up.getSignupid());
-        user.setName(up.getLoginname());
+        user.setId(up.getSignUpID());
+        user.setName(up.getLoginName());
         user.setDisabled(up.getDisabled());
         return user;
     }

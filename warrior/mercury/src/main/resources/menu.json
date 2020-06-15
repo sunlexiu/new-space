@@ -16,5 +16,24 @@
       "order": 2,
       "remarks": "管理员账户"
     }
+  },
+  {
+    "id": "2",
+    "name": "手机管理",
+    "parentId": "0",
+    "level": 1,
+    "url": "",
+    "order": 2,
+    "remarks": "手机管理",
+    "children": {
+      "id": "10",
+      "name": "手机管理",
+      "parentId": "1",
+      "level": 2,
+      "url": "/phone/basic/index",
+      "order": 2,
+      "remarks": "手机管理"
+    }
   }
+
 ]

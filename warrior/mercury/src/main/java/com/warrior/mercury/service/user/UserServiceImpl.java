@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
         TSignupExample example = new TSignupExample();
         TSignupExample.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotBlank(page.getUsername())) {
-            criteria.andLoginnameLike(SqlExecuteUtil.like(page.getUsername()));
+            criteria.andLoginNameLike(SqlExecuteUtil.like(page.getUsername()));
         }
 
         if (!Objects.isNull(page.getDisabled())) {
@@ -51,28 +51,28 @@ public class UserServiceImpl implements IUserService {
     @Override
     public TSignup getSignUpDetail(String username) {
         TSignupExample example = new TSignupExample();
-        example.createCriteria().andLoginnameEqualTo(username);
+        example.createCriteria().andLoginNameEqualTo(username);
         List<TSignup> list = signupMapper.selectByExample(example);
         return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
     public void insertSignUp(TSignup manager) {
-        TSignup up = getSignUpDetail(manager.getLoginname());
+        TSignup up = getSignUpDetail(manager.getLoginName());
         if (!Objects.isNull(up)) {
             throw new BusinessException(500, "用户名已存在!");
         }
 
         TPerson p = new TPerson();
-        p.setFirstName(manager.getLoginname());
+        p.setFirstName(manager.getLoginName());
         personMapper.insertSelective(p);
-        manager.setPersonid(p.getPersonID());
+        manager.setPersonID(p.getPersonID());
         signupMapper.insertSelective(manager);
     }
 
     @Override
     public void updateSignUp(TSignup manager) {
-        TSignup userDB = selectSignUpById(manager.getSignupid());
+        TSignup userDB = selectSignUpById(manager.getSignUpID());
         if (Objects.isNull(userDB)) {
             throw new BusinessException(500, "用户不存在!");
         }

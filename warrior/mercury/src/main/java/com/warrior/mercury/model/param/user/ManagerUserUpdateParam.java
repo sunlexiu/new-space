@@ -21,7 +21,7 @@ public class ManagerUserUpdateParam extends ManagerUserAddParam {
     @Override
     public TSignup convertToSignUp() {
         TSignup user = super.convertToSignUp();
-        user.setSignupid(id);
+        user.setSignUpID(id);
         return user;
     }
 }

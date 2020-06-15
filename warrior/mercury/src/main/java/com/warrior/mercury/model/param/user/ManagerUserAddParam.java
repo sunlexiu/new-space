@@ -16,7 +16,7 @@ public class ManagerUserAddParam {
 
     public TSignup convertToSignUp() {
         TSignup up = new TSignup();
-        up.setLoginname(username);
+        up.setLoginName(username);
         up.setPassword(password);
         up.setDisabled(disabled.byteValue());
         return up;

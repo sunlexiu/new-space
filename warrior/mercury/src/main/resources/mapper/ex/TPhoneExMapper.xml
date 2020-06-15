@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TPhoneExMapper">
+
+    <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.PhoneBasic"
+        extends="com.warrior.mercury.mapper.auto.TPhoneMapper.BaseResultMap">
+
+        <association property="brand" javaType="com.warrior.mercury.model.entity.auto.TPhonebrand">
+            <id column="phoneBrandID" property="phoneBrandID" />
+            <result column="brandName" property="brandName"/>
+        </association>
+
+        <association property="operatingSystem" javaType="com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem">
+            <id column="phoneOperatingSystemID" property="phoneOperatingSystemID" />
+            <result column="typeOfOperatingSystem" property="typeOfOperatingSystem"/>
+        </association>
+    </resultMap>
+
+
+    <select id="listBasicPhoneInfo" resultMap="listResultMap">
+        SELECT
+            PhoneID, PhoneNo, BoughtDateTime, phone.PhoneBrandID,
+            phone.PhoneOperatingSystemID, MemorySize, Remark,
+            typeOfOperatingSystem, brandName
+        FROM
+            T_Phone phone
+        JOIN T_PhoneOperatingSystem phone_system
+        ON phone.PhoneOperatingSystemID = phone_system.PhoneOperatingSystemID
+        JOIN T_PhoneBrand brand
+        ON phone.PhoneBrandID = brand.PhoneBrandID
+    </select>
+</mapper>

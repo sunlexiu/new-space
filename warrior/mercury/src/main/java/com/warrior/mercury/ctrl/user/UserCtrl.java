@@ -1,10 +1,11 @@
 package com.warrior.mercury.ctrl.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.warrior.mercury.ctrl.IndexCtrl;
 import com.warrior.mercury.common.exception.BusinessException;
+import com.warrior.mercury.ctrl.IndexCtrl;
 import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TSignup;
+import com.warrior.mercury.model.param.DeleteBody;
 import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
 import com.warrior.mercury.model.param.user.ManagerUserAddParam;
 import com.warrior.mercury.model.param.user.ManagerUserUpdateParam;
@@ -55,7 +56,7 @@ public class UserCtrl {
 
     @RequestMapping("/add")
     @ResponseBody
-    public void addUser(ManagerUserAddParam user) {
+    public void addUser(@RequestBody ManagerUserAddParam user) {
         LOG.info(JSONObject.toJSONString(user));
         userService.insertSignUp(user.convertToSignUp());
     }
@@ -74,8 +75,8 @@ public class UserCtrl {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public void deleteUser(Integer id) {
-
+    public void deleteUser(@RequestBody DeleteBody body) {
+        userService.deleteSignUp(body.getId());
     }
 
 }

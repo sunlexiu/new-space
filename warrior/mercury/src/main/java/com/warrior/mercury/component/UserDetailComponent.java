@@ -31,7 +31,7 @@ public class UserDetailComponent implements UserDetailsService {
             return null;
         }
 
-        return new UserInfo(user.getLoginname(), user.getPassword(),
+        return new UserInfo(user.getLoginName(), user.getPassword(),
                 "ROLE_ADMIN",true,true,
                 true, true);
     }
