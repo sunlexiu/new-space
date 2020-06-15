@@ -21,6 +21,13 @@ public enum BusinessCode {
 
 
     /***********************业务相关代码************************/
+
+
+    /**
+     * 数据不存在
+     */
+    DATA_NOT_EXIST(1001, "数据不存在")
+
     ;
 
     private int code;

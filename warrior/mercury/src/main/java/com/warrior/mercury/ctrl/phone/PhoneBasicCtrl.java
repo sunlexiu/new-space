@@ -1,10 +1,13 @@
 package com.warrior.mercury.ctrl.phone;
 
 import com.warrior.mercury.model.dto.PhoneBasic;
+import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
 import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
 import com.warrior.mercury.service.phone.IPhoneBasicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,5 +38,10 @@ public class PhoneBasicCtrl {
     }
 
 
+    @PostMapping("/add")
+    @ResponseBody
+    public void addPhone(@RequestBody BasicPhoneAddParam param) {
+        phoneBasicService.addBasicPhone(param);
+    }
 
 }

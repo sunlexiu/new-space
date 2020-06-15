@@ -53,7 +53,7 @@
                     <label for="phoneBrand" class="layui-form-label">
                         手机品牌</label>
                     <div class="layui-input-inline">
-                        <select id="phoneBrand" name="phoneBrand" lay-verify="">
+                        <select id="phoneBrand" name="phoneBrandId" lay-verify="">
                         </select>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <label for="phoneOperatingSystem" class="layui-form-label">
                         手机系统</label>
                     <div class="layui-input-inline">
-                        <select id="phoneOperatingSystem" name="phoneOperatingSystem" lay-verify="">
+                        <select id="phoneOperatingSystem" name="phoneOperatingSystemId" lay-verify="">
                         </select>
                     </div>
                 </div>
@@ -99,23 +99,21 @@
 
                 //自定义验证规则
                 form.verify({
-                    username: function (value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
-                        }
-                    }
+                    // username: function (value) {
+                    //     if (value.length < 5) {
+                    //         return '昵称至少得5个字符啊';
+                    //     }
+                    // }
                 });
 
                 //监听提交
                 form.on('submit(add)',
                     function (data) {
-                        var selected = xmSelect.get('#select', true);
                         //发异步，把数据提交给php
                         var user = data.field;
-                        user.roleCode = selected.getValue('valueStr');
                         $.ajax({
                             type:"POST",
-                            url:"/user/add",
+                            url:"/phone/basic/add",
                             contentType:'application/json',
                             data:JSON.stringify(user),
                             success:function (data) {
