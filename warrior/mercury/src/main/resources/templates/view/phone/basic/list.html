@@ -63,8 +63,11 @@
         //obj通过行tool修改-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.open('修改用户' + row.data.name, '/admin/user/edit.html?id=' + row.data.id + '&username='+
-                row.data.name + '&disabled=' + row.data.disabled
+            hg.open('修改用户' + row.data.name, '/phone/basic/edit.html?id=' + row.data.phoneID + '&phoneNo='+
+                row.data.phoneNo + '&boughtDateTime=' + row.data.boughtDateTime
+                + '&brand=' + row.data.brand.phoneBrandID
+                + '&operatingSystem=' + row.data.operatingSystem.phoneOperatingSystemID
+                + '&memorySize=' + row.data.memorySize + '&remark=' + row.data.remark
                 , 600, 400);
         } else {
             hg.msg('请选中一行数据，再操作！');
@@ -102,27 +105,7 @@
             hg.msg('请选中一行数据，再操作！');
         }
     }
-    //监听switch操作事件
-    hg.form.onswitch('doflag',function(data){
-        var isDel = 1;
-        if(data.elem.checked===true)isDel = 0;
-        var user = {'id' : parseInt(data.elem.name),'disabled' : isDel};
-        var userStr = JSON.stringify(user);
-        $.ajax({
-            type:"POST",
-            url:"/user/update",
-            data: userStr,
-            dataType:'json',
-            contentType: "application/json;charset=UTF-8",
-            success:function (data) {
-                hg.msg(data.message);
-                table.reload();
-            },
-            error: function (data,type, err) {
-                hg.msg('操作失败！');
-            }
-        });
-    });
+
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
         table && table.reload(data);
@@ -141,14 +124,12 @@
             field: 'phoneNo',
             width: '15%',
             title: '手机编号',
-            minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         }, {
             field: 'boughtDateTime',
             width: '15%',
             title: '购买时间',
-            minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         },{
@@ -181,10 +162,11 @@
             minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
-        },, {
+        }, {
             field: 'right',
-            width: '10%',
+            width: '15%',
             title: '操作',
+            minWidth: 100,
             templet: function (d) {
                 return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }

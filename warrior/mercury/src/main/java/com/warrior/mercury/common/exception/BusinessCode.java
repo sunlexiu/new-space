@@ -26,7 +26,12 @@ public enum BusinessCode {
     /**
      * 数据不存在
      */
-    DATA_NOT_EXIST(1001, "数据不存在")
+    DATA_NOT_EXIST(1001, "数据不存在"),
+
+    /**
+     * 数据重复
+     */
+    DATA_REPEAT(1002, "数据重复")
 
     ;
 

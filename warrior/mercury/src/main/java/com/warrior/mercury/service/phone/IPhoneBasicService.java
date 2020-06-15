@@ -2,6 +2,7 @@ package com.warrior.mercury.service.phone;
 
 import com.warrior.mercury.model.dto.PhoneBasic;
 import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
+import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
 import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
 
 import java.util.List;
@@ -27,5 +28,13 @@ public interface IPhoneBasicService {
      * @param param
      */
     void addBasicPhone(BasicPhoneAddParam param);
+
+
+    /**
+     * 修改手机信息
+     *
+     * @param param
+     */
+    void updateBasicPhone(BasicPhoneUpdateParam param);
 
 }

@@ -2,6 +2,7 @@ package com.warrior.mercury.ctrl.phone;
 
 import com.warrior.mercury.model.dto.PhoneBasic;
 import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
+import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
 import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
 import com.warrior.mercury.service.phone.IPhoneBasicService;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,13 @@ public class PhoneBasicCtrl {
     @ResponseBody
     public void addPhone(@RequestBody BasicPhoneAddParam param) {
         phoneBasicService.addBasicPhone(param);
+    }
+
+
+    @PostMapping("/update")
+    @ResponseBody
+    public void updatePhone(@RequestBody BasicPhoneUpdateParam param) {
+        phoneBasicService.updateBasicPhone(param);
     }
 
 }
