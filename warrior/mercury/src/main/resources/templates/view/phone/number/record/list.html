@@ -26,7 +26,7 @@
     <div class="layui-fluid">
         <div class="layui-card">
             <div class="layui-card-header">
-                <i class="iconfont">&#xe6ac;</i>手机号码信息表
+                <i class="iconfont">&#xe6ac;</i>手机号码使用记录
                 <span class="layui-layout-right">
                     <a href="javascript:;" hg-event="fullscreen">
                         <i class="layui-icon layui-icon-screen-full"></i>
@@ -66,7 +66,7 @@
             hg.open('修改手机号码信息:' + row.data.phoneNumber, '/phone/number/info/edit.html?id=' + row.data.phoneNumberID
                 + '&phoneNumber=' + row.data.phoneNumber + '&appliedDateTime=' + row.data.appliedDateTime
                 + '&location=' + row.data.location + '&owner=' + row.data.owner
-                , 600, 400);
+                , 600, 570);
         } else {
             hg.msg('请选中一行数据，再操作！');
         }
@@ -77,10 +77,10 @@
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
             hg.confirm("删除当前选中的用户，确定要删除吗？", function () {
-                var data = {'id':row.data.phoneNumberID}
+                var data = {'id':row.data.phoneNumberUsingLogID}
                 $.ajax({
                     type:"Delete",
-                    url:"/phone/number/info/delete",
+                    url:"/phone/number/record/delete",
                     dataType:"json",
                     contentType: "application/json;charset=UTF-8",
                     data:JSON.stringify(data),
@@ -111,7 +111,7 @@
 
     var tableCols = [
         [{
-            field: 'phoneNumberID',
+            field: 'phoneNumberUsingLogID',
             hide: true,
             width: '0',
             title: 'id',
@@ -120,38 +120,76 @@
             sort: false
         },{
             field: 'phoneNumber',
-            width: '20%',
+            width: '8%',
             title: '手机号码',
+            templet: '<div>{{d.phone.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         }, {
-            field: 'appliedDateTime',
-            width: '20%',
-            title: '购买时间',
-            minWidth: 100,
+            field: 'purpose',
+            width: '5%',
+            title: '用途',
+            templet: '<div>{{d.purpose.name}}</div>',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'location',
-            width: '20%',
-            title: '归属地',
-            minWidth: 100,
+            field: 'user',
+            width: '5%',
+            title: '使用人',
+            templet: '<div>{{d.user.name}}</div>',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'owner',
-            width: '20%',
-            title: '号码身份信息',
-            minWidth: 100,
+            field: 'packageType',
+            width: '15%',
+            title: '套餐',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'numberState',
+            width: '9%',
+            title: '当前状态',
+            templet: '<div>{{d.numberState.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'startedDateTime',
+            width: '10%',
+            title: '开始时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'endedDateTime',
+            width: '10%',
+            title: '结束时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'createdDateTime',
+            width: '10%',
+            title: '信息修改时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'parentNumber',
+            width: '8%',
+            title: '主卡卡号',
+            templet: '<div>{{d.parentNumber === undefined ? "" : d.parentNumber.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'remark',
+            width: '10%',
+            title: '备注',
             style: 'color: #ff5722;',
             sort: true
         },{
             field: 'right',
-            width: '20%',
+            width: '10%',
             title: '操作',
             templet: function (d) {
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }
         }]
     ];
@@ -159,7 +197,7 @@
             text: '添加',
             layuiicon: '&#xe608;',
             handler: function () {
-                hg.open('添加手机号码', '/phone/number/info/add.html', 600, 400);
+                hg.open('添加手机号码', '/phone/number/record/add.html', 600, 570);
             }
         }
     ];

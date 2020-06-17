@@ -2,10 +2,12 @@ package com.warrior.mercury.service.phone;
 
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
-import com.warrior.mercury.mapper.auto.TPhonenumberMapper;
+import com.warrior.mercury.mapper.ex.TPhonenumberExMapper;
 import com.warrior.mercury.model.entity.auto.TPhonenumber;
 import com.warrior.mercury.model.entity.auto.TPhonenumberExample;
+import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoQuery;
+import com.warrior.mercury.model.param.phone.PhoneNumberInfoUpdateParam;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +22,7 @@ import java.util.Objects;
 public class PhoneNumberInfoServiceImpl implements IPhoneNumberInfoService {
 
     @Resource
-    private TPhonenumberMapper phoneNumberMapper;
+    private TPhonenumberExMapper phoneNumberMapper;
 
     @Override
     public List<TPhonenumber> listPhoneNumberInfo(PhoneNumberInfoQuery page) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TPhonenumberusinglogExMapper">
+
+    <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.PhoneNumberRecord"
+               extends="com.warrior.mercury.mapper.auto.TPhonenumberusinglogMapper.BaseResultMap">
+
+        <association property="phone" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneNumberID" property="id" />
+            <result column="phoneNumber" property="name"/>
+        </association>
+
+        <association property="purpose" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneNumberPurposeID" property="id" />
+            <result column="Purpose" property="name"/>
+        </association>
+
+        <association property="user" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneNumberUserPersonID" property="id" />
+            <result column="FirstName" property="name"/>
+        </association>
+
+        <association property="numberState" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneNumberStateID" property="id" />
+            <result column="State" property="name"/>
+        </association>
+
+        <association property="parentNumber" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="ParentPhoneNumberID" property="id" />
+            <result column="parent_phone_number" property="name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="listPhoneNumberUsingRecord" resultMap="listResultMap">
+        SELECT
+            record.PhoneNumberUsingLogID, record.PhoneNumberID, record.PhoneNumberPurposeID, record.PhoneNumberUserPersonID,
+            record.PackageType, record.PhoneNumberStateID, record.CreatedDateTime, record.StartedDateTime,
+            record.EndedDateTime, record.Remark, record.ParentPhoneNumberID,
+            number.phoneNumber, purpose.Purpose, person.FirstName,
+            `state`.`State`, parent.phoneNumber parent_phone_number
+        FROM
+            t_phonenumberusinglog record
+        JOIN t_phonenumber number
+        ON record.PhoneNumberID = number.PhoneNumberID
+        JOIN t_phonenumberpurpose purpose
+        ON record.PhoneNumberPurposeID = purpose.PhoneNumberPurposeID
+        JOIN t_person person
+        ON record.PhoneNumberUserPersonID = person.PersonID
+        JOIN t_phonenumberstate `state`
+        ON record.PhoneNumberStateID = `state`.PhoneNumberStateID
+        LEFT JOIN t_phonenumber parent
+        ON record.ParentPhoneNumberID = parent.PhoneNumberID
+    </select>
+
+    <update id="updateRecordEndDate" parameterType="integer">
+        UPDATE t_phonenumberusinglog
+        <set>
+            EndedDateTime = now()
+        </set>
+        <where>
+            PhoneNumberID = #{_parameter, jdbcType=INTEGER}
+            AND (ISNULL(EndedDateTime) || LENGTH(trim(EndedDateTime)) = 0)
+        </where>
+    </update>
+</mapper>

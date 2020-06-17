@@ -51,6 +51,14 @@
         "url": "/phone/number/info/index",
         "order": 4,
         "remarks": "手机号码管理"
+      }, {
+        "id": "13",
+        "name": "号码使用记录",
+        "parentId": "2",
+        "level": 2,
+        "url": "/phone/number/record/index",
+        "order": 5,
+        "remarks": "号码使用记录"
       }
     ]
   }

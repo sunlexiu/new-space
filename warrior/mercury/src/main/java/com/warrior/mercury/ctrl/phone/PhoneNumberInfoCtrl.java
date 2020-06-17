@@ -2,10 +2,10 @@ package com.warrior.mercury.ctrl.phone;
 
 import com.warrior.mercury.model.dto.PhoneNumberInfo;
 import com.warrior.mercury.model.param.DeleteBody;
+import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoQuery;
+import com.warrior.mercury.model.param.phone.PhoneNumberInfoUpdateParam;
 import com.warrior.mercury.service.phone.IPhoneNumberInfoService;
-import com.warrior.mercury.service.phone.PhoneNumberInfoAddParam;
-import com.warrior.mercury.service.phone.PhoneNumberInfoUpdateParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +60,6 @@ public class PhoneNumberInfoCtrl {
     @DeleteMapping("/delete")
     @ResponseBody
     public void deletePhone(@RequestBody DeleteBody body) {
-
+        phoneNumberInfoService.deletePhoneNumber(body.getId());
     }
 }

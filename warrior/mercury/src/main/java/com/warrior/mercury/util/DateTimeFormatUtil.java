@@ -22,6 +22,18 @@ public class DateTimeFormatUtil {
         return time.toString(format.getFormat());
     }
 
+    /**
+     * 获取当前时间的格式化字符串
+     *
+     * @param format 格式
+     * @return
+     */
+    public static String formatNow(FormatEnum format) {
+        DateTime time = new DateTime(new Date());
+        return time.toString(format.getFormat());
+    }
+
+
     public enum FormatEnum {
 
         DATE("YYYY-MM-dd"),

@@ -2,6 +2,8 @@ package com.warrior.mercury.ctrl;
 
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.entity.auto.TPhonebrand;
+import com.warrior.mercury.model.entity.auto.TPhonenumberpurpose;
+import com.warrior.mercury.model.entity.auto.TPhonenumberstate;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
 import com.warrior.mercury.service.dictionary.IDictionaryService;
@@ -52,5 +54,23 @@ public class DictionaryCtrl {
     @ResponseBody
     public List<TPhonestate> listAllPhoneState() {
         return dictionaryService.listAllPhoneState();
+    }
+
+
+    @GetMapping("/phone/number")@ResponseBody
+    public List<CommonSimpleDto> listAllPhoneNumber() {
+        return dictionaryService.listAllPhoneNumber();
+    }
+
+    @GetMapping("/phone/number/purpose")
+    @ResponseBody
+    public List<TPhonenumberpurpose> listAllPhoneNumberPurpose() {
+        return dictionaryService.listAllPhoneNumberPurpose();
+    }
+
+    @GetMapping("/phone/number/state")
+    @ResponseBody
+    public List<TPhonenumberstate> listAllPhoneNumberState() {
+        return dictionaryService.listAllPhoneNumberState();
     }
 }
