@@ -44,12 +44,12 @@
 
 <!--        </table>-->
 
-        <table tableName="t_phonestate" enableCountByExample="true" enableUpdateByExample="true"
+        <table tableName="t_phonenumberusinglog" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
 
             <property name="useActualColumnNames" value="true"/>
-            <generatedKey column="PhoneStateID" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="PhoneNumberUsingLogID" sqlStatement="MySql" identity="true"/>
         </table>
 
 

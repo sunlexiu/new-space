@@ -41,8 +41,16 @@
         "parentId": "2",
         "level": 2,
         "url": "/phone/record/index",
-        "order": 2,
+        "order": 3,
         "remarks": "手机使用记录管理"
+      }, {
+        "id": "12",
+        "name": "手机号码管理",
+        "parentId": "2",
+        "level": 2,
+        "url": "/phone/number/info/index",
+        "order": 4,
+        "remarks": "手机号码管理"
       }
     ]
   }
