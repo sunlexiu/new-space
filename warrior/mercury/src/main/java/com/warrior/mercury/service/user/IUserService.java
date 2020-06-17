@@ -1,7 +1,7 @@
 package com.warrior.mercury.service.user;
 
 import com.warrior.mercury.model.entity.auto.TSignup;
-import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
+import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 
 import java.util.List;
 

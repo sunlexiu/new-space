@@ -7,17 +7,18 @@
     "url": "",
     "order": 1,
     "remarks": "用户管理",
-    "children": {
-      "id": "10",
-      "name": "管理员账户",
-      "parentId": "1",
-      "level": 2,
-      "url": "/user/index",
-      "order": 2,
-      "remarks": "管理员账户"
-    }
-  },
-  {
+    "children": [
+      {
+        "id": "10",
+        "name": "管理员账户",
+        "parentId": "1",
+        "level": 2,
+        "url": "/user/index",
+        "order": 2,
+        "remarks": "管理员账户"
+      }
+    ]
+  }, {
     "id": "2",
     "name": "手机管理",
     "parentId": "0",
@@ -25,15 +26,24 @@
     "url": "",
     "order": 2,
     "remarks": "手机管理",
-    "children": {
-      "id": "10",
-      "name": "手机管理",
-      "parentId": "1",
-      "level": 2,
-      "url": "/phone/basic/index",
-      "order": 2,
-      "remarks": "手机管理"
-    }
+    "children": [
+      {
+        "id": "10",
+        "name": "手机管理",
+        "parentId": "2",
+        "level": 2,
+        "url": "/phone/basic/index",
+        "order": 2,
+        "remarks": "手机管理"
+      }, {
+        "id": "11",
+        "name": "手机使用记录管理",
+        "parentId": "2",
+        "level": 2,
+        "url": "/phone/record/index",
+        "order": 2,
+        "remarks": "手机使用记录管理"
+      }
+    ]
   }
-
 ]

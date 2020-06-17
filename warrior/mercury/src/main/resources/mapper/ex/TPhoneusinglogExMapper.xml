@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TPhoneusinglogExMapper">
+
+    <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.PhoneRecord"
+               extends="com.warrior.mercury.mapper.auto.TPhoneusinglogMapper.BaseResultMap">
+
+        <association property="phone" javaType="com.warrior.mercury.model.entity.auto.TPhone">
+            <id column="PhoneID" property="phoneID" />
+            <result column="phoneNo" property="phoneNo"/>
+        </association>
+
+        <association property="phoneState" javaType="com.warrior.mercury.model.entity.auto.TPhonestate">
+            <id column="PhoneStateID" property="phoneStateID" />
+            <result column="State" property="state"/>
+        </association>
+
+        <association property="person" javaType="com.warrior.mercury.model.entity.auto.TPerson">
+            <id column="PhoneUserPersonID" property="personID" />
+            <result column="FirstName" property="firstName"/>
+        </association>
+    </resultMap>
+
+
+    <select id="listPhoneUsingRecord" resultMap="listResultMap">
+        SELECT
+            record.PhoneUsingLogID, record.PhoneID, record.LockScreenPassword, record.PhoneStateID,
+            record.PhoneUserPersonID, record.StartedDateTime, record.EndedDateTime, record.CreatedDateTime,
+            `state`.`State`, phone.phoneNo, person.FirstName
+        FROM
+            t_phoneusinglog record
+        JOIN t_phonestate `state`
+        ON record.PhoneStateID = `state`.PhoneStateID
+        JOIN t_phone phone
+        ON record.PhoneID = phone.PhoneID
+        JOIN t_person person
+        ON record.PhoneUserPersonID = person.PersonID
+    </select>
+
+    <update id="updateRecordEndDate" parameterType="integer">
+        UPDATE t_phoneusinglog
+        <set>
+            EndedDateTime = now()
+        </set>
+        <where>
+            PhoneID = #{_parameter, jdbcType=INTEGER}
+            AND (ISNULL(EndedDateTime) || LENGTH(trim(EndedDateTime)) = 0)
+        </where>
+    </update>
+</mapper>

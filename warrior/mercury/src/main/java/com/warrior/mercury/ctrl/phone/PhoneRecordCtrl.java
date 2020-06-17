@@ -1,11 +1,11 @@
 package com.warrior.mercury.ctrl.phone;
 
-import com.warrior.mercury.model.dto.PhoneBasic;
+import com.warrior.mercury.model.dto.PhoneRecord;
 import com.warrior.mercury.model.param.DeleteBody;
-import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
-import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
-import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
-import com.warrior.mercury.service.phone.IPhoneBasicService;
+import com.warrior.mercury.model.param.phone.PhoneRecordAddParam;
+import com.warrior.mercury.model.param.phone.PhoneRecordQueryPage;
+import com.warrior.mercury.model.param.phone.PhoneRecordUpdateParam;
+import com.warrior.mercury.service.phone.IPhoneRecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,45 +19,44 @@ import java.util.List;
 
 /**
  * @author:       Charon
- * @create:       2020/6/15 16:07
+ * @create:       2020/6/17 9:00
  */
 @Controller
-@RequestMapping("/phone/basic")
-public class PhoneBasicCtrl {
+@RequestMapping("/phone/record")
+public class PhoneRecordCtrl {
 
     @Resource
-    private IPhoneBasicService phoneBasicService;
+    private IPhoneRecordService phoneRecordService;
 
     @GetMapping("/index")
     public String index() {
-        return "/view/phone/basic/list";
+        return "/view/phone/record/list";
     }
 
 
     @GetMapping("/list")
     @ResponseBody
-    public List<PhoneBasic> listUser(PhoneBasicQueryPage page) {
-        return phoneBasicService.listBasicPhoneInfo(page);
+    public List<PhoneRecord> listUser(PhoneRecordQueryPage page) {
+        return phoneRecordService.listPhoneUsingRecord(page);
     }
 
 
     @PostMapping("/add")
     @ResponseBody
-    public void addPhone(@RequestBody BasicPhoneAddParam param) {
-        phoneBasicService.addBasicPhone(param);
+    public void addPhone(@RequestBody PhoneRecordAddParam param) {
+        phoneRecordService.addPhoneUsingRecord(param);
     }
 
 
     @PostMapping("/update")
     @ResponseBody
-    public void updatePhone(@RequestBody BasicPhoneUpdateParam param) {
-        phoneBasicService.updateBasicPhone(param);
+    public void updatePhone(@RequestBody PhoneRecordUpdateParam param) {
+        phoneRecordService.updatePhoneUsingRecord(param);
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
     public void deletePhone(@RequestBody DeleteBody body) {
-        phoneBasicService.deletePhone(body.getId());
+        phoneRecordService.deletePhoneUsingRecord(body.getId());
     }
-
 }

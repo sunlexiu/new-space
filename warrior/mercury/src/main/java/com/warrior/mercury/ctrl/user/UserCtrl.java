@@ -6,7 +6,7 @@ import com.warrior.mercury.ctrl.IndexCtrl;
 import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.param.DeleteBody;
-import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
+import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 import com.warrior.mercury.model.param.user.ManagerUserAddParam;
 import com.warrior.mercury.model.param.user.ManagerUserUpdateParam;
 import com.warrior.mercury.service.user.IUserService;

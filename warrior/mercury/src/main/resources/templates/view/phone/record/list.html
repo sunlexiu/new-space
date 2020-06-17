@@ -26,7 +26,7 @@
     <div class="layui-fluid">
         <div class="layui-card">
             <div class="layui-card-header">
-                <i class="iconfont">&#xe6ac;</i>手机信息表
+                <i class="iconfont">&#xe6ac;</i>手机使用记录表
                 <span class="layui-layout-right">
                     <a href="javascript:;" hg-event="fullscreen">
                         <i class="layui-icon layui-icon-screen-full"></i>
@@ -63,12 +63,12 @@
         //obj通过行tool修改-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.open('修改手机信息' + row.data.phoneNo, '/phone/basic/edit.html?id=' + row.data.phoneID + '&phoneNo='+
+            hg.open('修改用户' + row.data.name, '/phone/basic/edit.html?id=' + row.data.phoneID + '&phoneNo='+
                 row.data.phoneNo + '&boughtDateTime=' + row.data.boughtDateTime
                 + '&brand=' + row.data.brand.phoneBrandID
                 + '&operatingSystem=' + row.data.operatingSystem.phoneOperatingSystemID
                 + '&memorySize=' + row.data.memorySize + '&remark=' + row.data.remark
-                , 600, 500);
+                , 600, 400);
         } else {
             hg.msg('请选中一行数据，再操作！');
         }
@@ -79,10 +79,10 @@
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
             hg.confirm("删除当前选中的用户，确定要删除吗？", function () {
-                var data = {'id':row.data.phoneID}
+                var data = {'id':row.data.phoneUsingLogID}
                 $.ajax({
                     type:"Delete",
-                    url:"/phone/basic/delete",
+                    url:"/phone/record/delete",
                     dataType:"json",
                     contentType: "application/json;charset=UTF-8",
                     data:JSON.stringify(data),
@@ -113,7 +113,7 @@
 
     var tableCols = [
         [{
-            field: 'phoneID',
+            field: 'phoneUsingLogID',
             hide: true,
             width: '0',
             title: 'id',
@@ -122,52 +122,56 @@
             sort: false
         },{
             field: 'phoneNo',
-            width: '15%',
+            width: '10%',
             title: '手机编号',
+            templet: '<div>{{d.phone.phoneNo}}</div>',
             style: 'color: #ff5722;',
             sort: true
         }, {
-            field: 'boughtDateTime',
+            field: 'lockScreenPassword',
             width: '15%',
-            title: '购买时间',
+            title: '锁屏密码',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'brand',
-            width: '15%',
-            title: '品牌',
-            templet: '<div>{{d.brand.brandName}}</div>',
-            minWidth: 100,
+            field: 'phoneState',
+            width: '10%',
+            title: '手机状态',
+            templet: '<div>{{d.phoneState.state}}</div>',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'operatingSystem',
-            width: '15%',
-            title: '操作系统',
-            templet: '<div>{{d.operatingSystem.typeOfOperatingSystem}}</div>',
-            minWidth: 100,
+            field: 'phoneUserPerson',
+            width: '10%',
+            title: '使用人',
+            templet: '<div>{{d.person.firstName}}</div>',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'memorySize',
+            field: 'startedDateTime',
             width: '15%',
-            title: '内存大小',
-            minWidth: 100,
+            title: '使用开始时间',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'remark',
+            field: 'endedDateTime',
             width: '15%',
-            title: '备注',
-            minWidth: 100,
+            title: '使用结束时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'createdDateTime',
+            width: '15%',
+            title: '创建时间',
             style: 'color: #ff5722;',
             sort: true
         }, {
             field: 'right',
             width: '10%',
             title: '操作',
+            minWidth: 100,
             templet: function (d) {
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }
         }]
     ];
@@ -175,7 +179,7 @@
             text: '添加',
             layuiicon: '&#xe608;',
             handler: function () {
-                hg.open('添加手机信息', '/phone/basic/add.html', 600, 500);
+                hg.open('添加手机使用记录', '/phone/record/add.html', 600, 500);
             }
         }
     ];

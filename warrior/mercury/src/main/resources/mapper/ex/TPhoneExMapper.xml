@@ -29,4 +29,12 @@
         JOIN T_PhoneBrand brand
         ON phone.PhoneBrandID = brand.PhoneBrandID
     </select>
+
+
+    <select id="listAllPhone" resultType="com.warrior.mercury.model.dto.CommonSimpleDto">
+        SELECT
+            PhoneID id, PhoneNo name
+        FROM
+            T_Phone phone
+    </select>
 </mapper>

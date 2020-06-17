@@ -19,5 +19,4 @@ public class Constant {
             "/**/*.css",  "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.gif"};
 
 
-
 }

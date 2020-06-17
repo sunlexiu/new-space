@@ -1,8 +1,9 @@
 package com.warrior.mercury.mapper.ex;
 
 import com.warrior.mercury.mapper.auto.TPhoneMapper;
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.PhoneBasic;
-import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
+import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
 
 import java.util.List;
 
@@ -19,4 +20,12 @@ public interface TPhoneExMapper extends TPhoneMapper {
      * @return
      */
     List<PhoneBasic> listBasicPhoneInfo(PhoneBasicQueryPage page);
+
+
+    /**
+     * 查找所有的手机, 供下拉框选择
+     *
+     * @return
+     */
+    List<CommonSimpleDto> listAllPhone();
 }

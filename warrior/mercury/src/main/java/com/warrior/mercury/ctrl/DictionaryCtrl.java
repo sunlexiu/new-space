@@ -1,7 +1,9 @@
 package com.warrior.mercury.ctrl;
 
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.entity.auto.TPhonebrand;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
+import com.warrior.mercury.model.entity.auto.TPhonestate;
 import com.warrior.mercury.service.dictionary.IDictionaryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,12 @@ public class DictionaryCtrl {
     @Resource
     private IDictionaryService dictionaryService;
 
+    @GetMapping("/phone")
+    @ResponseBody
+    public List<CommonSimpleDto> listAllPhone() {
+        return dictionaryService.listAllPhone();
+    }
+
     @GetMapping("/phone/brand")
     @ResponseBody
     public List<TPhonebrand> listAllPhoneBrand() {
@@ -34,4 +42,15 @@ public class DictionaryCtrl {
         return dictionaryService.listAllPhoneOperatingSystem();
     }
 
+    @GetMapping("/phone/user")
+    @ResponseBody
+    public List<CommonSimpleDto> listAllPhoneUser() {
+        return dictionaryService.listAllPhoneUser();
+    }
+
+    @GetMapping("/phone/state")
+    @ResponseBody
+    public List<TPhonestate> listAllPhoneState() {
+        return dictionaryService.listAllPhoneState();
+    }
 }

@@ -63,7 +63,6 @@
             <optional>true</optional>
         </dependency>
 
-
         <!-- mybatis-starter -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -100,9 +99,11 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
         </dependency>
+
+        <!-- joda-time-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
 
     </dependencies>

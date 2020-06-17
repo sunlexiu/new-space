@@ -30,63 +30,61 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="phoneNo" class="layui-form-label">
+                    <label for="phoneID" class="layui-form-label">
                         手机编号</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="phoneNo" name="phoneNo" required="" lay-verify="phoneNo"
-                               autocomplete="off" class="layui-input"></div>
-                    <div class="layui-form-mid layui-word-aux">
-                        用于区分手机</div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label for="boughtDateTime" class="layui-form-label">
-                        购买时间</label>
-                    <div class="layui-input-inline">
-<!--                        <input type="text" id="boughtDateTime" name="boughtDateTime" required="" lay-verify="boughtDateTime"-->
-<!--                               autocomplete="off" class="layui-input"></div>-->
-                        <input type="text" class="layui-input" id="boughtDateTime" name="boughtDateTime"
-                               readonly="readonly" lay-verify="boughtDateTime">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label for="phoneBrand" class="layui-form-label">
-                        手机品牌</label>
-                    <div class="layui-input-inline">
-                        <select id="phoneBrand" name="phoneBrandId" lay-verify="">
+                        <select id="phoneID" name="phoneID" lay-verify="phoneID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneOperatingSystem" class="layui-form-label">
-                        手机系统</label>
+                    <label for="lockScreenPassword" class="layui-form-label">
+                        锁屏密码</label>
                     <div class="layui-input-inline">
-                        <select id="phoneOperatingSystem" name="phoneOperatingSystemId" lay-verify="">
+                        <input type="text" id="lockScreenPassword" name="lockScreenPassword" required=""
+                               lay-verify="lockScreenPassword"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="phoneStateID" class="layui-form-label">
+                        手机状态</label>
+                    <div class="layui-input-inline">
+                        <select id="phoneStateID" name="phoneStateID" lay-verify="phoneStateID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="memorySize" class="layui-form-label">
-                        手机内存</label>
+                    <label for="phoneUserPersonID" class="layui-form-label">
+                        使用人</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="memorySize" name="memorySize" required="" lay-verify="memorySize"
-                               autocomplete="off" class="layui-input"></div>
+                        <select id="phoneUserPersonID" name="phoneUserPersonID" lay-verify="phoneUserPersonID">
+                        </select>
+                    </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="remark" class="layui-form-label">
-                        备注</label>
+                    <label for="startedDateTime" class="layui-form-label">
+                        开始时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="remark" name="remark" required="" lay-verify="remark"
-                               autocomplete="off" class="layui-input"></div>
+                        <input type="text" class="layui-input" id="startedDateTime" name="startedDateTime"
+                               readonly="readonly" lay-verify="startedDateTime">
+                    </div>
                 </div>
 
-                <input type="hidden" id="boughtDate" name="boughtDate"/>
+<!--                <div class="layui-form-item">-->
+<!--                    <label for="endedDateTime" class="layui-form-label">-->
+<!--                        结束时间</label>-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <input type="text" class="layui-input" id="endedDateTime" name="endedDateTime"-->
+<!--                               readonly="readonly" lay-verify="endedDateTime">-->
+<!--                    </div>-->
+<!--                </div>-->
+
                 <div class="layui-form-item">
-                    <label for="remark" class="layui-form-label"></label>
+                    <label for="lockScreenPassword" class="layui-form-label"></label>
                     <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">增加</button>
                 </div>
             </form>
@@ -118,7 +116,7 @@
                         var user = data.field;
                         $.ajax({
                             type:"POST",
-                            url:"/phone/basic/add",
+                            url:"/phone/record/add",
                             contentType:'application/json',
                             data:JSON.stringify(user),
                             success:function (data) {
@@ -153,11 +151,11 @@
 
                 $.ajax({
                     type:"GET",
-                    url:"/dictionary/phone/brand",
+                    url:"/dictionary/phone/user",
                     data:[],
                     success:function (data) {
                         $.each(data.data,function(index,item){
-                            $('#phoneBrand').append(new Option(item.brandName,item.phoneBrandID));
+                            $('#phoneUserPersonID').append(new Option(item.name,item.id));
                             form.render('select');
                         })
                     },
@@ -169,11 +167,11 @@
 
                 $.ajax({
                     type:"GET",
-                    url:"/dictionary/phone/system",
+                    url:"/dictionary/phone/state",
                     data:[],
                     success:function (data) {
                         $.each(data.data,function(index,item){
-                            $('#phoneOperatingSystem').append(new Option(item.typeOfOperatingSystem,item.phoneOperatingSystemID));
+                            $('#phoneStateID').append(new Option(item.state,item.phoneStateID));
                             form.render('select');
                         })
                     },
@@ -183,16 +181,37 @@
                     }
                 });
 
-                var laydate = layui.laydate;
-
-                //执行一个laydate实例
-                laydate.render({
-                    elem: '#boughtDateTime', //指定元素
-                    trigger: 'click',
-                    done: function(value, date, endDate){
-                        $("#boughtDate").val(value)
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/phone",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#phoneID').append(new Option(item.name,item.id));
+                            form.render('select');
+                        })
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
                     }
                 });
+
+                //执行一个laydate实例
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#startedDateTime', //指定元素
+                    type: 'datetime',
+                    format: 'yyyy-MM-dd HH:mm:ss',
+                    trigger: 'click'
+                });
+
+                // laydate.render({
+                //     elem: '#endedDateTime', //指定元素
+                //     type: 'datetime',
+                //     format: 'yyyy-MM-dd HH:mm:ss',
+                //     trigger: 'click'
+                // });
             });
     </script>
 </body>

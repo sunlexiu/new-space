@@ -11,7 +11,7 @@ import com.warrior.mercury.model.entity.auto.TPhonebrand;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
 import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
-import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
+import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,22 +44,31 @@ public class PhoneBasicServiceImpl implements IPhoneBasicService {
 
     @Override
     public void addBasicPhone(BasicPhoneAddParam param) {
-        checkDataEffective(param, null);
+        checkLegality(param, null);
         phoneExMapper.insertSelective(param.convertToPhone());
     }
 
     @Override
     public void updateBasicPhone(BasicPhoneUpdateParam param) {
-        TPhone phoneDB = phoneExMapper.selectByPrimaryKey(param.getId());
-        if (Objects.isNull(phoneDB)) {
-            throw new BusinessException(DATA_NOT_EXIST);
-        }
-
-        checkDataEffective(param, param.getId());
+        checkDataExist(param.getId());
+        checkLegality(param, param.getId());
         phoneExMapper.updateByPrimaryKeySelective(param.convertToPhone());
     }
 
-    private void checkDataEffective(BasicPhoneAddParam param, Integer id) {
+    @Override
+    public void deletePhone(Integer id) {
+        checkDataExist(id);
+        phoneExMapper.deleteByPrimaryKey(id);
+    }
+
+    private void checkDataExist(Integer phoneId) {
+        TPhone phoneDB = phoneExMapper.selectByPrimaryKey(phoneId);
+        if (Objects.isNull(phoneDB)) {
+            throw new BusinessException(DATA_NOT_EXIST);
+        }
+    }
+
+    private void checkLegality(BasicPhoneAddParam param, Integer id) {
         TPhoneExample example = new TPhoneExample();
         example.createCriteria().andPhoneNoEqualTo(param.getPhoneNo());
         List<TPhone> phoneList = phoneExMapper.selectByExample(example);
@@ -69,7 +78,6 @@ public class PhoneBasicServiceImpl implements IPhoneBasicService {
                     throw new BusinessException(DATA_REPEAT);
                 }
             });
-
         }
 
         TPhonebrand brand = phoneBrandMapper.selectByPrimaryKey(param.getPhoneBrandId());

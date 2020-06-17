@@ -2,11 +2,11 @@ package com.warrior.mercury.service.user;
 
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.auto.TPersonMapper;
-import com.warrior.mercury.mapper.auto.TSignupMapper;
+import com.warrior.mercury.mapper.ex.TSignupExMapper;
 import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.entity.auto.TSignupExample;
-import com.warrior.mercury.model.param.query.ManagerUserQueryPage;
+import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 import com.warrior.mercury.util.SqlExecuteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class UserServiceImpl implements IUserService {
 
     @Resource
-    private TSignupMapper signupMapper;
+    private TSignupExMapper signUpExMapper;
 
     @Resource
     private TPersonMapper personMapper;
@@ -40,19 +40,19 @@ public class UserServiceImpl implements IUserService {
             criteria.andDisabledEqualTo(page.getDisabled().byteValue());
         }
 
-        return signupMapper.selectByExample(example);
+        return signUpExMapper.selectByExample(example);
     }
 
     @Override
     public TSignup selectSignUpById(Integer id) {
-        return signupMapper.selectByPrimaryKey(id);
+        return signUpExMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public TSignup getSignUpDetail(String username) {
         TSignupExample example = new TSignupExample();
         example.createCriteria().andLoginNameEqualTo(username);
-        List<TSignup> list = signupMapper.selectByExample(example);
+        List<TSignup> list = signUpExMapper.selectByExample(example);
         return list.isEmpty() ? null : list.get(0);
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService {
         p.setFirstName(manager.getLoginName());
         personMapper.insertSelective(p);
         manager.setPersonID(p.getPersonID());
-        signupMapper.insertSelective(manager);
+        signUpExMapper.insertSelective(manager);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserServiceImpl implements IUserService {
         if (Objects.isNull(userDB)) {
             throw new BusinessException(500, "用户不存在!");
         }
-        signupMapper.updateByPrimaryKeySelective(manager);
+        signUpExMapper.updateByPrimaryKeySelective(manager);
     }
 
     @Override
@@ -85,6 +85,6 @@ public class UserServiceImpl implements IUserService {
         if (Objects.isNull(userDB)) {
             throw new BusinessException(500, "用户不存在!");
         }
-        signupMapper.deleteByPrimaryKey(id);
+        signUpExMapper.deleteByPrimaryKey(id);
     }
 }

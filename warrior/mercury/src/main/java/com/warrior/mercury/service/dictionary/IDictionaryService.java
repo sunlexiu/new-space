@@ -1,7 +1,9 @@
 package com.warrior.mercury.service.dictionary;
 
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.entity.auto.TPhonebrand;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
+import com.warrior.mercury.model.entity.auto.TPhonestate;
 
 import java.util.List;
 
@@ -25,4 +27,28 @@ public interface IDictionaryService {
      * @return
      */
     List<TPhoneoperatingsystem> listAllPhoneOperatingSystem();
+
+
+    /**
+     * 查找所有的手机
+     *
+     * @return
+     */
+    List<CommonSimpleDto> listAllPhone();
+
+
+    /**
+     * 查找所有的手机使用人
+     *
+     * @return
+     */
+    List<CommonSimpleDto> listAllPhoneUser();
+
+
+    /**
+     * 查找所有的手机状态
+     *
+     * @return
+     */
+    List<TPhonestate> listAllPhoneState();
 }

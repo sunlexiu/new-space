@@ -3,7 +3,7 @@ package com.warrior.mercury.service.phone;
 import com.warrior.mercury.model.dto.PhoneBasic;
 import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
 import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
-import com.warrior.mercury.model.param.query.PhoneBasicQueryPage;
+import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public interface IPhoneBasicService {
 
     /**
-     * 分页查询管理员用户
+     * 分页查询手机使用信息
      *
      * @param page
      * @return
@@ -36,5 +36,13 @@ public interface IPhoneBasicService {
      * @param param
      */
     void updateBasicPhone(BasicPhoneUpdateParam param);
+
+
+    /**
+     * 删除phone
+     *
+     * @param id
+     */
+    void deletePhone(Integer id);
 
 }
