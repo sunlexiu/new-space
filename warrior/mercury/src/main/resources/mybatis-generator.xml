@@ -44,12 +44,12 @@
 
 <!--        </table>-->
 
-        <table tableName="T_PhoneNumberState" enableCountByExample="true" enableUpdateByExample="true"
+        <table tableName="t_operation_wechat" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
 
             <property name="useActualColumnNames" value="true"/>
-            <generatedKey column="PhoneNumberStateID" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="OperationWechatID" sqlStatement="MySql" identity="true"/>
         </table>
 
 
