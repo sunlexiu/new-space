@@ -61,5 +61,24 @@
         "remarks": "号码使用记录"
       }
     ]
+  }, {
+    "id": "3",
+    "name": "微信管理",
+    "parentId": "0",
+    "level": 1,
+    "url": "",
+    "order": 3,
+    "remarks": "微信管理",
+    "children": [
+      {
+        "id": "30",
+        "name": "微信运营管理",
+        "parentId": "3",
+        "level": 2,
+        "url": "/wechat/operator/index",
+        "order": 1,
+        "remarks": "微信运营管理"
+      }
+    ]
   }
 ]

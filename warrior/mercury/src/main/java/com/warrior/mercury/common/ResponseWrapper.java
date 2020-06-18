@@ -1,5 +1,7 @@
 package com.warrior.mercury.common;
 
+import com.warrior.mercury.common.exception.BusinessCode;
+
 import static com.warrior.mercury.common.exception.BusinessCode.OK;
 
 /**
@@ -30,6 +32,10 @@ public class ResponseWrapper {
 
     public static ResponseWrapper fail(int code, String message) {
         return new ResponseWrapper(code, null, message);
+    }
+
+    public static ResponseWrapper wrap(BusinessCode code) {
+        return new ResponseWrapper(code.getCode(), null, code.getMsg());
     }
 
     public int getCode() {

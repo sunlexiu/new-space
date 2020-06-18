@@ -18,7 +18,7 @@ public interface IOperatorWechatService {
      * @param page
      * @return
      */
-    List<OperatorWechat> listBasicPhoneInfo(OperatorWechatQueryPage page);
+    List<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page);
 
 
     /**
@@ -26,7 +26,7 @@ public interface IOperatorWechatService {
      *
      * @param param
      */
-    void addBasicPhone(OperatorWechatAlterParam param);
+    void addOperateWechat(OperatorWechatAlterParam param);
 
 
     /**
@@ -34,7 +34,7 @@ public interface IOperatorWechatService {
      *
      * @param param
      */
-    void updateBasicPhone(OperatorWechatAlterParam param);
+    void updateOperateWechat(OperatorWechatAlterParam param);
 
 
     /**
@@ -42,6 +42,6 @@ public interface IOperatorWechatService {
      *
      * @param id
      */
-    void deletePhone(Integer id);
+    void deleteOperateWechat(Integer id);
 
 }

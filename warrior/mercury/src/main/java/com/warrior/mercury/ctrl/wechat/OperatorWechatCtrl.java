@@ -1,10 +1,10 @@
 package com.warrior.mercury.ctrl.wechat;
 
-import com.warrior.mercury.model.dto.PhoneBasic;
+import com.warrior.mercury.model.dto.OperatorWechat;
 import com.warrior.mercury.model.param.DeleteBody;
-import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
-import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
-import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
+import com.warrior.mercury.model.param.wechat.OperatorWechatAlterParam;
+import com.warrior.mercury.model.param.wechat.OperatorWechatQueryPage;
+import com.warrior.mercury.service.wechat.IOperatorWechatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ import java.util.List;
 @RequestMapping("/wechat/operator")
 public class OperatorWechatCtrl {
 
+    @Resource
+    private IOperatorWechatService operatorWechatService;
+
     @GetMapping("/index")
     public String index() {
         return "/view/wechat/operator/list";
@@ -30,28 +34,28 @@ public class OperatorWechatCtrl {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<PhoneBasic> listUser(PhoneBasicQueryPage page) {
-        return null;
+    public List<OperatorWechat> listUser(OperatorWechatQueryPage page) {
+        return operatorWechatService.pageListOperateWechat(page);
     }
 
 
     @PostMapping("/add")
     @ResponseBody
-    public void addPhone(@RequestBody BasicPhoneAddParam param) {
-
+    public void addPhone(@RequestBody OperatorWechatAlterParam param) {
+        operatorWechatService.addOperateWechat(param);
     }
 
 
     @PostMapping("/update")
     @ResponseBody
-    public void updatePhone(@RequestBody BasicPhoneUpdateParam param) {
-
+    public void updatePhone(@RequestBody OperatorWechatAlterParam param) {
+        operatorWechatService.updateOperateWechat(param);
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
     public void deletePhone(@RequestBody DeleteBody body) {
-
+        operatorWechatService.deleteOperateWechat(body.getId());
     }
 
 }

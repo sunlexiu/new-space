@@ -1,7 +1,9 @@
 package com.warrior.mercury.component;
 
 import com.warrior.mercury.common.ResponseWrapper;
+import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,13 +22,14 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseWrapper DefaultExceptionHandler(Exception e) {
-        LOG.error("msg:", e);
         if (e instanceof BusinessException) {
             BusinessException ex = (BusinessException) e;
+            LOG.error(ex.getMsg());
             return ResponseWrapper.fail(ex.getCode(), ex.getMsg());
         }
 
-        return ResponseWrapper.fail(500, "操作失败");
+        LOG.error(ExceptionUtils.getStackTrace(e));
+        return ResponseWrapper.wrap(BusinessCode.SYSTEM_ERROR);
     }
 
 }

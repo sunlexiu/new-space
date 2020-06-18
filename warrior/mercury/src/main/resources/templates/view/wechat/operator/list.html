@@ -63,11 +63,13 @@
         //obj通过行tool修改-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.open('修改手机信息' + row.data.phoneNo, '/phone/basic/edit.html?id=' + row.data.phoneID + '&phoneNo='+
-                row.data.phoneNo + '&boughtDateTime=' + row.data.boughtDateTime
-                + '&brand=' + row.data.brand.phoneBrandID
-                + '&operatingSystem=' + row.data.operatingSystem.phoneOperatingSystemID
-                + '&memorySize=' + row.data.memorySize + '&remark=' + row.data.remark
+            hg.open('修改运营微信, 编号为:' + row.data.wechatNo, '/wechat/operator/edit.html?id=' + row.data.operationWechatID
+                + '&wechatNo='+ row.data.wechatNo + '&wechatID=' + row.data.wechatID
+                + '&nickname=' + row.data.nickname
+                + '&appliedDateTime=' + row.data.appliedDateTime
+                + '&appliedLocation=' + row.data.appliedLocation
+                + '&applicant=' + row.data.applicant
+                + '&remark=' + row.data.remark
                 , 600, 500);
         } else {
             hg.msg('请选中一行数据，再操作！');
@@ -78,11 +80,11 @@
         //obj通过行tool删除-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.confirm("删除当前选中的用户，确定要删除吗？", function () {
-                var data = {'id':row.data.phoneID}
+            hg.confirm("删除当前选中的数据，确定要删除吗？", function () {
+                var data = {'id':row.data.operationWechatID}
                 $.ajax({
                     type:"Delete",
-                    url:"/phone/basic/delete",
+                    url:"/wechat/operator/delete",
                     dataType:"json",
                     contentType: "application/json;charset=UTF-8",
                     data:JSON.stringify(data),
@@ -113,7 +115,7 @@
 
     var tableCols = [
         [{
-            field: 'phoneID',
+            field: 'operationWechatID',
             hide: true,
             width: '0',
             title: 'id',
@@ -121,45 +123,45 @@
             style: 'color: #ff5722;',
             sort: false
         },{
-            field: 'phoneNo',
-            width: '15%',
-            title: '手机编号',
+            field: 'wechatNo',
+            width: '10%',
+            title: '微信编号',
             style: 'color: #ff5722;',
             sort: true
         }, {
-            field: 'boughtDateTime',
+            field: 'wechatID',
             width: '15%',
-            title: '购买时间',
+            title: '微信号',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'brand',
+            field: 'nickname',
             width: '15%',
-            title: '品牌',
-            templet: '<div>{{d.brand.brandName}}</div>',
-            minWidth: 100,
+            title: '微信昵称',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'operatingSystem',
-            width: '15%',
-            title: '操作系统',
-            templet: '<div>{{d.operatingSystem.typeOfOperatingSystem}}</div>',
-            minWidth: 100,
+            field: 'appliedDateTime',
+            width: '10%',
+            title: '申请时间',
             style: 'color: #ff5722;',
             sort: true
         },{
-            field: 'memorySize',
+            field: 'appliedLocation',
             width: '15%',
-            title: '内存大小',
-            minWidth: 100,
+            title: '申请地点',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'applicant',
+            width: '10%',
+            title: '申请人',
             style: 'color: #ff5722;',
             sort: true
         },{
             field: 'remark',
             width: '15%',
             title: '备注',
-            minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
         }, {
@@ -175,12 +177,12 @@
             text: '添加',
             layuiicon: '&#xe608;',
             handler: function () {
-                hg.open('添加手机信息', '/phone/basic/add.html', 600, 500);
+                hg.open('新增运营微信', '/wechat/operator/add.html', 600, 500);
             }
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '运营微信管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 
