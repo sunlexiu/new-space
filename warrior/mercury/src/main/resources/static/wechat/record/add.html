@@ -30,61 +30,111 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="phoneID" class="layui-form-label">
-                        手机编号</label>
+                    <label for="operationWechatID" class="layui-form-label">
+                        微信编号</label>
                     <div class="layui-input-inline">
-                        <select id="phoneID" name="phoneID" lay-verify="phoneID">
+                        <select id="operationWechatID" name="operationWechatID" lay-verify="operationWechatID">
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        用于区分微信</div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="operationWechatStateID" class="layui-form-label">
+                        当前状态</label>
+                    <div class="layui-input-inline">
+                        <select id="operationWechatStateID" name="operationWechatStateID" lay-verify="operationWechatStateID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="lockScreenPassword" class="layui-form-label">
-                        锁屏密码</label>
+                    <label for="researchFields" class="layui-form-label">
+                        研究领域</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="lockScreenPassword" name="lockScreenPassword" required=""
-                               lay-verify="lockScreenPassword"
+                        <input type="text" id="researchFields" name="researchFields" required=""
+                               lay-verify="researchFields"
                                autocomplete="off" class="layui-input"></div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneStateID" class="layui-form-label">
-                        手机状态</label>
+                    <label for="loginPassword" class="layui-form-label">
+                        微信登录密码</label>
                     <div class="layui-input-inline">
-                        <select id="phoneStateID" name="phoneStateID" lay-verify="phoneStateID">
+                        <input type="text" id="loginPassword" name="loginPassword" required=""
+                               lay-verify="loginPassword"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="isRealNameAuthentication" class="layui-form-label">
+                        实名制</label>
+                    <div class="layui-input-inline">
+                        <select name="isRealNameAuthentication" id="isRealNameAuthentication"
+                                lay-filter="isRealNameAuthentication">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneUserPersonID" class="layui-form-label">
+                    <label for="realName" class="layui-form-label">
+                        实名姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="realName" name="realName" required=""
+                               lay-verify="realName"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="bankCard" class="layui-form-label">
+                        银行卡号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="bankCard" name="bankCard" required=""
+                               lay-verify="bankCard"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="paymentPassword" class="layui-form-label">
+                        支付密码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="paymentPassword" name="paymentPassword" required=""
+                               lay-verify="paymentPassword"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="wechatPurposeID" class="layui-form-label">
+                        微信用途</label>
+                    <div class="layui-input-inline">
+                        <select id="wechatPurposeID" name="wechatPurposeID" lay-verify="wechatPurposeID">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="operationWechatPersonID" class="layui-form-label">
                         使用人</label>
                     <div class="layui-input-inline">
-                        <select id="phoneUserPersonID" name="phoneUserPersonID" lay-verify="phoneUserPersonID">
+                        <select id="operationWechatPersonID" name="operationWechatPersonID" lay-verify="operationWechatPersonID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label for="startedDateTime" class="layui-form-label">
-                        开始时间</label>
+                        使用开始时间</label>
                     <div class="layui-input-inline">
                         <input type="text" class="layui-input" id="startedDateTime" name="startedDateTime"
                                readonly="readonly" lay-verify="startedDateTime">
                     </div>
                 </div>
 
-<!--                <div class="layui-form-item">-->
-<!--                    <label for="endedDateTime" class="layui-form-label">-->
-<!--                        结束时间</label>-->
-<!--                    <div class="layui-input-inline">-->
-<!--                        <input type="text" class="layui-input" id="endedDateTime" name="endedDateTime"-->
-<!--                               readonly="readonly" lay-verify="endedDateTime">-->
-<!--                    </div>-->
-<!--                </div>-->
-
                 <div class="layui-form-item">
-                    <label for="lockScreenPassword" class="layui-form-label"></label>
+                    <label for="paymentPassword" class="layui-form-label"></label>
                     <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">增加</button>
                 </div>
             </form>
@@ -95,7 +145,8 @@
             function () {
                 $ = layui.jquery;
                 var form = layui.form,
-                    layer = layui.layer;
+                    layer = layui.layer,
+                    laydate = layui.laydate;
 
                 //自定义验证规则S
                 form.verify({
@@ -116,7 +167,7 @@
                         var user = data.field;
                         $.ajax({
                             type:"POST",
-                            url:"/phone/record/add",
+                            url:"add",
                             contentType:'application/json',
                             data:JSON.stringify(user),
                             success:function (data) {
@@ -151,11 +202,59 @@
 
                 $.ajax({
                     type:"GET",
+                    url:"/dictionary/wechat/operation",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#operationWechatID').append(new Option(item.name,item.id));
+                            form.render('select');
+                        })
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/wechat/state",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#operationWechatStateID').append(new Option(item.state,item.operationWechatStateID));
+                            form.render('select');
+                        })
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/wechat/purpose",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#wechatPurposeID').append(new Option(item.purpose,item.wechatPurposeID));
+                            form.render('select');
+                        })
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
                     url:"/dictionary/operation/user",
                     data:[],
                     success:function (data) {
                         $.each(data.data,function(index,item){
-                            $('#phoneUserPersonID').append(new Option(item.name,item.id));
+                            $('#operationWechatPersonID').append(new Option(item.name,item.id));
                             form.render('select');
                         })
                     },
@@ -165,53 +264,13 @@
                     }
                 });
 
-                $.ajax({
-                    type:"GET",
-                    url:"/dictionary/phone/state",
-                    data:[],
-                    success:function (data) {
-                        $.each(data.data,function(index,item){
-                            $('#phoneStateID').append(new Option(item.state,item.phoneStateID));
-                            form.render('select');
-                        })
-                    },
-                    error: function (data,type, err) {
-                        console.log("ajax错误类型："+type);
-                        console.log(err);
-                    }
-                });
-
-                $.ajax({
-                    type:"GET",
-                    url:"/dictionary/phone",
-                    data:[],
-                    success:function (data) {
-                        $.each(data.data,function(index,item){
-                            $('#phoneID').append(new Option(item.name,item.id));
-                            form.render('select');
-                        })
-                    },
-                    error: function (data,type, err) {
-                        console.log("ajax错误类型："+type);
-                        console.log(err);
-                    }
-                });
 
                 //执行一个laydate实例
-                var laydate = layui.laydate;
                 laydate.render({
                     elem: '#startedDateTime', //指定元素
-                    type: 'datetime',
-                    format: 'yyyy-MM-dd HH:mm:ss',
-                    trigger: 'click'
+                    trigger: 'click',
+                    type: 'datetime'
                 });
-
-                // laydate.render({
-                //     elem: '#endedDateTime', //指定元素
-                //     type: 'datetime',
-                //     format: 'yyyy-MM-dd HH:mm:ss',
-                //     trigger: 'click'
-                // });
             });
     </script>
 </body>

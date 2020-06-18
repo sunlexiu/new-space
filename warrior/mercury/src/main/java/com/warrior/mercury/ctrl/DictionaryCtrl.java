@@ -1,11 +1,13 @@
 package com.warrior.mercury.ctrl;
 
 import com.warrior.mercury.model.dto.CommonSimpleDto;
+import com.warrior.mercury.model.entity.auto.TOperationWechatState;
 import com.warrior.mercury.model.entity.auto.TPhonebrand;
 import com.warrior.mercury.model.entity.auto.TPhonenumberpurpose;
 import com.warrior.mercury.model.entity.auto.TPhonenumberstate;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
+import com.warrior.mercury.model.entity.auto.TWechatPurpose;
 import com.warrior.mercury.service.dictionary.IDictionaryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +46,7 @@ public class DictionaryCtrl {
         return dictionaryService.listAllPhoneOperatingSystem();
     }
 
-    @GetMapping("/phone/user")
+    @GetMapping("/operation/user")
     @ResponseBody
     public List<CommonSimpleDto> listAllPhoneUser() {
         return dictionaryService.listAllPhoneUser();
@@ -72,5 +74,24 @@ public class DictionaryCtrl {
     @ResponseBody
     public List<TPhonenumberstate> listAllPhoneNumberState() {
         return dictionaryService.listAllPhoneNumberState();
+    }
+
+    @GetMapping("/wechat/state")
+    @ResponseBody
+    public List<TOperationWechatState> listAllWechatState() {
+        return dictionaryService.listAllWechatState();
+    }
+
+    @GetMapping("/wechat/purpose")
+    @ResponseBody
+    public List<TWechatPurpose> listAllWechatPurpose() {
+        return dictionaryService.listAllWechatPurpose();
+    }
+
+
+    @GetMapping("/wechat/operation")
+    @ResponseBody
+    public List<CommonSimpleDto> listAllOperationWechat() {
+        return dictionaryService.listAllOperationWechat();
     }
 }

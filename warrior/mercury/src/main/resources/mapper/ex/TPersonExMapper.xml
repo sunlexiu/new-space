@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TPersonExMapper">
+
+    <select id="selectEffectiveOperatorByPrimaryKey" resultType="com.warrior.mercury.model.entity.auto.TPerson">
+        SELECT
+            person.PersonID, person.FirstName
+        FROM
+            t_person person
+        JOIN t_signup sign_up
+        ON person.PersonID = sign_up.PersonID
+        where
+            person.PersonID = #{_parameter}
+    </select>
+</mapper>

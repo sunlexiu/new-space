@@ -1,11 +1,13 @@
 package com.warrior.mercury.service.dictionary;
 
 import com.warrior.mercury.model.dto.CommonSimpleDto;
+import com.warrior.mercury.model.entity.auto.TOperationWechatState;
 import com.warrior.mercury.model.entity.auto.TPhonebrand;
 import com.warrior.mercury.model.entity.auto.TPhonenumberpurpose;
 import com.warrior.mercury.model.entity.auto.TPhonenumberstate;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
+import com.warrior.mercury.model.entity.auto.TWechatPurpose;
 
 import java.util.List;
 
@@ -70,4 +72,26 @@ public interface IDictionaryService {
      */
     List<TPhonenumberstate> listAllPhoneNumberState();
 
+
+    /**
+     * 查找所有的微信状态
+     *
+     * @return
+     */
+    List<TOperationWechatState> listAllWechatState();
+
+
+    /**
+     * 查找所有的微信使用用途
+     *
+     * @return
+     */
+    List<TWechatPurpose> listAllWechatPurpose();
+
+    /**
+     * 查找所有的运营微信
+     *
+     * @return
+     */
+    List<CommonSimpleDto> listAllOperationWechat();
 }

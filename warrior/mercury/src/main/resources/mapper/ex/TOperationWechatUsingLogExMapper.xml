@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TOperationWechatUsingLogExMapper">
+
+    <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.WechatUsingRecord"
+               extends="com.warrior.mercury.mapper.auto.TOperationWechatUsingLogMapper.BaseResultMap">
+
+        <association property="wechat" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatID" property="id" />
+            <result column="wechat_no" property="name"/>
+        </association>
+
+        <association property="wechatState" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatStateID" property="id" />
+            <result column="wechat_state" property="name"/>
+        </association>
+
+        <association property="wechatPurpose" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="WechatPurposeID" property="id" />
+            <result column="Purpose" property="name"/>
+        </association>
+
+        <association property="user" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatPersonID" property="id" />
+            <result column="FirstName" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="pageList" resultMap="listResultMap">
+       SELECT
+            record.OperationWechatUsingLogID, record.OperationWechatID, record.OperationWechatStateID,
+            record.ResearchFields, record.LoginPassword, record.IsRealNameAuthentication, record.RealName,
+            record.BankCard, record.PaymentPassword, record.WechatPurposeID, record.OperationWechatPersonID,
+            record.CreatedDateTime, record.StartedDateTime, record.EndedDateTime,
+            wechat.WechatNo wechat_no, `state`.State wechat_state,
+            purpose.Purpose, person.FirstName
+        FROM
+            t_operation_wechat_using_log record
+        JOIN t_operation_wechat wechat
+        ON record.OperationWechatID = wechat.OperationWechatID
+        JOIN t_operation_wechat_state `state`
+        ON record.OperationWechatStateID = `state`.OperationWechatStateID
+        JOIN t_wechat_purpose purpose
+        ON record.WechatPurposeID = purpose.WechatPurposeID
+        JOIN t_person person
+        ON record.OperationWechatPersonID = person.PersonID
+        JOIN t_signUp sign_up
+        ON person.PersonID = sign_up.PersonID
+    </select>
+
+
+    <update id="updateRecordEndDate" parameterType="integer">
+        UPDATE t_operation_wechat_using_log
+        <set>
+            EndedDateTime = now()
+        </set>
+        <where>
+            OperationWechatID = #{_parameter, jdbcType=INTEGER}
+            AND (ISNULL(EndedDateTime) || LENGTH(trim(EndedDateTime)) = 0)
+        </where>
+    </update>
+
+
+
+</mapper>

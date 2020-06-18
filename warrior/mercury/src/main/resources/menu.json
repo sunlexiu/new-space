@@ -78,6 +78,14 @@
         "url": "/wechat/operator/index",
         "order": 1,
         "remarks": "微信运营管理"
+      },{
+        "id": "31",
+        "name": "微信运营使用记录",
+        "parentId": "3",
+        "level": 2,
+        "url": "/wechat/record/index",
+        "order": 2,
+        "remarks": "微信运营使用记录"
       }
     ]
   }

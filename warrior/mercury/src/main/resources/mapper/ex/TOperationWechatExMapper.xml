@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TOperationWechatExMapper">
+
+    <select id="listAllOperationWechat" resultType="com.warrior.mercury.model.dto.CommonSimpleDto">
+        SELECT
+            OperationWechatID id, WechatNo name
+        FROM
+            t_operation_wechat
+    </select>
+
+</mapper>

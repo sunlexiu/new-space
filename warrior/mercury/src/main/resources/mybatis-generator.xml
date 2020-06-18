@@ -44,12 +44,12 @@
 
 <!--        </table>-->
 
-        <table tableName="t_wechat_customer_adding_source" enableCountByExample="true" enableUpdateByExample="true"
+        <table tableName="t_operation_wechat_using_log" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
 
             <property name="useActualColumnNames" value="true"/>
-            <generatedKey column="WeChatCustomerAddingSourceID" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="OperationWechatUsingLogID" sqlStatement="MySql" identity="true"/>
         </table>
 
 

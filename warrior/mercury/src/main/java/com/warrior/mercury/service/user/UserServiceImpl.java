@@ -1,7 +1,7 @@
 package com.warrior.mercury.service.user;
 
 import com.warrior.mercury.common.exception.BusinessException;
-import com.warrior.mercury.mapper.auto.TPersonMapper;
+import com.warrior.mercury.mapper.ex.TPersonExMapper;
 import com.warrior.mercury.mapper.ex.TSignupExMapper;
 import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TSignup;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements IUserService {
     private TSignupExMapper signUpExMapper;
 
     @Resource
-    private TPersonMapper personMapper;
+    private TPersonExMapper personMapper;
 
     @Override
     public List<TSignup> pageListSignUp(ManagerUserQueryPage page) {

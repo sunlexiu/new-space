@@ -2,7 +2,7 @@ package com.warrior.mercury.service.wechat;
 
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
-import com.warrior.mercury.mapper.auto.TOperationWechatMapper;
+import com.warrior.mercury.mapper.ex.TOperationWechatExMapper;
 import com.warrior.mercury.model.dto.OperatorWechat;
 import com.warrior.mercury.model.entity.auto.TOperationWechat;
 import com.warrior.mercury.model.entity.auto.TOperationWechatExample;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class OperatorWechatServiceImpl implements IOperatorWechatService {
 
     @Resource
-    private TOperationWechatMapper operationWechatMapper;
+    private TOperationWechatExMapper operationWechatMapper;
 
     @Override
     public List<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page) {

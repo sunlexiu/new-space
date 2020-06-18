@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="hg-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="/hg-layui-admin-ui/css/font.css">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/admin/admin.css" media="all">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/Scrollbar/jquery.scrollbar.css">
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/admin/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/Scrollbar/jquery.scrollBar.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/admin/admin.js"></script>
+    <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body class="layui-body-content">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <i class="iconfont">&#xe6ac;</i>运营微信使用记录
+                <span class="layui-layout-right">
+                    <a href="javascript:;" hg-event="fullscreen">
+                        <i class="layui-icon layui-icon-screen-full"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="layui-card-body">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="disabled" id="select" lay-filter="mySelect">
+                                <option value>用户类型</option>
+                                <option value="0">未禁用</option>
+                                <option value="1">已禁用</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn layui-btn-lg layui-btn-normal" lay-submit lay-filter="sreach"><i
+                                    class="layui-icon layui-icon-lg">&#xe615;</i></button>
+                        </div>
+                    </div>
+                </div>
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    //修改
+    function edit(obj) {
+        //obj通过行tool修改-lay-event
+        var row = obj ? obj : hg.table.datatable('test', 'getSelected');
+        if (row) {
+            hg.open('修改运营微信, 编号为:' + row.data.wechatNo, '/wechat/operator/edit.html?id=' + row.data.operationWechatID
+                + '&wechatNo='+ row.data.wechatNo + '&wechatID=' + row.data.wechatID
+                + '&nickname=' + row.data.nickname
+                + '&appliedDateTime=' + row.data.appliedDateTime
+                + '&appliedLocation=' + row.data.appliedLocation
+                + '&applicant=' + row.data.applicant
+                + '&remark=' + row.data.remark
+                , 600, 500);
+        } else {
+            hg.msg('请选中一行数据，再操作！');
+        }
+    }
+    //删除
+    function del(obj) {
+        //obj通过行tool删除-lay-event
+        var row = obj ? obj : hg.table.datatable('test', 'getSelected');
+        if (row) {
+            hg.confirm("删除当前选中的数据，确定要删除吗？", function () {
+                var data = {'id':row.data.operationWechatUsingLogID}
+                $.ajax({
+                    type:"Delete",
+                    url:"delete",
+                    dataType:"json",
+                    contentType: "application/json;charset=UTF-8",
+                    data:JSON.stringify(data),
+                    success:function (data) {
+                        if(data.code === 0){//删除成功：移除删除行
+                            hg.msg('删除成功！');
+                            hg.table.datatable('test', 'reload');
+                        }else{//删除失败
+                            hg.msg('删除失败！');
+                        };
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                        hg.msg('删除失败！');
+                    }
+                });
+            });
+        } else {
+            hg.msg('请选中一行数据，再操作！');
+        }
+    }
+
+    //监听表单提交事件
+    hg.form.onsubmit('sreach', function (data) {
+        table && table.reload(data);
+    });
+
+    var tableCols = [
+        [{
+            field: 'operationWechatUsingLogID',
+            hide: true,
+            width: '0',
+            title: 'id',
+            minWidth: 0,
+            style: 'color: #ff5722;',
+            sort: false
+        },{
+            field: 'operationWechat',
+            width: '6%',
+            title: '微信编号',
+            templet: '<div>{{d.wechat.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        }, {
+            field: 'wechatState',
+            width: '6%',
+            title: '当前状态',
+            templet: '<div>{{d.wechatState.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'researchFields',
+            width: '8%',
+            title: '研究领域',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'loginPassword',
+            width: '7%',
+            title: '微信登录密码',
+            style: 'color: #ff5722;'
+        },{
+            field: 'isRealNameAuthentication',
+            width: '5%',
+            title: '实名制',
+            templet: '<div>{{d.isRealNameAuthentication === 1 ? "是" : "否"}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'realName',
+            width: '6%',
+            title: '实名姓名',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'bankCard',
+            width: '8%',
+            title: '银行卡号',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'paymentPassword',
+            width: '6%',
+            title: '支付密码',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'wechatPurpose',
+            width: '8%',
+            title: '微信用途',
+            templet: '<div>{{d.wechatPurpose.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'wechatPurpose',
+            width: '5%',
+            title: '使用人',
+            templet: '<div>{{d.user.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'createdDateTime',
+            width: '9%',
+            title: '创建时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'startedDateTime',
+            width: '9%',
+            title: '开始时间',
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'endedDateTime',
+            width: '9%',
+            title: '结束时间',
+            style: 'color: #ff5722;',
+            sort: true
+        }, {
+            field: 'right',
+            width: '8%',
+            title: '操作',
+            templet: function (d) {
+                return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+            }
+        }]
+    ];
+    var toolbar = [{
+            text: '添加',
+            layuiicon: '&#xe608;',
+            handler: function () {
+                hg.open('新增运营微信', '/wechat/record/add.html', 600, 600);
+            }
+        }
+    ];
+    //基本数据表格
+    var table = hg.table.datatable('test', '运营微信管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+
+</script>
+
+</html>

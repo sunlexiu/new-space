@@ -4,8 +4,10 @@
 
     <select id="listAllPhoneUser" resultType="com.warrior.mercury.model.dto.CommonSimpleDto">
         SELECT
-            SignUpID id, LoginName name
+            person.PersonID id, person.FirstName name
         FROM
-            t_signup
+            t_person person
+        JOIN t_signup sign_up
+        ON sign_up.SignUpID = person.PersonID
     </select>
 </mapper>
