@@ -16,6 +16,14 @@
         "url": "/user/index",
         "order": 2,
         "remarks": "管理员账户"
+      },{
+        "id": "11",
+        "name": "微信用户",
+        "parentId": "1",
+        "level": 2,
+        "url": "/wechat/customer/index",
+        "order": 2,
+        "remarks": "微信用户"
       }
     ]
   }, {

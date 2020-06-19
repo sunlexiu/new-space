@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warrior.mercury.mapper.ex.TWeChatCustomerExMapper">
+
+    <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.WechatCustomer"
+               extends="com.warrior.mercury.mapper.auto.TWeChatCustomerMapper.BaseResultMap">
+        <association property="recorder" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="RecorderID" property="id" />
+            <result column="FirstName" property="name"/>
+        </association>
+
+        <association property="activitySource" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="WeChatCustomerActivitySourceID" property="id" />
+            <result column="activity_source" property="name"/>
+        </association>
+
+        <association property="addingSource" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="WeChatCustomerAddingSourceID" property="id" />
+            <result column="adding_source" property="name"/>
+        </association>
+
+        <association property="title" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="TitleID" property="id" />
+            <result column="Title" property="name"/>
+        </association>
+
+        <association property="evaluation" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="WeChatCustomerEvaluationID" property="id" />
+            <result column="Evaluation" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="pageList" resultMap="listResultMap">
+        SELECT
+            customer.WeChatCustomerID, customer.PersonID, customer.OriginalWechatID, customer.UpdatedWechatID,
+            customer.Alias, customer.Tag, customer.WeChatAddedDateTime, customer.RecordedDateTime,
+            customer.RecorderID, customer.WeChatCustomerActivitySourceID, customer.WeChatCustomerAddingSourceID,
+            customer.TitleID, customer.Affiliation, customer.ResearchFields, customer.CustomerPhoneNumber,
+            customer.CommentForCustomer, customer.WeChatCustomerEvaluationID, customer.Remark,
+            person.FirstName, activity.Source activity_source,
+            adding.Source adding_source, title.Title, evaluation.Evaluation
+        FROM
+            t_we_chat_customer customer
+        JOIN t_person person
+        ON customer.RecorderID = person.personID
+        JOIN t_wechat_customer_activity_source activity
+        ON customer.WeChatCustomerActivitySourceID = activity.WeChatCustomerActivitySourceID
+        JOIN t_wechat_customer_adding_source adding
+        ON customer.WeChatCustomerAddingSourceID = adding.WeChatCustomerAddingSourceID
+        JOIN t_title title
+        ON customer.TitleID = title.TitleID
+        JOIN t_we_chat_customer_evaluation evaluation
+        ON customer.WeChatCustomerEvaluationID = evaluation.WeChatCustomerEvaluationID
+    </select>
+
+</mapper>

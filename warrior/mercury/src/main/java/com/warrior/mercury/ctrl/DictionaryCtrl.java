@@ -7,6 +7,9 @@ import com.warrior.mercury.model.entity.auto.TPhonenumberpurpose;
 import com.warrior.mercury.model.entity.auto.TPhonenumberstate;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
+import com.warrior.mercury.model.entity.auto.TWeChatCustomerEvaluation;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerActivitySource;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerAddingSource;
 import com.warrior.mercury.model.entity.auto.TWechatPurpose;
 import com.warrior.mercury.service.dictionary.IDictionaryService;
 import org.springframework.stereotype.Controller;
@@ -88,10 +91,34 @@ public class DictionaryCtrl {
         return dictionaryService.listAllWechatPurpose();
     }
 
-
     @GetMapping("/wechat/operation")
     @ResponseBody
     public List<CommonSimpleDto> listAllOperationWechat() {
         return dictionaryService.listAllOperationWechat();
     }
+
+    @GetMapping("/customer/activity/source")
+    @ResponseBody
+    public List<TWechatCustomerActivitySource> listAllActivitySource() {
+        return dictionaryService.listAllActivitySource();
+    }
+
+    @GetMapping("/customer/adding/source")
+    @ResponseBody
+    public List<TWechatCustomerAddingSource> listAllAddingSource() {
+        return dictionaryService.listAllAddingSource();
+    }
+
+    @GetMapping("/customer/title")
+    @ResponseBody
+    public List<CommonSimpleDto> listAllTitle() {
+        return dictionaryService.listAllTitle();
+    }
+
+    @GetMapping("/customer/evaluation")
+    @ResponseBody
+    public List<TWeChatCustomerEvaluation> listAllEvaluation() {
+        return dictionaryService.listAllEvaluation();
+    }
+
 }

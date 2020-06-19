@@ -7,6 +7,9 @@ import com.warrior.mercury.model.entity.auto.TPhonenumberpurpose;
 import com.warrior.mercury.model.entity.auto.TPhonenumberstate;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
+import com.warrior.mercury.model.entity.auto.TWeChatCustomerEvaluation;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerActivitySource;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerAddingSource;
 import com.warrior.mercury.model.entity.auto.TWechatPurpose;
 
 import java.util.List;
@@ -94,4 +97,32 @@ public interface IDictionaryService {
      * @return
      */
     List<CommonSimpleDto> listAllOperationWechat();
+
+    /**
+     * 查找所有业务来源
+     *
+     * @return
+     */
+    List<TWechatCustomerActivitySource> listAllActivitySource();
+
+    /**
+     * 查找所有的用户来源
+     *
+     * @return
+     */
+    List<TWechatCustomerAddingSource> listAllAddingSource();
+
+    /**
+     * 查找所有的用户头衔
+     *
+     * @return
+     */
+    List<CommonSimpleDto> listAllTitle();
+
+    /**
+     * 查找所有的评价登记
+     *
+     * @return
+     */
+    List<TWeChatCustomerEvaluation> listAllEvaluation();
 }

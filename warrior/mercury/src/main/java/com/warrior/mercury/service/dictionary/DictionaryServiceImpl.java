@@ -6,6 +6,10 @@ import com.warrior.mercury.mapper.auto.TPhonenumberpurposeMapper;
 import com.warrior.mercury.mapper.auto.TPhonenumberstateMapper;
 import com.warrior.mercury.mapper.auto.TPhoneoperatingsystemMapper;
 import com.warrior.mercury.mapper.auto.TPhonestateMapper;
+import com.warrior.mercury.mapper.auto.TTitleMapper;
+import com.warrior.mercury.mapper.auto.TWeChatCustomerEvaluationMapper;
+import com.warrior.mercury.mapper.auto.TWechatCustomerActivitySourceMapper;
+import com.warrior.mercury.mapper.auto.TWechatCustomerAddingSourceMapper;
 import com.warrior.mercury.mapper.auto.TWechatPurposeMapper;
 import com.warrior.mercury.mapper.ex.TOperationWechatExMapper;
 import com.warrior.mercury.mapper.ex.TPhoneExMapper;
@@ -24,12 +28,21 @@ import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
 import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystemExample;
 import com.warrior.mercury.model.entity.auto.TPhonestate;
 import com.warrior.mercury.model.entity.auto.TPhonestateExample;
+import com.warrior.mercury.model.entity.auto.TTitle;
+import com.warrior.mercury.model.entity.auto.TTitleExample;
+import com.warrior.mercury.model.entity.auto.TWeChatCustomerEvaluation;
+import com.warrior.mercury.model.entity.auto.TWeChatCustomerEvaluationExample;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerActivitySource;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerActivitySourceExample;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerAddingSource;
+import com.warrior.mercury.model.entity.auto.TWechatCustomerAddingSourceExample;
 import com.warrior.mercury.model.entity.auto.TWechatPurpose;
 import com.warrior.mercury.model.entity.auto.TWechatPurposeExample;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author:       Charon
@@ -70,6 +83,18 @@ public class DictionaryServiceImpl implements IDictionaryService {
 
     @Resource
     private TOperationWechatExMapper operationWechatExMapper;
+
+    @Resource
+    private TWechatCustomerActivitySourceMapper wechatCustomerActivitySourceMapper;
+
+    @Resource
+    private TWechatCustomerAddingSourceMapper wechatCustomerAddingSourceMapper;
+
+    @Resource
+    private TTitleMapper titleMapper;
+
+    @Resource
+    private TWeChatCustomerEvaluationMapper weChatCustomerEvaluationMapper;
 
     @Override
     public List<TPhonebrand> listAllPhoneBrand() {
@@ -124,5 +149,33 @@ public class DictionaryServiceImpl implements IDictionaryService {
     @Override
     public List<CommonSimpleDto> listAllOperationWechat() {
         return operationWechatExMapper.listAllOperationWechat();
+    }
+
+    @Override
+    public List<TWechatCustomerActivitySource> listAllActivitySource() {
+        return wechatCustomerActivitySourceMapper.selectByExample(new TWechatCustomerActivitySourceExample());
+    }
+
+    @Override
+    public List<TWechatCustomerAddingSource> listAllAddingSource() {
+        return wechatCustomerAddingSourceMapper.selectByExample(new TWechatCustomerAddingSourceExample());
+    }
+
+    @Override
+    public List<CommonSimpleDto> listAllTitle() {
+        return titleMapper.selectByExample(new TTitleExample())
+                .stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TWeChatCustomerEvaluation> listAllEvaluation() {
+        return weChatCustomerEvaluationMapper.selectByExample(new TWeChatCustomerEvaluationExample());
+    }
+
+    private CommonSimpleDto convert(TTitle title) {
+        CommonSimpleDto dto = new CommonSimpleDto();
+        dto.setId(title.getTitleID());
+        dto.setName(title.getTitle());
+        return dto;
     }
 }
