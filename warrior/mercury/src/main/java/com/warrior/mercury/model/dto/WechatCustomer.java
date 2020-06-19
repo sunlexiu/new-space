@@ -18,6 +18,8 @@ public class WechatCustomer extends TWeChatCustomer {
 
     private CommonSimpleDto evaluation;
 
+    private CommonSimpleDto operationWechat;
+
     public CommonSimpleDto getRecorder() {
         return recorder;
     }
@@ -56,5 +58,13 @@ public class WechatCustomer extends TWeChatCustomer {
 
     public void setEvaluation(CommonSimpleDto evaluation) {
         this.evaluation = evaluation;
+    }
+
+    public CommonSimpleDto getOperationWechat() {
+        return operationWechat;
+    }
+
+    public void setOperationWechat(CommonSimpleDto operationWechat) {
+        this.operationWechat = operationWechat;
     }
 }

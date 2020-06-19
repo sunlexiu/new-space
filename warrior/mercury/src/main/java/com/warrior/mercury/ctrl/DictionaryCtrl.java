@@ -62,7 +62,8 @@ public class DictionaryCtrl {
     }
 
 
-    @GetMapping("/phone/number")@ResponseBody
+    @GetMapping("/phone/number")
+    @ResponseBody
     public List<CommonSimpleDto> listAllPhoneNumber() {
         return dictionaryService.listAllPhoneNumber();
     }

@@ -1,6 +1,6 @@
 package com.warrior.mercury.service.phone;
 
-import com.warrior.mercury.model.entity.auto.TPhonenumber;
+import com.warrior.mercury.model.dto.PhoneNumberInfo;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoQuery;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoUpdateParam;
@@ -19,7 +19,7 @@ public interface IPhoneNumberInfoService {
      * @param page
      * @return
      */
-    List<TPhonenumber> listPhoneNumberInfo(PhoneNumberInfoQuery page);
+    List<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page);
 
 
     /**

@@ -3,6 +3,7 @@ package com.warrior.mercury.service.phone;
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.ex.TPhonenumberExMapper;
+import com.warrior.mercury.model.dto.PhoneNumberInfo;
 import com.warrior.mercury.model.entity.auto.TPhonenumber;
 import com.warrior.mercury.model.entity.auto.TPhonenumberExample;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
@@ -25,10 +26,8 @@ public class PhoneNumberInfoServiceImpl implements IPhoneNumberInfoService {
     private TPhonenumberExMapper phoneNumberMapper;
 
     @Override
-    public List<TPhonenumber> listPhoneNumberInfo(PhoneNumberInfoQuery page) {
-        TPhonenumberExample example = new TPhonenumberExample();
-        example.createCriteria();
-        return phoneNumberMapper.selectByExample(example);
+    public List<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page) {
+        return phoneNumberMapper.listPhoneNumberInfo(page);
     }
 
     @Override

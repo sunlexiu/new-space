@@ -4,6 +4,7 @@
 
     <resultMap id="listResultMap" type="com.warrior.mercury.model.dto.PhoneBasic"
         extends="com.warrior.mercury.mapper.auto.TPhoneMapper.BaseResultMap">
+        <result column="PhonePhoneNumberWechatID" property="phonePhoneNumberWechatID"/>
 
         <association property="brand" javaType="com.warrior.mercury.model.entity.auto.TPhonebrand">
             <id column="phoneBrandID" property="phoneBrandID" />
@@ -14,20 +15,39 @@
             <id column="phoneOperatingSystemID" property="phoneOperatingSystemID" />
             <result column="typeOfOperatingSystem" property="typeOfOperatingSystem"/>
         </association>
+
+        <association property="phoneNumber" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneNumberID" property="id" />
+            <result column="PhoneNumber" property="name"/>
+        </association>
+
+        <association property="wechat" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatID" property="id" />
+            <result column="WechatNo" property="name"/>
+        </association>
     </resultMap>
 
 
     <select id="listBasicPhoneInfo" resultMap="listResultMap">
         SELECT
-            PhoneID, PhoneNo, BoughtDateTime, phone.PhoneBrandID,
-            phone.PhoneOperatingSystemID, MemorySize, Remark,
-            typeOfOperatingSystem, brandName
+            phone.PhoneID, phone.PhoneNo, phone.BoughtDateTime, phone.PhoneBrandID,
+            phone.PhoneOperatingSystemID, phone.MemorySize, phone.Remark,
+            phone_system.typeOfOperatingSystem, brand.brandName,
+            link.PhonePhoneNumberWechatID, link.PhoneNumberID, link.OperationWechatID,
+            wechat.WechatNo, number.PhoneNumber
         FROM
             T_Phone phone
         JOIN T_PhoneOperatingSystem phone_system
         ON phone.PhoneOperatingSystemID = phone_system.PhoneOperatingSystemID
         JOIN T_PhoneBrand brand
         ON phone.PhoneBrandID = brand.PhoneBrandID
+        LEFT JOIN t_phone_phone_number_wechat link
+        ON phone.PhoneID = link.PhoneID
+        LEFT JOIN t_operation_wechat wechat
+        ON link.OperationWechatID = wechat.OperationWechatID
+        LEFT JOIN t_phonenumber number
+        ON link.PhoneNumberID = number.PhoneNumberID
+
     </select>
 
 

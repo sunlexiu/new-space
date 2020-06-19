@@ -28,6 +28,11 @@
             <id column="WeChatCustomerEvaluationID" property="id" />
             <result column="Evaluation" property="name"/>
         </association>
+
+        <association property="operationWechat" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatID" property="id" />
+            <result column="WechatNo" property="name"/>
+        </association>
     </resultMap>
 
     <select id="pageList" resultMap="listResultMap">
@@ -38,7 +43,8 @@
             customer.TitleID, customer.Affiliation, customer.ResearchFields, customer.CustomerPhoneNumber,
             customer.CommentForCustomer, customer.WeChatCustomerEvaluationID, customer.Remark,
             person.FirstName, activity.Source activity_source,
-            adding.Source adding_source, title.Title, evaluation.Evaluation
+            adding.Source adding_source, title.Title, evaluation.Evaluation,wechat.OperationWechatID, wechat.WechatNo,
+            MIN(link.OrderID)
         FROM
             t_we_chat_customer customer
         JOIN t_person person
@@ -49,8 +55,12 @@
         ON customer.WeChatCustomerAddingSourceID = adding.WeChatCustomerAddingSourceID
         JOIN t_title title
         ON customer.TitleID = title.TitleID
-        JOIN t_we_chat_customer_evaluation evaluation
+        LEFT JOIN t_we_chat_customer_evaluation evaluation
         ON customer.WeChatCustomerEvaluationID = evaluation.WeChatCustomerEvaluationID
+        LEFT JOIN t_operation_wechat_customer link
+        ON customer.WeChatCustomerID = link.WeChatCustomerID
+        LEFT JOIN t_operation_wechat wechat
+        ON link.OperationWechatID = wechat.OperationWechatID
     </select>
 
 </mapper>

@@ -30,50 +30,135 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="phoneNo" class="layui-form-label">
-                        手机编号</label>
+                    <label for="personID" class="layui-form-label">
+                        SPG用户ID</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="phoneNo" name="phoneNo" required="" lay-verify="phoneNo"
+                        <input type="text" id="personID" name="personID" required="" lay-verify="personID"
                                autocomplete="off" class="layui-input"></div>
-                    <div class="layui-form-mid layui-word-aux">
-                        用于区分手机</div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="boughtDateTime" class="layui-form-label">
-                        购买时间</label>
+                    <label for="originalWechatID" class="layui-form-label">
+                        原始微信号</label>
                     <div class="layui-input-inline">
-<!--                        <input type="text" id="boughtDateTime" name="boughtDateTime" required="" lay-verify="boughtDateTime"-->
-<!--                               autocomplete="off" class="layui-input"></div>-->
-                        <input type="text" class="layui-input" id="boughtDateTime" name="boughtDateTime"
-                               readonly="readonly" lay-verify="boughtDateTime">
+                        <input type="text" id="originalWechatID" name="originalWechatID" required="" lay-verify="originalWechatID"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="updatedWechatID" class="layui-form-label">
+                        当前微信号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="updatedWechatID" name="updatedWechatID" required="" lay-verify="updatedWechatID"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="alias" class="layui-form-label">
+                        备注名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="alias" name="alias" required="" lay-verify="alias"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="tag" class="layui-form-label">
+                        标签</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tag" name="tag" required="" lay-verify="tag"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="weChatAddedDateTime" class="layui-form-label">
+                        加微信时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="weChatAddedDateTime" name="weChatAddedDateTime"
+                               readonly="readonly" lay-verify="weChatAddedDateTime">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneBrand" class="layui-form-label">
-                        手机品牌</label>
+                    <label for="recorderID" class="layui-form-label">
+                        录入人</label>
                     <div class="layui-input-inline">
-                        <select id="phoneBrand" name="phoneBrandId" lay-verify="">
+                        <select id="recorderID" name="recorderID" lay-verify="recorderID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneOperatingSystem" class="layui-form-label">
-                        手机系统</label>
+                    <label for="weChatCustomerActivitySourceID" class="layui-form-label">
+                        业务来源</label>
                     <div class="layui-input-inline">
-                        <select id="phoneOperatingSystem" name="phoneOperatingSystemId" lay-verify="">
+                        <select id="weChatCustomerActivitySourceID" name="weChatCustomerActivitySourceID"
+                                lay-verify="weChatCustomerActivitySourceID">
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="memorySize" class="layui-form-label">
-                        手机内存</label>
+                    <label for="weChatCustomerAddingSourceID" class="layui-form-label">
+                        用户来源</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="memorySize" name="memorySize" required="" lay-verify="memorySize"
+                        <select id="weChatCustomerAddingSourceID" name="weChatCustomerAddingSourceID"
+                                lay-verify="weChatCustomerAddingSourceID">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="titleID" class="layui-form-label">
+                        身份</label>
+                    <div class="layui-input-inline">
+                        <select id="titleID" name="titleID"
+                                lay-verify="titleID">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="affiliation" class="layui-form-label">
+                        单位</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="affiliation" name="affiliation" required="" lay-verify="affiliation"
                                autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="researchFields" class="layui-form-label">
+                        研究领域</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="researchFields" name="researchFields" required="" lay-verify="researchFields"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="customerPhoneNumber" class="layui-form-label">
+                        客户手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="customerPhoneNumber" name="customerPhoneNumber" required=""
+                               lay-verify="customerPhoneNumber"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="commentForCustomer" class="layui-form-label">
+                        用户评价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="commentForCustomer" name="commentForCustomer" required=""
+                               lay-verify="commentForCustomer"
+                               autocomplete="off" class="layui-input"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="weChatCustomerEvaluationID" class="layui-form-label">
+                        用户评分</label>
+                    <div class="layui-input-inline">
+                        <select id="weChatCustomerEvaluationID" name="weChatCustomerEvaluationID"
+                                lay-verify="weChatCustomerEvaluationID">
+                        </select>
+                    </div>
                 </div>
 
                 <div class="layui-form-item">
@@ -84,7 +169,7 @@
                                autocomplete="off" class="layui-input"></div>
                 </div>
 
-                <input type="hidden" id="id" name="id"/>
+                <input type="hidden" id="weChatCustomerID" name="weChatCustomerID"/>
                 <div class="layui-form-item">
                     <label for="remark" class="layui-form-label"></label>
                     <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">修改</button>
@@ -99,6 +184,7 @@
                 var form = layui.form,
                     layer = layui.layer;
 
+
                 //从另一个html页面传来的值，在这里获取
                 var url = location.search; //获取url中"?"符后的字串 ('?endId=.....')
                 var theRequest = new Object();
@@ -110,33 +196,41 @@
                     }
                 }
 
-                $("#phoneNo").val(decodeURI(theRequest.phoneNo));
-                $("#boughtDateTime").val(decodeURI(theRequest.boughtDateTime));
-                $("#phoneBrand").val(decodeURI(theRequest.brand));
-                $("#phoneOperatingSystem").val(decodeURI(theRequest.operatingSystem));
-                $("#memorySize").val(decodeURI(theRequest.memorySize));
+                $("#weChatCustomerID").val(decodeURI(theRequest.id));
+                $("#personID").val(decodeURI(theRequest.personID));
+                $("#originalWechatID").val(decodeURI(theRequest.originalWechatID));
+                $("#updatedWechatID").val(decodeURI(theRequest.updatedWechatID));
+                $("#alias").val(decodeURI(theRequest.alias));
+                $("#tag").val(decodeURI(theRequest.tag));
+                $("#weChatAddedDateTime").val(decodeURI(theRequest.weChatAddedDateTime));
+                $("#affiliation").val(decodeURI(theRequest.affiliation));
+                $("#researchFields").val(decodeURI(theRequest.researchFields));
+                $("#customerPhoneNumber").val(decodeURI(theRequest.customerPhoneNumber));
+                $("#commentForCustomer").val(decodeURI(theRequest.commentForCustomer));
                 $("#remark").val(decodeURI(theRequest.remark));
-                $("#id").val(decodeURI(theRequest.id));
-                form.render('select');
-
 
                 //自定义验证规则S
                 form.verify({
                     phoneNo: [/(\S+){2,10}$/, '手机编号必须在2位到10位之间'],
                     boughtDateTime: [/(\S+){2,10}$/, '购买时间不可为空'],
                     memorySize: [/(\S+){2,10}$/, '手机内存必须在2位到10位之间'],
+                    // username: function (value) {
+                    //     if (value.length < 5) {
+                    //         return '昵称至少得5个字符啊';
+                    //     }
+                    // }
                 });
 
                 //监听提交
                 form.on('submit(add)',
                     function (data) {
                         //发异步，把数据提交给php
-                        var phone = data.field;
+                        var user = data.field;
                         $.ajax({
                             type:"POST",
-                            url:"/phone/basic/update",
+                            url:"/wechat/customer/update",
                             contentType:'application/json',
-                            data:JSON.stringify(phone),
+                            data:JSON.stringify(user),
                             success:function (data) {
                                 layer.alert(data.message, {
                                         icon: 6
@@ -169,13 +263,14 @@
 
                 $.ajax({
                     type:"GET",
-                    url:"/dictionary/phone/brand",
+                    url:"/dictionary/operation/user",
                     data:[],
                     success:function (data) {
                         $.each(data.data,function(index,item){
-                            $('#phoneBrand').append(new Option(item.brandName,item.phoneBrandID));
-                            form.render('select');
-                        })
+                            $('#recorderID').append(new Option(item.name,item.id));
+                        });
+                        $("#recorderID").val(decodeURI(theRequest.recorderID));
+                        form.render('select');
                     },
                     error: function (data,type, err) {
                         console.log("ajax错误类型："+type);
@@ -185,13 +280,69 @@
 
                 $.ajax({
                     type:"GET",
-                    url:"/dictionary/phone/system",
+                    url:"/dictionary/customer/activity/source",
                     data:[],
                     success:function (data) {
                         $.each(data.data,function(index,item){
-                            $('#phoneOperatingSystem').append(new Option(item.typeOfOperatingSystem,item.phoneOperatingSystemID));
-                            form.render('select');
-                        })
+                            $('#weChatCustomerActivitySourceID').append(
+                                new Option(item.source,item.weChatCustomerActivitySourceID));
+                        });
+                        $("#weChatCustomerActivitySourceID").val(decodeURI(theRequest.weChatCustomerActivitySourceID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/customer/adding/source",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#weChatCustomerAddingSourceID').append(
+                                new Option(item.source,item.weChatCustomerAddingSourceID));
+                        });
+                        $("#weChatCustomerAddingSourceID").val(decodeURI(theRequest.weChatCustomerAddingSourceID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/customer/title",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#titleID').append(
+                                new Option(item.name,item.id));
+                        });
+                        $("#titleID").val(decodeURI(theRequest.titleID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/customer/evaluation",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#weChatCustomerEvaluationID').append(
+                                new Option(item.evaluation, item.weChatCustomerEvaluationID));
+                        });
+                        $("#weChatCustomerEvaluationID").val(decodeURI(theRequest.weChatCustomerEvaluationID));
+                        form.render('select');
                     },
                     error: function (data,type, err) {
                         console.log("ajax错误类型："+type);
@@ -203,10 +354,9 @@
 
                 //执行一个laydate实例
                 laydate.render({
-                    elem: '#boughtDateTime', //指定元素
-                    done: function(value, date, endDate){
-                        $("#boughtDate").val(value)
-                    }
+                    elem: '#weChatAddedDateTime', //指定元素
+                    trigger: 'click',
+                    type:'datetime'
                 });
             });
     </script>

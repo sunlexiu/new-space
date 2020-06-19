@@ -10,9 +10,23 @@ import com.warrior.mercury.model.entity.auto.TPhoneoperatingsystem;
  */
 public class PhoneBasic extends TPhone {
 
+    private Integer phonePhoneNumberWechatID;
+
     private TPhonebrand brand;
 
     private TPhoneoperatingsystem operatingSystem;
+
+    private CommonSimpleDto phoneNumber;
+
+    private CommonSimpleDto wechat;
+
+    public Integer getPhonePhoneNumberWechatID() {
+        return phonePhoneNumberWechatID;
+    }
+
+    public void setPhonePhoneNumberWechatID(Integer phonePhoneNumberWechatID) {
+        this.phonePhoneNumberWechatID = phonePhoneNumberWechatID;
+    }
 
     public TPhonebrand getBrand() {
         return brand;
@@ -28,5 +42,21 @@ public class PhoneBasic extends TPhone {
 
     public void setOperatingSystem(TPhoneoperatingsystem operatingSystem) {
         this.operatingSystem = operatingSystem;
+    }
+
+    public CommonSimpleDto getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(CommonSimpleDto phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public CommonSimpleDto getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(CommonSimpleDto wechat) {
+        this.wechat = wechat;
     }
 }

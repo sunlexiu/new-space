@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author:       Charon
@@ -38,9 +37,7 @@ public class PhoneNumberInfoCtrl {
     @GetMapping("/list")
     @ResponseBody
     public List<PhoneNumberInfo> listUser(PhoneNumberInfoQuery page) {
-        return phoneNumberInfoService.listPhoneNumberInfo(page).stream()
-                .map(v -> PhoneNumberInfo.convertFromTPhoneNumber(v))
-                .collect(Collectors.toList());
+        return phoneNumberInfoService.listPhoneNumberInfo(page);
     }
 
 

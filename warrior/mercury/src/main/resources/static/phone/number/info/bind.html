@@ -30,64 +30,30 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label for="phoneNo" class="layui-form-label">
-                        手机编号</label>
+                    <label for="phoneID" class="layui-form-label">
+                        手机</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="phoneNo" name="phoneNo" required="" lay-verify="phoneNo"
-                               autocomplete="off" class="layui-input"></div>
-                    <div class="layui-form-mid layui-word-aux">
-                        用于区分手机</div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label for="boughtDateTime" class="layui-form-label">
-                        购买时间</label>
-                    <div class="layui-input-inline">
-<!--                        <input type="text" id="boughtDateTime" name="boughtDateTime" required="" lay-verify="boughtDateTime"-->
-<!--                               autocomplete="off" class="layui-input"></div>-->
-                        <input type="text" class="layui-input" id="boughtDateTime" name="boughtDateTime"
-                               readonly="readonly" lay-verify="boughtDateTime">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label for="phoneBrand" class="layui-form-label">
-                        手机品牌</label>
-                    <div class="layui-input-inline">
-                        <select id="phoneBrand" name="phoneBrandId" lay-verify="">
+                        <select id="phoneID" name="phoneID" lay-verify="phoneID">
+                            <option value>不绑定</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label for="phoneOperatingSystem" class="layui-form-label">
-                        手机系统</label>
+                    <label for="operationWechatID" class="layui-form-label">
+                        微信号</label>
                     <div class="layui-input-inline">
-                        <select id="phoneOperatingSystem" name="phoneOperatingSystemId" lay-verify="">
+                        <select id="operationWechatID" name="operationWechatID" lay-verify="operationWechatID">
+                            <option value>不绑定</option>
                         </select>
                     </div>
                 </div>
 
+                <input type="hidden" id="phonePhoneNumberWechatID" name="phonePhoneNumberWechatID"/>
+                <input type="hidden" id="phoneNumberID" name="phoneNumberID"/>
                 <div class="layui-form-item">
-                    <label for="memorySize" class="layui-form-label">
-                        手机内存</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="memorySize" name="memorySize" required="" lay-verify="memorySize"
-                               autocomplete="off" class="layui-input"></div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label for="remark" class="layui-form-label">
-                        备注</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="remark" name="remark" required="" lay-verify="remark"
-                               autocomplete="off" class="layui-input"></div>
-                </div>
-
-                <input type="hidden" id="id" name="id"/>
-                <div class="layui-form-item">
-                    <label for="remark" class="layui-form-label"></label>
-                    <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">修改</button>
+                    <label for="phonePhoneNumberWechatID" class="layui-form-label"></label>
+                    <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">绑定</button>
                 </div>
             </form>
         </div>
@@ -110,30 +76,69 @@
                     }
                 }
 
-                $("#phoneNo").val(decodeURI(theRequest.phoneNo));
-                $("#boughtDateTime").val(decodeURI(theRequest.boughtDateTime));
-                $("#memorySize").val(decodeURI(theRequest.memorySize));
-                $("#remark").val(decodeURI(theRequest.remark));
-                $("#id").val(decodeURI(theRequest.id));
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/phone",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#phoneID').append(new Option(item.name,item.id));
+                        });
+                        $("#phoneID").val(decodeURI(theRequest.phoneID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
 
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/wechat/operation",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#operationWechatID').append(new Option(item.name,item.id));
+                        });
+                        $("#operationWechatID").val(decodeURI(theRequest.operationWechatID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $("#phoneNumberID").val(decodeURI(theRequest.id));
+
+                if (theRequest.phonePhoneNumberWechatID) {
+                    $("#phonePhoneNumberWechatID").val(decodeURI(theRequest.phonePhoneNumberWechatID));
+                }
+                form.render('select');
 
                 //自定义验证规则S
                 form.verify({
                     phoneNo: [/(\S+){2,10}$/, '手机编号必须在2位到10位之间'],
                     boughtDateTime: [/(\S+){2,10}$/, '购买时间不可为空'],
                     memorySize: [/(\S+){2,10}$/, '手机内存必须在2位到10位之间'],
+                    // username: function (value) {
+                    //     if (value.length < 5) {
+                    //         return '昵称至少得5个字符啊';
+                    //     }
+                    // }
                 });
 
                 //监听提交
                 form.on('submit(add)',
                     function (data) {
                         //发异步，把数据提交给php
-                        var phone = data.field;
+                        var user = data.field;
                         $.ajax({
                             type:"POST",
-                            url:"/phone/basic/update",
+                            url:"/bind/phone/wechat/number",
                             contentType:'application/json',
-                            data:JSON.stringify(phone),
+                            data:JSON.stringify(user),
                             success:function (data) {
                                 layer.alert(data.message, {
                                         icon: 6
@@ -163,50 +168,6 @@
                         });
                         return false;
                     });
-
-                $.ajax({
-                    type:"GET",
-                    url:"/dictionary/phone/brand",
-                    data:[],
-                    success:function (data) {
-                        $.each(data.data,function(index,item){
-                            $('#phoneBrand').append(new Option(item.brandName,item.phoneBrandID));
-                        })
-                        $("#phoneBrand").val(decodeURI(theRequest.brand));
-                        form.render('select');
-                    },
-                    error: function (data,type, err) {
-                        console.log("ajax错误类型："+type);
-                        console.log(err);
-                    }
-                });
-
-                $.ajax({
-                    type:"GET",
-                    url:"/dictionary/phone/system",
-                    data:[],
-                    success:function (data) {
-                        $.each(data.data,function(index,item){
-                            $('#phoneOperatingSystem').append(new Option(item.typeOfOperatingSystem,item.phoneOperatingSystemID));
-                        })
-                        $("#phoneOperatingSystem").val(decodeURI(theRequest.operatingSystem));
-                        form.render('select');
-                    },
-                    error: function (data,type, err) {
-                        console.log("ajax错误类型："+type);
-                        console.log(err);
-                    }
-                });
-
-                var laydate = layui.laydate;
-
-                //执行一个laydate实例
-                laydate.render({
-                    elem: '#boughtDateTime', //指定元素
-                    done: function(value, date, endDate){
-                        $("#boughtDate").val(value)
-                    }
-                });
             });
     </script>
 </body>

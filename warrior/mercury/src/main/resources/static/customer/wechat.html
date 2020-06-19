@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="_csrf_header" th:content="${_csrf.token}">
+    <meta http-equiv="hg-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="/hg-layui-admin-ui/css/font.css">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/admin/admin.css" media="all">
+    <link rel="stylesheet" href="/hg-layui-admin-ui/lib/Scrollbar/jquery.scrollbar.css">
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/admin/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/Scrollbar/jquery.scrollBar.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/lib/admin/admin.js"></script>
+    <script type="text/javascript" src="/hg-layui-admin-ui/xm-select/dist/xm-select.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.32/angular.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="layui-body-content">
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <ul id="editable">
+                        <li>Оля<strong class="js-remove">✖</strong></li>
+                        <li>Владимир<strong class="js-remove">✖</strong></li>
+                        <li>Алина<strong class="js-remove">✖</strong></li>
+                    </ul>
+
+                    <button id="addUser">Add</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="filter" class="layui-form-label"></label>
+                <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    li strong.js-remove{
+        display:block;
+        float:right;
+    }
+</style>
+<script src="../sortable-js/Sortable.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.2.32/angular.min.js"></script>
+<script>
+    var byId = function (id) { return document.getElementById(id); };
+
+    // Editable list
+    var editableList = Sortable.create(byId('editable'), {
+        animation: 150,
+        filter: '.js-remove',
+        onFilter: function (evt) {
+            evt.item.parentNode.removeChild(evt.item);
+        }
+    });
+
+    byId('addUser').onclick = function () {
+        Ply.dialog('prompt', {
+            title: 'Add',
+            form: { name: 'name' }
+        }).done(function (ui) {
+            var el = document.createElement('li');
+            el.innerHTML = ui.data.name + '<i class="js-remove">✖</i>';
+            editableList.el.appendChild(el);
+        });
+    };
+</script>
+</body>
+
+</html>

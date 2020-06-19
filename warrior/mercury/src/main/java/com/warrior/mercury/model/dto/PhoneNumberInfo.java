@@ -1,7 +1,6 @@
 package com.warrior.mercury.model.dto;
 
 import com.warrior.mercury.model.entity.auto.TPhonenumber;
-import org.springframework.beans.BeanUtils;
 
 /**
  * @author:       Charon
@@ -9,9 +8,33 @@ import org.springframework.beans.BeanUtils;
  */
 public class PhoneNumberInfo extends TPhonenumber {
 
-    public static PhoneNumberInfo convertFromTPhoneNumber(TPhonenumber phoneNumber) {
-        PhoneNumberInfo info = new PhoneNumberInfo();
-        BeanUtils.copyProperties(phoneNumber, info);
-        return info;
+    private Integer phonePhoneNumberWechatID;
+
+    private CommonSimpleDto phone;
+
+    private CommonSimpleDto wechat;
+
+    public Integer getPhonePhoneNumberWechatID() {
+        return phonePhoneNumberWechatID;
+    }
+
+    public void setPhonePhoneNumberWechatID(Integer phonePhoneNumberWechatID) {
+        this.phonePhoneNumberWechatID = phonePhoneNumberWechatID;
+    }
+
+    public CommonSimpleDto getPhone() {
+        return phone;
+    }
+
+    public void setPhone(CommonSimpleDto phone) {
+        this.phone = phone;
+    }
+
+    public CommonSimpleDto getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(CommonSimpleDto wechat) {
+        this.wechat = wechat;
     }
 }

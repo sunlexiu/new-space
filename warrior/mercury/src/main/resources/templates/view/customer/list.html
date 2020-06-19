@@ -63,12 +63,18 @@
         //obj通过行tool修改-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.open('修改手机信息' + row.data.phoneNo, '/phone/basic/edit.html?id=' + row.data.phoneID + '&phoneNo='+
-                row.data.phoneNo + '&boughtDateTime=' + row.data.boughtDateTime
-                + '&brand=' + row.data.brand.phoneBrandID
-                + '&operatingSystem=' + row.data.operatingSystem.phoneOperatingSystemID
-                + '&memorySize=' + row.data.memorySize + '&remark=' + row.data.remark
-                , 600, 500);
+            hg.open('修改用户微信信息, 昵称:' + row.data.alias, '/customer/edit.html?id=' + row.data.weChatCustomerID
+                + '&personID=' + row.data.personID + '&originalWechatID=' + row.data.originalWechatID
+                + '&updatedWechatID=' + row.data.updatedWechatID
+                + '&alias=' + row.data.alias + '&tag=' + row.data.tag
+                + '&weChatAddedDateTime=' + row.data.weChatAddedDateTime
+                + '&recordedDateTime=' + row.data.recordedDateTime
+                + '&recorderID=' + row.data.recorderID + '&weChatCustomerActivitySourceID=' + row.data.weChatCustomerActivitySourceID
+                + '&weChatCustomerAddingSourceID=' + row.data.weChatCustomerAddingSourceID + '&titleID=' + row.data.titleID
+                + '&affiliation=' + row.data.affiliation + '&researchFields=' + row.data.researchFields
+                + '&customerPhoneNumber=' + row.data.customerPhoneNumber + '&commentForCustomer=' + row.data.commentForCustomer
+                + '&weChatCustomerEvaluationID=' + row.data.weChatCustomerEvaluationID + '&remark=' + row.data.remark
+                , 600, 0, true);
         } else {
             hg.msg('请选中一行数据，再操作！');
         }
@@ -78,11 +84,11 @@
         //obj通过行tool删除-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.confirm("删除当前选中的用户，确定要删除吗？", function () {
-                var data = {'id':row.data.phoneID}
+            hg.confirm("删除当前选中的数据，确定要删除吗？", function () {
+                var data = {'id':row.data.weChatCustomerID}
                 $.ajax({
                     type:"Delete",
-                    url:"/phone/basic/delete",
+                    url:"/wechat/customer/delete",
                     dataType:"json",
                     contentType: "application/json;charset=UTF-8",
                     data:JSON.stringify(data),
@@ -101,6 +107,26 @@
                     }
                 });
             });
+        } else {
+            hg.msg('请选中一行数据，再操作！');
+        }
+    }
+
+    function add(obj) {
+        var row = obj ? obj : hg.table.datatable('test', 'getSelected');
+        if (row) {
+            hg.open('运营微信管理', '/customer/wechat.html?id=' + row.data.weChatCustomerID
+                + '&personID=' + row.data.personID + '&originalWechatID=' + row.data.originalWechatID
+                + '&updatedWechatID=' + row.data.updatedWechatID
+                + '&alias=' + row.data.alias + '&tag=' + row.data.tag
+                + '&weChatAddedDateTime=' + row.data.weChatAddedDateTime
+                + '&recordedDateTime=' + row.data.recordedDateTime
+                + '&recorderID=' + row.data.recorderID + '&weChatCustomerActivitySourceID=' + row.data.weChatCustomerActivitySourceID
+                + '&weChatCustomerAddingSourceID=' + row.data.weChatCustomerAddingSourceID + '&titleID=' + row.data.titleID
+                + '&affiliation=' + row.data.affiliation + '&researchFields=' + row.data.researchFields
+                + '&customerPhoneNumber=' + row.data.customerPhoneNumber + '&commentForCustomer=' + row.data.commentForCustomer
+                + '&weChatCustomerEvaluationID=' + row.data.weChatCustomerEvaluationID + '&remark=' + row.data.remark,
+                600, 400);
         } else {
             hg.msg('请选中一行数据，再操作！');
         }
@@ -127,13 +153,13 @@
         }, {
             field: 'originalWechatID',
             width: '5%',
-            title: '原始微信号',
+            title: '原微信号',
             style: 'color: #ff5722;',
             sort: false
         }, {
             field: 'updatedWechatID',
             width: '5%',
-            title: '当前微信号',
+            title: '现微信号',
             style: 'color: #ff5722;',
             sort: false
         }, {
@@ -203,20 +229,27 @@
         }, {
             field: 'customerPhoneNumber',
             width: '5%',
-            title: '用户手机号',
+            title: '客户手机',
             style: 'color: #ff5722;',
             sort: false
         }, {
             field: 'commentForCustomer',
             width: '7%',
-            title: '评价用户',
+            title: '用户评价',
             style: 'color: #ff5722;',
             sort: false
         }, {
             field: 'evaluation',
             width: '5%',
             title: '用户评分',
-            templet: '<div>{{d.evaluation === undefined ? "" : d.evaluation.name}}</div>',
+                templet: '<div>{{d.evaluation === undefined ? "" : d.evaluation.name}}</div>',
+            style: 'color: #ff5722;',
+            sort: false
+        }, {
+            field: 'operationWechat',
+            width: '5%',
+            title: '主营微信',
+            templet: '<div>{{d.operationWechat === undefined ? "" : d.operationWechat.name}}</div>',
             style: 'color: #ff5722;',
             sort: false
         },{
@@ -227,10 +260,12 @@
             sort: true
         }, {
             field: 'right',
-            width: '8%',
+            width: '15%',
             title: '操作',
             templet: function (d) {
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                return ' <a class="layui-btn layui-btn-xs" lay-event="add">运营微信管理</a>'
+                    + '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
+                    ' <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }
         }]
     ];

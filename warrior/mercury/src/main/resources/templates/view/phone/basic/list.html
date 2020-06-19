@@ -73,6 +73,30 @@
             hg.msg('请选中一行数据，再操作！');
         }
     }
+
+    function bind(obj) {
+        //obj通过行tool修改-lay-event
+        var row = obj ? obj : hg.table.datatable('test', 'getSelected');
+        var path = '';
+        if (row.data.phonePhoneNumberWechatID != undefined) {
+            path += '&phonePhoneNumberWechatID=' + row.data.phonePhoneNumberWechatID;
+        }
+
+        if (row.data.phoneNumber != undefined) {
+            path += '&phoneNumberID=' + row.data.phoneNumber.id;
+        }
+
+        if (row.data.wechat != undefined) {
+            path += '&operationWechatID=' + row.data.wechat.id;
+        }
+
+        if (row) {
+            hg.open('修改手机:' + row.data.phoneNo + " 绑定信息", '/phone/basic/bind.html?id=' + row.data.phoneID,
+                600, 0, true);
+        } else {
+            hg.msg('请选中一行数据，再操作！');
+        }
+    }
     //删除
     function del(obj) {
         //obj通过行tool删除-lay-event
@@ -122,19 +146,19 @@
             sort: false
         },{
             field: 'phoneNo',
-            width: '15%',
+            width: '10%',
             title: '手机编号',
             style: 'color: #ff5722;',
             sort: true
         }, {
             field: 'boughtDateTime',
-            width: '15%',
+            width: '10%',
             title: '购买时间',
             style: 'color: #ff5722;',
             sort: true
         },{
             field: 'brand',
-            width: '15%',
+            width: '10%',
             title: '品牌',
             templet: '<div>{{d.brand.brandName}}</div>',
             minWidth: 100,
@@ -142,9 +166,25 @@
             sort: true
         },{
             field: 'operatingSystem',
-            width: '15%',
+            width: '10%',
             title: '操作系统',
             templet: '<div>{{d.operatingSystem.typeOfOperatingSystem}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'phoneNumber',
+            width: '10%',
+            title: '绑定手机号',
+            templet: '<div>{{d.phoneNumber === undefined ? "" : d.phoneNumber.name}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'operatingSystem',
+            width: '10%',
+            title: '绑定微信号',
+            templet: '<div>{{d.wechat === undefined ? "" : d.wechat.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
             sort: true
@@ -167,7 +207,9 @@
             width: '10%',
             title: '操作',
             templet: function (d) {
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                return '<a class="layui-btn layui-btn-xs" lay-event="bind">绑定</a> '
+                    + '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> '
+                    + '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }
         }]
     ];

@@ -2,9 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.warrior.mercury.mapper.ex.TPhonenumberExMapper">
 
+    <resultMap id="pageListResultMap" type="com.warrior.mercury.model.dto.PhoneNumberInfo"
+        extends="com.warrior.mercury.mapper.auto.TPhonenumberMapper.BaseResultMap">
+
+        <result column="PhonePhoneNumberWechatID" property="phonePhoneNumberWechatID"/>
+
+        <association property="phone" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="PhoneID" property="id" />
+            <result column="PhoneNo" property="name"/>
+        </association>
+
+        <association property="wechat" javaType="com.warrior.mercury.model.dto.CommonSimpleDto">
+            <id column="OperationWechatID" property="id" />
+            <result column="WechatNo" property="name"/>
+        </association>
+
+    </resultMap>
+
     <select id="listAllPhoneNumber" resultType="com.warrior.mercury.model.dto.CommonSimpleDto">
         SELECT
             PhoneNumberID id, PhoneNumber name
         FROM t_phonenumber
+    </select>
+
+    <select id="listPhoneNumberInfo" resultMap="pageListResultMap">
+        SELECT
+            number.PhoneNumberID, number.PhoneNumber, number.Location, number.AppliedDateTime, number.Owner,
+            link.PhonePhoneNumberWechatID, link.PhoneID, link.OperationWechatID,
+            phone.PhoneNo, wechat.WechatNo
+        FROM
+            t_phonenumber number
+        LEFT JOIN t_phone_phone_number_wechat link
+        ON number.PhoneNumberID = link.PhoneNumberID
+        LEFT JOIN t_phone phone
+        ON phone.PhoneID = link.PhoneID
+        LEFT JOIN t_operation_wechat wechat
+        ON wechat.OperationWechatID = link.OperationWechatID
     </select>
 </mapper>
