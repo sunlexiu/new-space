@@ -115,18 +115,8 @@
     function add(obj) {
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
         if (row) {
-            hg.open('运营微信管理', '/customer/wechat.html?id=' + row.data.weChatCustomerID
-                + '&personID=' + row.data.personID + '&originalWechatID=' + row.data.originalWechatID
-                + '&updatedWechatID=' + row.data.updatedWechatID
-                + '&alias=' + row.data.alias + '&tag=' + row.data.tag
-                + '&weChatAddedDateTime=' + row.data.weChatAddedDateTime
-                + '&recordedDateTime=' + row.data.recordedDateTime
-                + '&recorderID=' + row.data.recorderID + '&weChatCustomerActivitySourceID=' + row.data.weChatCustomerActivitySourceID
-                + '&weChatCustomerAddingSourceID=' + row.data.weChatCustomerAddingSourceID + '&titleID=' + row.data.titleID
-                + '&affiliation=' + row.data.affiliation + '&researchFields=' + row.data.researchFields
-                + '&customerPhoneNumber=' + row.data.customerPhoneNumber + '&commentForCustomer=' + row.data.commentForCustomer
-                + '&weChatCustomerEvaluationID=' + row.data.weChatCustomerEvaluationID + '&remark=' + row.data.remark,
-                600, 400);
+            hg.open('管理运营微信', '/customer/wechat.html?id=' + row.data.weChatCustomerID,
+                600, 350);
         } else {
             hg.msg('请选中一行数据，再操作！');
         }

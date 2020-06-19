@@ -30,28 +30,57 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
-            <div class="layui-form-item">
-                <div class="layui-input-inline">
-                    <ul id="editable">
-                        <li>Оля<strong class="js-remove">✖</strong></li>
-                        <li>Владимир<strong class="js-remove">✖</strong></li>
-                        <li>Алина<strong class="js-remove">✖</strong></li>
+            <div class="layui-form-item" >
+                <div class="layui-input-inline" style="width: 100%">
+                    <ul id="editable" class="block__list_words">
+                        <li>Оля<div class="js-remove">✖</div></li>
+                        <li>Владимир<div class="js-remove">✖</div></li>
+                        <li>Алина<div class="js-remove">✖</div></li>
                     </ul>
 
-                    <button id="addUser">Add</button>
                 </div>
             </div>
+
             <div class="layui-form-item">
-                <label for="filter" class="layui-form-label"></label>
-                <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">保存</button>
+<!--                <button id="addWechat" class="layui-btn" lay-filter="add" lay-submit="" >新增运营微信</button>-->
+                <div class="layui-input-inline" style="padding: 0 60px;">
+                    <select id="operationWechatID" name="operationWechatID"
+                            lay-verify="operationWechatID" lay-filter="operationWechatID">
+                        <option value>新增运营微信</option>
+                    </select>
+                </div>
+                <button id="submit" class="layui-btn" lay-filter="add" lay-submit="" style="padding: 0 70px;">保存</button>
             </div>
         </form>
     </div>
 </div>
 <style>
-    li strong.js-remove{
-        display:block;
-        float:right;
+    div.js-remove {
+        color:#F00;
+        cursor:pointer;
+    }
+
+    li div {
+        float:right
+    }
+
+    .block__list_words li {
+        background-color: #fff;
+        padding: 10px 40px;
+        cursor: move;
+        position: relative;
+        color:#000;
+        font-size:15px;
+    }
+
+    ul#editable {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
     }
 </style>
 <script src="../sortable-js/Sortable.js"></script>
@@ -68,16 +97,101 @@
         }
     });
 
-    byId('addUser').onclick = function () {
-        Ply.dialog('prompt', {
-            title: 'Add',
-            form: { name: 'name' }
-        }).done(function (ui) {
-            var el = document.createElement('li');
-            el.innerHTML = ui.data.name + '<i class="js-remove">✖</i>';
-            editableList.el.appendChild(el);
-        });
-    };
+    layui.use(['form', 'layer', 'jquery'],
+        function () {
+            $ = layui.jquery;
+            var form = layui.form,
+                layer = layui.layer;
+
+            $.ajax({
+                type:"GET",
+                url:"/dictionary/wechat/operation",
+                data:[],
+                success:function (data) {
+                    $.each(data.data,function(index,item){
+                        $('#operationWechatID').append(
+                            new Option(item.name, item.id));
+                    });
+                    form.render('select');
+                },
+                error: function (data,type, err) {
+                    console.log("ajax错误类型："+type);
+                    console.log(err);
+                }
+            });
+
+            form.on('select(operationWechatID)', function(data){
+                if (!data.value) {
+                    return;
+                }
+
+                // 若是值存在, 将其调到第一个
+                var flag = true;
+                $('#editable li').each(function(){
+                    var self=$(this);
+                    if (self.val() == data.value) {
+                        $('#editable').prepend(self);
+                        return (flag = false);
+                    }
+                });
+                if (!flag) return ;
+
+                $('#editable').prepend(newLi(data));
+                // 若是li个数大于3, 去掉最后一个li
+                if ($('#editable li').length > 3) {
+                    $('#editable li').last().remove();
+                }
+            });
+
+            function newLi(data) {
+                var li = document.createElement('li');
+                var text = $("#operationWechatID").find("option:selected").text();
+                li.innerHTML = text + '<div class="js-remove">✖</div>';
+                li.setAttribute('value', data.value);
+                return li;
+            }
+
+            //监听提交
+            form.on('submit(add)',
+                function (data) {
+                    //发异步，把数据提交给php
+                    var user = data.field;
+                    $.ajax({
+                        type:"POST",
+                        url:"/wechat/customer/operator",
+                        contentType:'application/json',
+                        data:JSON.stringify(user),
+                        success:function (data) {
+                            layer.alert(data.message, {
+                                    icon: 6
+                                },
+                                function () {
+                                    //关闭当前frame
+                                    hg.close();
+
+                                    // 可以对父窗口进行刷新
+                                    hg.base_reload();
+                                });
+                        },
+                        error: function (data,type, err) {
+                            console.log("ajax错误类型："+type);
+                            let obj = JSON.parse(data.responseText)
+                            layer.alert(obj.message, {
+                                    icon: 6
+                                },
+                                function () {
+                                    //关闭当前frame
+                                    hg.close();
+
+                                    // 可以对父窗口进行刷新
+                                    hg.base_reload();
+                                });
+                        }
+                    });
+                    return false;
+                });
+
+    });
 </script>
 </body>
 

@@ -77,19 +77,6 @@
     function bind(obj) {
         //obj通过行tool修改-lay-event
         var row = obj ? obj : hg.table.datatable('test', 'getSelected');
-        var path = '';
-        if (row.data.phonePhoneNumberWechatID != undefined) {
-            path += '&phonePhoneNumberWechatID=' + row.data.phonePhoneNumberWechatID;
-        }
-
-        if (row.data.phoneNumber != undefined) {
-            path += '&phoneNumberID=' + row.data.phoneNumber.id;
-        }
-
-        if (row.data.wechat != undefined) {
-            path += '&operationWechatID=' + row.data.wechat.id;
-        }
-
         if (row) {
             hg.open('修改手机:' + row.data.phoneNo + " 绑定信息", '/phone/basic/bind.html?id=' + row.data.phoneID,
                 600, 0, true);

@@ -30,6 +30,15 @@
         <div class="layui-row">
             <form class="layui-form">
                 <div class="layui-form-item">
+                    <label for="phoneID" class="layui-form-label">
+                        手机</label>
+                    <div class="layui-input-inline">
+                        <select id="phoneID" name="phoneID" lay-verify="phoneID">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
                     <label for="phoneNumberID" class="layui-form-label">
                         手机号码</label>
                     <div class="layui-input-inline">
@@ -49,10 +58,8 @@
                     </div>
                 </div>
 
-                <input type="hidden" id="phonePhoneNumberWechatID" name="phonePhoneNumberWechatID"/>
-                <input type="hidden" id="phoneID" name="phoneID"/>
                 <div class="layui-form-item">
-                    <label for="phonePhoneNumberWechatID" class="layui-form-label"></label>
+                    <label for="operationWechatID" class="layui-form-label"></label>
                     <button id="submit" class="layui-btn" lay-filter="add" lay-submit="">绑定</button>
                 </div>
             </form>
@@ -65,16 +72,17 @@
                 var form = layui.form,
                     layer = layui.layer;
 
-                //从另一个html页面传来的值，在这里获取
-                // var url = location.search; //获取url中"?"符后的字串 ('?endId=.....')
-                // var theRequest = new Object();
-                // if ( url.indexOf( "?" ) != -1 ) {
-                //     var str = url.substr( 1 ); //substr()方法返回从参数值开始到结束的字符串；
-                //     var strs = str.split( "&" );
-                //     for ( var i = 0; i < strs.length; i++ ) {
-                //         theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
-                //     }
-                // }
+                // 从另一个html页面传来的值，在这里获取
+                var url = location.search; //获取url中"?"符后的字串 ('?endId=.....')
+                var theRequest = new Object();
+                if ( url.indexOf( "?" ) != -1 ) {
+                    var str = url.substr( 1 ); //substr()方法返回从参数值开始到结束的字符串；
+                    var strs = str.split( "&" );
+                    for ( var i = 0; i < strs.length; i++ ) {
+                        theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
+                    }
+                }
+
 
                 $.ajax({
                     type:"GET",
@@ -84,7 +92,6 @@
                         $.each(data.data,function(index,item){
                             $('#phoneNumberID').append(new Option(item.name,item.id));
                         });
-                        // $("#phoneNumberID").val(decodeURI(theRequest.phoneNumberID));
                         form.render('select');
                     },
                     error: function (data,type, err) {
@@ -102,6 +109,26 @@
                             $('#operationWechatID').append(new Option(item.name,item.id));
                         });
                         // $("#operationWechatID").val(decodeURI(theRequest.operationWechatID));
+                        form.render('select');
+                    },
+                    error: function (data,type, err) {
+                        console.log("ajax错误类型："+type);
+                        console.log(err);
+                    }
+                });
+
+                $.ajax({
+                    type:"GET",
+                    url:"/dictionary/phone",
+                    data:[],
+                    success:function (data) {
+                        $.each(data.data,function(index,item){
+                            $('#phoneID').append(new Option(item.name,item.id));
+                        });
+
+                        if (theRequest.phoneID) {
+                            $("#phoneID").val(decodeURI(theRequest.phoneID));
+                        }
                         form.render('select');
                     },
                     error: function (data,type, err) {

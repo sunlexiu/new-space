@@ -59,4 +59,10 @@ public class WechatCustomerCtrl {
         wechatCustomerService.delete(body.getId());
     }
 
+    @PostMapping("/operator")
+    @ResponseBody
+    public void adjustOperationWechat() {
+
+    }
+
 }
