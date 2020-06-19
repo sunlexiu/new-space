@@ -63,4 +63,19 @@
         ON link.OperationWechatID = wechat.OperationWechatID
     </select>
 
+
+    <select id="listWechatOperatorByCustomerId"  parameterType="integer"
+            resultType="com.warrior.mercury.model.dto.CommonSimpleDto">
+        SELECT
+            wechat.OperationWechatID id, wechat.WechatNo name
+        FROM
+            t_we_chat_customer customer
+        JOIN t_operation_wechat_customer link
+        ON link.WeChatCustomerID = customer.WeChatCustomerID
+        JOIN t_operation_wechat wechat
+        ON link.OperationWechatID = wechat.OperationWechatID
+        <where>
+            customer.WeChatCustomerID = #{_parameter}
+        </where>
+    </select>
 </mapper>

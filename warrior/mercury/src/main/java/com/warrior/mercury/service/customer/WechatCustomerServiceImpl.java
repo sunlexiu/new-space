@@ -7,6 +7,7 @@ import com.warrior.mercury.mapper.auto.TWechatCustomerActivitySourceMapper;
 import com.warrior.mercury.mapper.auto.TWechatCustomerAddingSourceMapper;
 import com.warrior.mercury.mapper.ex.TPersonExMapper;
 import com.warrior.mercury.mapper.ex.TWeChatCustomerExMapper;
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TTitle;
@@ -72,6 +73,11 @@ public class WechatCustomerServiceImpl implements IWechatCustomerService {
     public void delete(Integer id) {
         checkDataExist(id);
         weChatCustomerExMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<CommonSimpleDto> listWechatOperatorByCustomerId(Integer customerId) {
+        return weChatCustomerExMapper.listWechatOperatorByCustomerId(customerId);
     }
 
     private void checkDataExist(Integer id) {

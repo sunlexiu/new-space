@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.customer;
 
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.param.customer.WechatCustomerAlterParam;
 import com.warrior.mercury.model.param.customer.WechatCustomerQueryPage;
@@ -43,5 +44,14 @@ public interface IWechatCustomerService {
      * @param id
      */
     void delete(Integer id);
+
+
+    /**
+     * 根据顾客id查询所有的运营微信
+     *
+     * @param customerId
+     * @return
+     */
+    List<CommonSimpleDto> listWechatOperatorByCustomerId(Integer customerId);
 
 }

@@ -33,9 +33,6 @@
             <div class="layui-form-item" >
                 <div class="layui-input-inline" style="width: 100%">
                     <ul id="editable" class="block__list_words">
-                        <li>Оля<div class="js-remove">✖</div></li>
-                        <li>Владимир<div class="js-remove">✖</div></li>
-                        <li>Алина<div class="js-remove">✖</div></li>
                     </ul>
 
                 </div>
@@ -97,6 +94,37 @@
         }
     });
 
+    var url = location.search; //获取url中"?"符后的字串 ('?endId=.....')
+    var theRequest = new Object();
+    if ( url.indexOf( "?" ) != -1 ) {
+        var str = url.substr( 1 ); //substr()方法返回从参数值开始到结束的字符串；
+        var strs = str.split( "&" );
+        for ( var i = 0; i < strs.length; i++ ) {
+            theRequest[ strs[ i ].split( "=" )[ 0 ] ] = ( strs[ i ].split( "=" )[ 1 ] );
+        }
+    }
+
+    var id = decodeURI(theRequest.id);
+    if (id) {
+        $.ajax({
+            type:"GET",
+            url:"/wechat/customer/operator?id=" + id,
+            data:[],
+            success:function (data) {
+                $.each(data.data,function(index,item){
+                    var li = document.createElement('li');
+                    li.innerHTML = item.name + '<div class="js-remove">✖</div>';
+                    li.setAttribute('value', item.id);
+                    $('#editable').append(li);
+                });
+            },
+            error: function (data,type, err) {
+                console.log("ajax错误类型："+type);
+                console.log(err);
+            }
+        });
+    }
+
     layui.use(['form', 'layer', 'jquery'],
         function () {
             $ = layui.jquery;
@@ -156,6 +184,11 @@
                 function (data) {
                     //发异步，把数据提交给php
                     var user = data.field;
+                    var array = [];
+                    $("#editable li").each(function(i,n){
+                        array.push($(this).val());
+                    });
+                    console.info(array)
                     $.ajax({
                         type:"POST",
                         url:"/wechat/customer/operator",

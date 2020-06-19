@@ -1,5 +1,6 @@
 package com.warrior.mercury.ctrl.customer;
 
+import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.param.DeleteBody;
 import com.warrior.mercury.model.param.customer.WechatCustomerAlterParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -63,6 +65,12 @@ public class WechatCustomerCtrl {
     @ResponseBody
     public void adjustOperationWechat() {
 
+    }
+
+    @GetMapping("/operator")
+    @ResponseBody
+    public List<CommonSimpleDto> listOperationWechat(@RequestParam("id") Integer id) {
+        return wechatCustomerService.listWechatOperatorByCustomerId(id);
     }
 
 }
