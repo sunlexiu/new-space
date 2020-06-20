@@ -113,6 +113,30 @@
         table && table.reload(data);
     });
 
+
+    function bind(obj) {
+        //obj通过行tool修改-lay-event
+        var row = obj ? obj : hg.table.datatable('test', 'getSelected');
+        var path = '';
+        if (row.data.phonePhoneNumberWechatID != undefined) {
+            path += '&phonePhoneNumberWechatID=' + row.data.phonePhoneNumberWechatID;
+        }
+
+        if (row.data.phone != undefined) {
+            path += '&phoneID=' + row.data.phone.id;
+        }
+
+        if (row.data.phoneNumber != undefined) {
+            path += '&phoneNumberID=' + row.data.phoneNumber.id;
+        }
+        if (row) {
+            hg.open('修改手机号码绑定信息:' + row.data.phoneNumber, '/phone/number/info/bind.html?id=' + row.data.operationWechatID
+                + path, 600, 300);
+        } else {
+            hg.msg('请选中一行数据，再操作！');
+        }
+    }
+
     var tableCols = [
         [{
             field: 'operationWechatID',
@@ -136,7 +160,7 @@
             sort: true
         },{
             field: 'nickname',
-            width: '15%',
+            width: '10%',
             title: '微信昵称',
             style: 'color: #ff5722;',
             sort: true
@@ -148,19 +172,35 @@
             sort: true
         },{
             field: 'appliedLocation',
-            width: '15%',
+            width: '10%',
             title: '申请地点',
             style: 'color: #ff5722;',
             sort: true
         },{
             field: 'applicant',
-            width: '10%',
+            width: '5%',
             title: '申请人',
             style: 'color: #ff5722;',
             sort: true
         },{
+            field: 'phone',
+            width: '10%',
+            title: '绑定手机',
+            templet: '<div>{{d.phone === undefined ? "" : d.phone.name}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
+            field: 'phoneNumber',
+            width: '10%',
+            title: '绑定手机号',
+            templet: '<div>{{d.phoneNumber === undefined ? "" : d.phoneNumber.name}}</div>',
+            minWidth: 100,
+            style: 'color: #ff5722;',
+            sort: true
+        },{
             field: 'remark',
-            width: '15%',
+            width: '10%',
             title: '备注',
             style: 'color: #ff5722;',
             sort: true
@@ -169,7 +209,9 @@
             width: '10%',
             title: '操作',
             templet: function (d) {
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
+                return '<a class="layui-btn layui-btn-xs" lay-event="bind">绑定</a>'+
+                        '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
+                    ' <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'
             }
         }]
     ];

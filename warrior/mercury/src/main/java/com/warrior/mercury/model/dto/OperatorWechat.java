@@ -1,9 +1,6 @@
 package com.warrior.mercury.model.dto;
 
 import com.warrior.mercury.model.entity.auto.TOperationWechat;
-import org.springframework.beans.BeanUtils;
-
-import java.util.Objects;
 
 /**
  * @author:       Charon
@@ -11,12 +8,33 @@ import java.util.Objects;
  */
 public class OperatorWechat extends TOperationWechat {
 
-    public static OperatorWechat convertFromDBType(TOperationWechat chat) {
-        if (Objects.isNull(chat)) {
-            return null;
-        }
-        OperatorWechat c = new OperatorWechat();
-        BeanUtils.copyProperties(chat, c);
-        return c;
+    private Integer phonePhoneNumberWechatID;
+
+    private CommonSimpleDto phone;
+
+    private CommonSimpleDto phoneNumber;
+
+    public Integer getPhonePhoneNumberWechatID() {
+        return phonePhoneNumberWechatID;
+    }
+
+    public void setPhonePhoneNumberWechatID(Integer phonePhoneNumberWechatID) {
+        this.phonePhoneNumberWechatID = phonePhoneNumberWechatID;
+    }
+
+    public CommonSimpleDto getPhone() {
+        return phone;
+    }
+
+    public void setPhone(CommonSimpleDto phone) {
+        this.phone = phone;
+    }
+
+    public CommonSimpleDto getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(CommonSimpleDto phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -3,6 +3,7 @@ package com.warrior.mercury.ctrl.customer;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.param.DeleteBody;
+import com.warrior.mercury.model.param.customer.OperatorCustomer;
 import com.warrior.mercury.model.param.customer.WechatCustomerAlterParam;
 import com.warrior.mercury.model.param.customer.WechatCustomerQueryPage;
 import com.warrior.mercury.service.customer.IWechatCustomerService;
@@ -34,7 +35,6 @@ public class WechatCustomerCtrl {
         return "/view/customer/list";
     }
 
-
     @GetMapping("/list")
     @ResponseBody
     public List<WechatCustomer> pageList(WechatCustomerQueryPage page) {
@@ -63,8 +63,8 @@ public class WechatCustomerCtrl {
 
     @PostMapping("/operator")
     @ResponseBody
-    public void adjustOperationWechat() {
-
+    public void adjustOperationWechat(@RequestBody OperatorCustomer operatorCustomer) {
+        wechatCustomerService.adjustOperationWechat(operatorCustomer);
     }
 
     @GetMapping("/operator")

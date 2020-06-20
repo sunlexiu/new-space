@@ -2,6 +2,7 @@ package com.warrior.mercury.service.customer;
 
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
+import com.warrior.mercury.model.param.customer.OperatorCustomer;
 import com.warrior.mercury.model.param.customer.WechatCustomerAlterParam;
 import com.warrior.mercury.model.param.customer.WechatCustomerQueryPage;
 
@@ -53,5 +54,13 @@ public interface IWechatCustomerService {
      * @return
      */
     List<CommonSimpleDto> listWechatOperatorByCustomerId(Integer customerId);
+
+
+    /**
+     * 调整顾客运营微信
+     *
+     * @param operatorCustomer
+     */
+    void adjustOperationWechat(OperatorCustomer operatorCustomer);
 
 }

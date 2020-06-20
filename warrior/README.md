@@ -17,3 +17,7 @@ sql执行时间 拦截器
 使用人 需要使用person的表格,
 
 添加mybatis分页插件
+
+统一排序, 分页
+
+数据库的索引字段, only_full_group_by

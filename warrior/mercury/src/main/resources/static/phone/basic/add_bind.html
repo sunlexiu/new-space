@@ -161,38 +161,42 @@
                     function (data) {
                         //发异步，把数据提交给php
                         var user = data.field;
-                        $.ajax({
-                            type:"POST",
-                            url:"/bind/phone/wechat/number",
-                            contentType:'application/json',
-                            data:JSON.stringify(user),
-                            success:function (data) {
-                                layer.alert(data.message, {
-                                        icon: 6
-                                    },
-                                    function () {
-                                        //关闭当前frame
-                                        hg.close();
+                        if (!user.phoneNumberID && !user.operationWechatID) {
+                            layer.alert("请选择绑定的手机号或者微信号!", {icon: 0});
+                        } else {
+                            $.ajax({
+                                type:"POST",
+                                url:"/bind/phone/wechat/number",
+                                contentType:'application/json',
+                                data:JSON.stringify(user),
+                                success:function (data) {
+                                    layer.alert(data.message, {
+                                            icon: 6
+                                        },
+                                        function () {
+                                            //关闭当前frame
+                                            hg.close();
 
-                                        // 可以对父窗口进行刷新
-                                        hg.base_reload();
-                                    });
-                            },
-                            error: function (data,type, err) {
-                                console.log("ajax错误类型："+type);
-                                let obj = JSON.parse(data.responseText)
-                                layer.alert(obj.message, {
-                                    icon: 6
+                                            // 可以对父窗口进行刷新
+                                            hg.base_reload();
+                                        });
                                 },
-                                function () {
-                                    //关闭当前frame
-                                    hg.close();
+                                error: function (data,type, err) {
+                                    console.log("ajax错误类型："+type);
+                                    let obj = JSON.parse(data.responseText)
+                                    layer.alert(obj.message, {
+                                            icon: 6
+                                        },
+                                        function () {
+                                            //关闭当前frame
+                                            hg.close();
 
-                                    // 可以对父窗口进行刷新
-                                    hg.base_reload();
-                                });
-                            }
-                        });
+                                            // 可以对父窗口进行刷新
+                                            hg.base_reload();
+                                        });
+                                }
+                            });
+                        }
                         return false;
                     });
             });

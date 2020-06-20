@@ -5,24 +5,32 @@ import com.warrior.mercury.mapper.auto.TTitleMapper;
 import com.warrior.mercury.mapper.auto.TWeChatCustomerEvaluationMapper;
 import com.warrior.mercury.mapper.auto.TWechatCustomerActivitySourceMapper;
 import com.warrior.mercury.mapper.auto.TWechatCustomerAddingSourceMapper;
+import com.warrior.mercury.mapper.ex.TOperationWechatCustomerExMapper;
 import com.warrior.mercury.mapper.ex.TPersonExMapper;
 import com.warrior.mercury.mapper.ex.TWeChatCustomerExMapper;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
+import com.warrior.mercury.model.entity.auto.TOperationWechatCustomer;
+import com.warrior.mercury.model.entity.auto.TOperationWechatCustomerExample;
 import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TTitle;
 import com.warrior.mercury.model.entity.auto.TWeChatCustomer;
 import com.warrior.mercury.model.entity.auto.TWeChatCustomerEvaluation;
 import com.warrior.mercury.model.entity.auto.TWechatCustomerActivitySource;
 import com.warrior.mercury.model.entity.auto.TWechatCustomerAddingSource;
+import com.warrior.mercury.model.param.customer.OperatorCustomer;
 import com.warrior.mercury.model.param.customer.WechatCustomerAlterParam;
 import com.warrior.mercury.model.param.customer.WechatCustomerQueryPage;
 import com.warrior.mercury.util.DateTimeFormatUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.warrior.mercury.common.exception.BusinessCode.DATA_NOT_EXIST;
 
@@ -51,6 +59,9 @@ public class WechatCustomerServiceImpl implements IWechatCustomerService {
     @Resource
     private TWeChatCustomerEvaluationMapper weChatCustomerEvaluationMapper;
 
+    @Resource
+    private TOperationWechatCustomerExMapper operationWechatCustomerMapper;
+
     @Override
     public List<WechatCustomer> pageList(WechatCustomerQueryPage page) {
         return weChatCustomerExMapper.pageList(page);
@@ -78,6 +89,17 @@ public class WechatCustomerServiceImpl implements IWechatCustomerService {
     @Override
     public List<CommonSimpleDto> listWechatOperatorByCustomerId(Integer customerId) {
         return weChatCustomerExMapper.listWechatOperatorByCustomerId(customerId);
+    }
+
+    @Override
+    public void adjustOperationWechat(OperatorCustomer operatorCustomer) {
+        TOperationWechatCustomerExample example = new TOperationWechatCustomerExample();
+        example.createCriteria().andWeChatCustomerIDEqualTo(operatorCustomer.getWeChatCustomerID());
+        operationWechatCustomerMapper.deleteByExample(example);
+        List<TOperationWechatCustomer> linkList = constructLinkList(operatorCustomer);
+        if (!CollectionUtils.isEmpty(linkList)) {
+            operationWechatCustomerMapper.insertBatch(linkList);
+        }
     }
 
     private void checkDataExist(Integer id) {
@@ -117,5 +139,18 @@ public class WechatCustomerServiceImpl implements IWechatCustomerService {
         }
     }
 
+    private List<TOperationWechatCustomer> constructLinkList(OperatorCustomer operatorCustomer) {
+        List<Integer> list = operatorCustomer.getOperatorWechatList();
+        if (Objects.isNull(list)) {
+            return Collections.emptyList();
+        }
 
+        return IntStream.range(0, list.size()).mapToObj(v -> {
+            TOperationWechatCustomer customer = new TOperationWechatCustomer();
+            customer.setOperationWechatID(list.get(v));
+            customer.setWeChatCustomerID(operatorCustomer.getWeChatCustomerID());
+            customer.setOrderID(Integer.valueOf(v).shortValue());
+            return customer;
+        }).collect(Collectors.toList());
+    }
 }

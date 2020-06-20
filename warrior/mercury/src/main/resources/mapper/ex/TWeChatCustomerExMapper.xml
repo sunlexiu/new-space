@@ -61,6 +61,8 @@
         ON customer.WeChatCustomerID = link.WeChatCustomerID
         LEFT JOIN t_operation_wechat wechat
         ON link.OperationWechatID = wechat.OperationWechatID
+        GROUP BY customer.`WeChatCustomerID`
+        ORDER BY customer.`RecordedDateTime`
     </select>
 
 
@@ -77,5 +79,6 @@
         <where>
             customer.WeChatCustomerID = #{_parameter}
         </where>
+        ORDER BY OrderID
     </select>
 </mapper>

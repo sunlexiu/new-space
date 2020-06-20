@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author:       Charon
@@ -27,9 +26,7 @@ public class OperatorWechatServiceImpl implements IOperatorWechatService {
 
     @Override
     public List<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page) {
-        TOperationWechatExample example = new TOperationWechatExample();
-        return operationWechatMapper.selectByExample(example).stream()
-                .map(OperatorWechat::convertFromDBType).collect(Collectors.toList());
+        return operationWechatMapper.pageList(page);
     }
 
     @Override

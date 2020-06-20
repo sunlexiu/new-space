@@ -34,14 +34,13 @@
                 <div class="layui-input-inline" style="width: 100%">
                     <ul id="editable" class="block__list_words">
                     </ul>
-
                 </div>
             </div>
 
+            <input type="hidden" id="weChatCustomerID" name="weChatCustomerID"/>
             <div class="layui-form-item">
-<!--                <button id="addWechat" class="layui-btn" lay-filter="add" lay-submit="" >新增运营微信</button>-->
                 <div class="layui-input-inline" style="padding: 0 60px;">
-                    <select id="operationWechatID" name="operationWechatID"
+                    <select id="operationWechatID" name=""
                             lay-verify="operationWechatID" lay-filter="operationWechatID">
                         <option value>新增运营微信</option>
                     </select>
@@ -55,6 +54,8 @@
     div.js-remove {
         color:#F00;
         cursor:pointer;
+        font-weight: bold;
+        font-size: 20px;
     }
 
     li div {
@@ -106,6 +107,7 @@
 
     var id = decodeURI(theRequest.id);
     if (id) {
+        $("#weChatCustomerID").val(id);
         $.ajax({
             type:"GET",
             url:"/wechat/customer/operator?id=" + id,
@@ -188,7 +190,8 @@
                     $("#editable li").each(function(i,n){
                         array.push($(this).val());
                     });
-                    console.info(array)
+                    user.operatorWechatList = array;
+
                     $.ajax({
                         type:"POST",
                         url:"/wechat/customer/operator",

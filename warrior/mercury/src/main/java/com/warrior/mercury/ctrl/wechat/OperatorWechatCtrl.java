@@ -38,13 +38,11 @@ public class OperatorWechatCtrl {
         return operatorWechatService.pageListOperateWechat(page);
     }
 
-
     @PostMapping("/add")
     @ResponseBody
     public void addPhone(@RequestBody OperatorWechatAlterParam param) {
         operatorWechatService.addOperateWechat(param);
     }
-
 
     @PostMapping("/update")
     @ResponseBody
