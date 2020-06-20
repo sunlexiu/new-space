@@ -10,15 +10,26 @@ public class BusinessException extends RuntimeException {
 
     private String msg;
 
+    private String description;
+
     public BusinessException(int code, String msg) {
+        this(code, msg, null);
+    }
+
+    public BusinessException(int code, String msg, String description) {
         this.code = code;
         this.msg = msg;
+        this.description = description;
     }
 
     public BusinessException(BusinessCode businessCode) {
-        this.code = businessCode.getCode();
-        this.msg = businessCode.getMsg();
+        this(businessCode.getCode(), businessCode.getMsg());
     }
+
+    public BusinessException(BusinessCode businessCode, String description) {
+        this(businessCode.getCode(), businessCode.getMsg(), description);
+    }
+
 
     public int getCode() {
         return code;
@@ -34,5 +45,13 @@ public class BusinessException extends RuntimeException {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

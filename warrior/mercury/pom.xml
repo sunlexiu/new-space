@@ -75,6 +75,18 @@
             <artifactId>mybatis</artifactId>
         </dependency>
 
+        <!-- mybatis-page -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- mysql driver -->
         <dependency>
             <groupId>mysql</groupId>

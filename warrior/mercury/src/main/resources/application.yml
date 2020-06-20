@@ -49,6 +49,7 @@ spring:
       #设置重启的目录
       additional-paths: src/main/resources
 
+#mybatis
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -56,7 +57,21 @@ mybatis:
     mapUnderscoreToCamelCase: true
   mapperLocations:
     - "classpath*:mapper/**/*.xml"
+  type-aliases-package: tk.mybatis.springboot.model
 
+
+#mapper:
+#  mappers:
+#    - tk.mybatis.springboot.util.MyMapper
+#  not-empty: false
+#  identity: MYSQL
+
+#mybatis-page
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 
 
 

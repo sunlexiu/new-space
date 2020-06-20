@@ -10,4 +10,6 @@ public class ConstantSymbol {
 
     public static final String MULTI_STAR = "**";
 
+    public static final String EMPTY_SPACE = " ";
+
 }
