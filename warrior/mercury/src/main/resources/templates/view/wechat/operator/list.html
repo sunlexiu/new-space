@@ -130,7 +130,7 @@
             path += '&phoneNumberID=' + row.data.phoneNumber.id;
         }
         if (row) {
-            hg.open('修改手机号码绑定信息:' + row.data.phoneNumber, '/phone/number/info/bind.html?id=' + row.data.operationWechatID
+            hg.open('修改手机号码绑定信息:' + row.data.wechatNo, '/wechat/operator/bind.html?id=' + row.data.operationWechatID
                 + path, 600, 300);
         } else {
             hg.msg('请选中一行数据，再操作！');
