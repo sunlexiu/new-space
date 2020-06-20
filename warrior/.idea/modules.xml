@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mercury/mercury.iml" filepath="$PROJECT_DIR$/mercury/mercury.iml" />
       <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../sportswork-master/sportswork.iml" filepath="$PROJECT_DIR$/../../../sportswork-master/sportswork.iml" />
     </modules>
   </component>
 </project>

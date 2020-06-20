@@ -125,12 +125,13 @@
     });
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort='loginName';
         table && table.reload(data);
     });
 
     var tableCols = [
         [{
-            field: 'id',
+            field: 'signUpID',
             hide: true,
             width: '0',
             title: 'id',
@@ -138,12 +139,12 @@
             style: 'color: #ff5722;',
             sort: false
         },{
-            field: 'name',
+            field: 'loginName',
             width: '15%',
             title: '账号',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'disabled',
             width: '10%',
@@ -171,7 +172,8 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort : 'loginName'}, tableCols, toolbar, true,
+        'full-210', ['filter', 'print', 'exports'], true);
 
 </script>
 

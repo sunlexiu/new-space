@@ -1,5 +1,7 @@
 package com.warrior.mercury.common;
 
+import com.github.pagehelper.Page;
+
 import java.util.List;
 
 /**
@@ -8,32 +10,29 @@ import java.util.List;
  */
 public class ResponsePage<T> {
 
-    private List<T> rows;
-    private long total;
+    private List<T> data;
+    private long count;
     private int page;
     private int size;
 
-    private ResponsePage(List<T> pages, int page, int size){
-        this.rows = pages;
-        this.total = pages.size();
+    private ResponsePage(List<T> pageList, long totalCount, int page, int pageSize){
+        this.data = pageList;
         this.page = page;
-        this.size = size;
+        this.size = pageSize;
+        this.count = totalCount;
     }
 
-    public static <T> ResponsePage<T> newPage(List<T> pages) {
-        return newPage(pages, 0, 10);
+
+    public static <T> ResponsePage newPage(Page<T> page) {
+        return new ResponsePage(page.getResult(), page.getTotal(), page.getPageNum(), page.getPageSize());
     }
 
-    public static <T> ResponsePage<T> newPage(List<T> pages, int page, int size) {
-        return new ResponsePage<>(pages, page, size);
+    public List<T> getData() {
+        return data;
     }
 
-    public List<T> getRows() {
-        return rows;
-    }
-
-    public long getTotal() {
-        return total;
+    public long getCount() {
+        return count;
     }
 
     public int getPage() {

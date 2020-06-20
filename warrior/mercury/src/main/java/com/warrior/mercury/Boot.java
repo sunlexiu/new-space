@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create:       2020/6/1 20:55
  */
 @SpringBootApplication
-@MapperScan("com.warrior.mercury.mapper")
+@MapperScan({"com.warrior.mercury.mapper"})
 public class Boot {
 
     public static void main(String[] args) {

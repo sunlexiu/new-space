@@ -1,13 +1,13 @@
 package com.warrior.mercury.ctrl.user;
 
 import com.alibaba.fastjson.JSONObject;
+import com.warrior.mercury.common.ResponsePage;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.ctrl.IndexCtrl;
 import com.warrior.mercury.model.dto.ManageUser;
-import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.param.DeleteBody;
-import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 import com.warrior.mercury.model.param.user.ManagerUserAddParam;
+import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 import com.warrior.mercury.model.param.user.ManagerUserUpdateParam;
 import com.warrior.mercury.service.user.IUserService;
 import org.slf4j.Logger;
@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author:       Charon
@@ -48,10 +46,8 @@ public class UserCtrl {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<ManageUser> listUser(ManagerUserQueryPage page) {
-        List<TSignup> list = userService.pageListSignUp(page);
-        return list.stream().map(ManageUser::convertFromSignUpUser)
-                .collect(Collectors.toList());
+    public ResponsePage<ManageUser> listUser(ManagerUserQueryPage page) {
+        return ResponsePage.newPage(userService.pageListSignUp(page));
     }
 
     @RequestMapping("/add")

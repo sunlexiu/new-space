@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.user;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.ex.TPersonExMapper;
 import com.warrior.mercury.mapper.ex.TSignupExMapper;
@@ -7,8 +8,6 @@ import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.entity.auto.TSignupExample;
 import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
-import com.warrior.mercury.util.SqlExecuteUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,18 +28,8 @@ public class UserServiceImpl implements IUserService {
     private TPersonExMapper personMapper;
 
     @Override
-    public List<TSignup> pageListSignUp(ManagerUserQueryPage page) {
-        TSignupExample example = new TSignupExample();
-        TSignupExample.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotBlank(page.getUsername())) {
-            criteria.andLoginNameLike(SqlExecuteUtil.like(page.getUsername()));
-        }
-
-        if (!Objects.isNull(page.getDisabled())) {
-            criteria.andDisabledEqualTo(page.getDisabled().byteValue());
-        }
-
-        return signUpExMapper.selectByExample(example);
+    public Page<TSignup> pageListSignUp(ManagerUserQueryPage page) {
+        return signUpExMapper.pageListSignUp(page);
     }
 
     @Override

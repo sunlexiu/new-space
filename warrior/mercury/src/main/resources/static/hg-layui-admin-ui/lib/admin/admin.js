@@ -684,19 +684,20 @@
           defaultToolbar: _defaultToolbar, //打印 导出
           data: _data,
           parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
-            if (typeof (res.total) === 'number' && typeof (res.rows) === 'object') {
+            var response = res.data;
+            if (typeof (response.count) === 'number' && typeof (response.data) === 'object') {
               return {
                 "code": 0, //解析接口状态
                 "msg": '', //解析提示文本
-                "count": res.total, //解析数据长度
-                "data": res.rows //解析数据列表
+                "count": response.count, //解析数据长度
+                "data": response.data //解析数据列表
               };
             }
           },
-          // request: {
-          //   pageName: 'page', //默认：page
-          //   limitName: 'rows' //默认：limit
-          // },
+          request: {
+            pageName: 'page', //默认：page
+            limitName: 'size' //默认：limit
+          },
           totalRow: _totalRow //启用合计 cols参数:totalRowText: '合计' totalRow: true
         });
         //重新获取数据
