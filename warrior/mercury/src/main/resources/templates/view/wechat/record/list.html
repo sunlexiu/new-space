@@ -110,6 +110,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'record.CreatedDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -128,20 +130,20 @@
             title: '微信编号',
             templet: '<div>{{d.wechat.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'wechatState',
             width: '6%',
             title: '当前状态',
             templet: '<div>{{d.wechatState.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'researchFields',
             width: '8%',
             title: '研究领域',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'loginPassword',
             width: '7%',
@@ -153,57 +155,57 @@
             title: '实名制',
             templet: '<div>{{d.isRealNameAuthentication === 1 ? "是" : "否"}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'realName',
             width: '6%',
             title: '实名姓名',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'bankCard',
             width: '8%',
             title: '银行卡号',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'paymentPassword',
             width: '6%',
             title: '支付密码',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'wechatPurpose',
             width: '8%',
             title: '微信用途',
             templet: '<div>{{d.wechatPurpose.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'wechatPurpose',
             width: '5%',
             title: '使用人',
             templet: '<div>{{d.user.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'createdDateTime',
             width: '9%',
             title: '创建时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'startedDateTime',
             width: '9%',
             title: '开始时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'endedDateTime',
             width: '9%',
             title: '结束时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'right',
             width: '8%',
@@ -222,7 +224,7 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '运营微信管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '运营微信管理', 'list', {sort:'record.CreatedDateTime', order:'desc'}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

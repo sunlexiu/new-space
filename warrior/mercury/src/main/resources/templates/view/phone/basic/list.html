@@ -119,6 +119,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'phone.BoughtDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -133,62 +135,64 @@
             sort: false
         },{
             field: 'phoneNo',
-            width: '10%',
+            width: '15%',
             title: '手机编号',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'boughtDateTime',
-            width: '10%',
+            width: '15%',
             title: '购买时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'brand',
-            width: '10%',
+            width: '15%',
             title: '品牌',
             templet: '<div>{{d.brand.brandName}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'operatingSystem',
-            width: '10%',
+            width: '15%',
             title: '操作系统',
             templet: '<div>{{d.operatingSystem.typeOfOperatingSystem}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
-        },{
-            field: 'phoneNumber',
-            width: '10%',
-            title: '绑定手机号',
-            templet: '<div>{{d.phoneNumber === undefined ? "" : d.phoneNumber.name}}</div>',
-            minWidth: 100,
-            style: 'color: #ff5722;',
-            sort: true
-        },{
-            field: 'operatingSystem',
-            width: '10%',
-            title: '绑定微信号',
-            templet: '<div>{{d.wechat === undefined ? "" : d.wechat.name}}</div>',
-            minWidth: 100,
-            style: 'color: #ff5722;',
-            sort: true
-        },{
+            sort: false
+        },
+        // {
+        //     field: 'phoneNumber',
+        //     width: '10%',
+        //     title: '绑定手机号',
+        //     templet: '<div>{{d.phoneNumber === undefined ? "" : d.phoneNumber.name}}</div>',
+        //     minWidth: 100,
+        //     style: 'color: #ff5722;',
+        //     sort: false
+        // },{
+        //     field: 'operatingSystem',
+        //     width: '10%',
+        //     title: '绑定微信号',
+        //     templet: '<div>{{d.wechat === undefined ? "" : d.wechat.name}}</div>',
+        //     minWidth: 100,
+        //     style: 'color: #ff5722;',
+        //     sort: false
+        // },
+        {
             field: 'memorySize',
             width: '15%',
             title: '内存大小',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'remark',
             width: '15%',
             title: '备注',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'right',
             width: '10%',
@@ -209,7 +213,7 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort:'phone.BoughtDateTime', order:'desc'}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

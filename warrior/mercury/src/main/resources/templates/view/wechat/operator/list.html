@@ -110,6 +110,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'wechat.AppliedDateTime';
+        data.order = 'desc'
         table && table.reload(data);
     });
 
@@ -151,37 +153,37 @@
             width: '10%',
             title: '微信编号',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'wechatID',
             width: '15%',
             title: '微信号',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'nickname',
             width: '10%',
             title: '微信昵称',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'appliedDateTime',
             width: '10%',
             title: '申请时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'appliedLocation',
             width: '10%',
             title: '申请地点',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'applicant',
             width: '5%',
             title: '申请人',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'phone',
             width: '10%',
@@ -189,7 +191,7 @@
             templet: '<div>{{d.phone === undefined ? "" : d.phone.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'phoneNumber',
             width: '10%',
@@ -197,13 +199,13 @@
             templet: '<div>{{d.phoneNumber === undefined ? "" : d.phoneNumber.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'remark',
             width: '10%',
             title: '备注',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'right',
             width: '10%',
@@ -224,7 +226,7 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '运营微信管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '运营微信管理', 'list', {sort:'wechat.AppliedDateTime', order:'desc'}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

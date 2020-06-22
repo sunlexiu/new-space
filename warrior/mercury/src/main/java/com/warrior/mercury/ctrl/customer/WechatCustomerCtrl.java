@@ -1,5 +1,6 @@
 package com.warrior.mercury.ctrl.customer;
 
+import com.warrior.mercury.common.ResponsePage;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.param.DeleteBody;
@@ -37,8 +38,8 @@ public class WechatCustomerCtrl {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<WechatCustomer> pageList(WechatCustomerQueryPage page) {
-        return wechatCustomerService.pageList(page);
+    public ResponsePage<WechatCustomer> pageList(WechatCustomerQueryPage page) {
+        return ResponsePage.newPage(wechatCustomerService.pageList(page));
     }
 
 

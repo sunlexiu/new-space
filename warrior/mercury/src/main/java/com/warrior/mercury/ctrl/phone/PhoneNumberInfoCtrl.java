@@ -1,5 +1,6 @@
 package com.warrior.mercury.ctrl.phone;
 
+import com.warrior.mercury.common.ResponsePage;
 import com.warrior.mercury.model.dto.PhoneNumberInfo;
 import com.warrior.mercury.model.param.DeleteBody;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -36,8 +36,8 @@ public class PhoneNumberInfoCtrl {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<PhoneNumberInfo> listUser(PhoneNumberInfoQuery page) {
-        return phoneNumberInfoService.listPhoneNumberInfo(page);
+    public ResponsePage<PhoneNumberInfo> listUser(PhoneNumberInfoQuery page) {
+        return ResponsePage.newPage(phoneNumberInfoService.listPhoneNumberInfo(page));
     }
 
 

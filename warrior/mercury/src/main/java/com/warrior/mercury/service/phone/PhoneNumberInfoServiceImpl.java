@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.ex.TPhonenumberExMapper;
@@ -26,7 +27,7 @@ public class PhoneNumberInfoServiceImpl implements IPhoneNumberInfoService {
     private TPhonenumberExMapper phoneNumberMapper;
 
     @Override
-    public List<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page) {
+    public Page<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page) {
         return phoneNumberMapper.listPhoneNumberInfo(page);
     }
 

@@ -1,6 +1,7 @@
 package com.warrior.mercury.service.user;
 
 import com.github.pagehelper.Page;
+import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 
@@ -17,7 +18,7 @@ public interface IUserService {
      * @param page
      * @return
      */
-    Page<TSignup> pageListSignUp(ManagerUserQueryPage page);
+    Page<ManageUser> pageListSignUp(ManagerUserQueryPage page);
 
 
     /**

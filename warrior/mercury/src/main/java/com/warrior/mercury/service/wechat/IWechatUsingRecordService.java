@@ -1,10 +1,9 @@
 package com.warrior.mercury.service.wechat;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.WechatUsingRecord;
 import com.warrior.mercury.model.param.wechat.WechatUsingRecordAlterParam;
 import com.warrior.mercury.model.param.wechat.WechatUsingRecordQueryPage;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -18,7 +17,7 @@ public interface IWechatUsingRecordService {
      * @param page
      * @return
      */
-    List<WechatUsingRecord> pageList(WechatUsingRecordQueryPage page);
+    Page<WechatUsingRecord> pageList(WechatUsingRecordQueryPage page);
 
 
     /**

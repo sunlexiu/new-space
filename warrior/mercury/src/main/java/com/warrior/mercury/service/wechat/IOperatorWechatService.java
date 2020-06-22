@@ -1,10 +1,9 @@
 package com.warrior.mercury.service.wechat;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.OperatorWechat;
 import com.warrior.mercury.model.param.wechat.OperatorWechatAlterParam;
 import com.warrior.mercury.model.param.wechat.OperatorWechatQueryPage;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -18,7 +17,7 @@ public interface IOperatorWechatService {
      * @param page
      * @return
      */
-    List<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page);
+    Page<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page);
 
 
     /**

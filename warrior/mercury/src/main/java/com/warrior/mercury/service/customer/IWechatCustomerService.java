@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.customer;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
 import com.warrior.mercury.model.param.customer.OperatorCustomer;
@@ -20,7 +21,7 @@ public interface IWechatCustomerService {
      * @param page
      * @return
      */
-    List<WechatCustomer> pageList(WechatCustomerQueryPage page);
+    Page<WechatCustomer> pageList(WechatCustomerQueryPage page);
 
 
     /**

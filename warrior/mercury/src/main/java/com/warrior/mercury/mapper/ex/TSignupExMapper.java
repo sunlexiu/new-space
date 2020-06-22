@@ -3,7 +3,7 @@ package com.warrior.mercury.mapper.ex;
 import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TSignupMapper;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
-import com.warrior.mercury.model.entity.auto.TSignup;
+import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.param.user.ManagerUserQueryPage;
 
 import java.util.List;
@@ -29,5 +29,5 @@ public interface TSignupExMapper extends TSignupMapper {
      * @param page
      * @return
      */
-    Page<TSignup> pageListSignUp(ManagerUserQueryPage page);
+    Page<ManageUser> pageListSignUp(ManagerUserQueryPage page);
 }

@@ -19,7 +19,7 @@ public class BasePage implements Page {
 
     private static final String ORDER_PATTERN_STRING = "^asc|desc$";
 
-    private static final String sort_pattern_string = "^[a-zA-Z]\\w*$";
+    private static final String sort_pattern_string = "^[a-zA-Z][\\w.]*$";
 
     private static final Pattern ORDER_PATTERN = Pattern.compile(ORDER_PATTERN_STRING, CASE_INSENSITIVE);
 

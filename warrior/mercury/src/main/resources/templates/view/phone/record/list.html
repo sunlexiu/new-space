@@ -108,6 +108,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'record.CreatedDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -184,7 +186,8 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort:'record.CreatedDateTime', order:'desc'},
+        tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

@@ -1,10 +1,9 @@
 package com.warrior.mercury.mapper.ex;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TPhoneusinglogMapper;
 import com.warrior.mercury.model.dto.PhoneRecord;
 import com.warrior.mercury.model.param.phone.PhoneRecordQueryPage;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -19,7 +18,7 @@ public interface TPhoneusinglogExMapper extends TPhoneusinglogMapper {
      * @param page
      * @return
      */
-    List<PhoneRecord> listPhoneUsingRecord(PhoneRecordQueryPage page);
+    Page<PhoneRecord> listPhoneUsingRecord(PhoneRecordQueryPage page);
 
 
     /**

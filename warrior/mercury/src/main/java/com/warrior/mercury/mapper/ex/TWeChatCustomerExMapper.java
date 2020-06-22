@@ -1,5 +1,6 @@
 package com.warrior.mercury.mapper.ex;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TWeChatCustomerMapper;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.WechatCustomer;
@@ -20,7 +21,7 @@ public interface TWeChatCustomerExMapper extends TWeChatCustomerMapper {
      * @param page
      * @return
      */
-    List<WechatCustomer> pageList(WechatCustomerQueryPage page);
+    Page<WechatCustomer> pageList(WechatCustomerQueryPage page);
 
     /**
      * 根据顾客id查询所有的运营微信

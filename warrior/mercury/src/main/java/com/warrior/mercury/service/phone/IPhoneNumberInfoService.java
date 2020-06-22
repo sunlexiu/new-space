@@ -1,11 +1,10 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.PhoneNumberInfo;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoAddParam;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoQuery;
 import com.warrior.mercury.model.param.phone.PhoneNumberInfoUpdateParam;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -19,7 +18,7 @@ public interface IPhoneNumberInfoService {
      * @param page
      * @return
      */
-    List<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page);
+    Page<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page);
 
 
     /**

@@ -1,5 +1,6 @@
 package com.warrior.mercury.ctrl.wechat;
 
+import com.warrior.mercury.common.ResponsePage;
 import com.warrior.mercury.model.dto.OperatorWechat;
 import com.warrior.mercury.model.param.DeleteBody;
 import com.warrior.mercury.model.param.wechat.OperatorWechatAlterParam;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -34,8 +34,8 @@ public class OperatorWechatCtrl {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<OperatorWechat> listUser(OperatorWechatQueryPage page) {
-        return operatorWechatService.pageListOperateWechat(page);
+    public ResponsePage<OperatorWechat> listUser(OperatorWechatQueryPage page) {
+        return ResponsePage.newPage(operatorWechatService.pageListOperateWechat(page));
     }
 
     @PostMapping("/add")

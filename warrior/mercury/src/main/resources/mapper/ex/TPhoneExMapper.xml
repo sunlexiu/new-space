@@ -32,21 +32,21 @@
         SELECT
             phone.PhoneID, phone.PhoneNo, phone.BoughtDateTime, phone.PhoneBrandID,
             phone.PhoneOperatingSystemID, phone.MemorySize, phone.Remark,
-            phone_system.typeOfOperatingSystem, brand.brandName,
-            link.PhonePhoneNumberWechatID, link.PhoneNumberID, link.OperationWechatID,
-            wechat.WechatNo, number.PhoneNumber
+            phone_system.typeOfOperatingSystem, brand.brandName
+--             link.PhonePhoneNumberWechatID, link.PhoneNumberID, link.OperationWechatID,
+--             wechat.WechatNo, number.PhoneNumber
         FROM
             T_Phone phone
         JOIN T_PhoneOperatingSystem phone_system
         ON phone.PhoneOperatingSystemID = phone_system.PhoneOperatingSystemID
         JOIN T_PhoneBrand brand
         ON phone.PhoneBrandID = brand.PhoneBrandID
-        LEFT JOIN t_phone_phone_number_wechat link
-        ON phone.PhoneID = link.PhoneID
-        LEFT JOIN t_operation_wechat wechat
-        ON link.OperationWechatID = wechat.OperationWechatID
-        LEFT JOIN t_phonenumber number
-        ON link.PhoneNumberID = number.PhoneNumberID
+--         LEFT JOIN t_phone_phone_number_wechat link
+--         ON phone.PhoneID = link.PhoneID
+--         LEFT JOIN t_operation_wechat wechat
+--         ON link.OperationWechatID = wechat.OperationWechatID
+--         LEFT JOIN t_phonenumber number
+--         ON link.PhoneNumberID = number.PhoneNumberID
 
     </select>
 

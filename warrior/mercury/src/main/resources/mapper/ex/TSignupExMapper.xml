@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.warrior.mercury.mapper.ex.TSignupExMapper">
 
-    <resultMap id="pageListResultMap" type="com.warrior.mercury.model.entity.auto.TSignup"
+    <resultMap id="pageListResultMap" type="com.warrior.mercury.model.dto.ManageUser"
         extends="com.warrior.mercury.mapper.auto.TSignupMapper.BaseResultMap">
 
     </resultMap>

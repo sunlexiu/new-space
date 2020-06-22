@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.auto.TPhonebrandMapper;
 import com.warrior.mercury.mapper.auto.TPhoneoperatingsystemMapper;
@@ -38,7 +39,7 @@ public class PhoneBasicServiceImpl implements IPhoneBasicService {
     private TPhoneoperatingsystemMapper phoneSystemMapper;
 
     @Override
-    public List<PhoneBasic> listBasicPhoneInfo(PhoneBasicQueryPage page) {
+    public Page<PhoneBasic> listBasicPhoneInfo(PhoneBasicQueryPage page) {
         return phoneExMapper.listBasicPhoneInfo(page);
     }
 

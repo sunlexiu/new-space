@@ -23,8 +23,8 @@ public class ResponsePage<T> {
     }
 
 
-    public static <T> ResponsePage newPage(Page<T> page) {
-        return new ResponsePage(page.getResult(), page.getTotal(), page.getPageNum(), page.getPageSize());
+    public static <T> ResponsePage<T> newPage(Page<T> page) {
+        return new ResponsePage<T>(page.getResult(), page.getTotal(), page.getPageNum(), page.getPageSize());
     }
 
     public List<T> getData() {

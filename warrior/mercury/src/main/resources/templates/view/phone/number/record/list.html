@@ -106,6 +106,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'record.CreatedDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -125,65 +127,65 @@
             templet: '<div>{{d.phone.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'purpose',
             width: '5%',
             title: '用途',
             templet: '<div>{{d.purpose.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'user',
             width: '5%',
             title: '使用人',
             templet: '<div>{{d.user.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'packageType',
             width: '15%',
             title: '套餐',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'numberState',
             width: '9%',
             title: '当前状态',
             templet: '<div>{{d.numberState.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'startedDateTime',
             width: '10%',
             title: '开始时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'endedDateTime',
             width: '10%',
             title: '结束时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'createdDateTime',
             width: '10%',
             title: '信息修改时间',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'parentNumber',
             width: '8%',
             title: '主卡卡号',
             templet: '<div>{{d.parentNumber === undefined ? "" : d.parentNumber.name}}</div>',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'remark',
             width: '10%',
             title: '备注',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'right',
             width: '10%',
@@ -202,7 +204,7 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort:'record.CreatedDateTime', order:'desc'}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

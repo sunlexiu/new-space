@@ -62,7 +62,6 @@
         LEFT JOIN t_operation_wechat wechat
         ON link.OperationWechatID = wechat.OperationWechatID
         GROUP BY customer.`WeChatCustomerID`
-        ORDER BY customer.`RecordedDateTime`
     </select>
 
 

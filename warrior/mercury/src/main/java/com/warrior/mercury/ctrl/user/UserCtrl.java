@@ -59,14 +59,13 @@ public class UserCtrl {
 
     @PostMapping("/update")
     @ResponseBody
-    public ManageUser updateUser(@RequestBody ManagerUserUpdateParam user) {
+    public void updateUser(@RequestBody ManagerUserUpdateParam user) {
         LOG.info(JSONObject.toJSONString(user));
         if (Objects.isNull(user.getId())) {
             throw new BusinessException(500, "参数错误");
         }
 
         userService.updateSignUp(user.convertToSignUp());
-        return ManageUser.convertFromSignUpUser(userService.selectSignUpById(user.getId()));
     }
 
     @DeleteMapping("/delete")

@@ -1,11 +1,10 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.PhoneBasic;
 import com.warrior.mercury.model.param.phone.BasicPhoneAddParam;
 import com.warrior.mercury.model.param.phone.BasicPhoneUpdateParam;
 import com.warrior.mercury.model.param.phone.PhoneBasicQueryPage;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -19,7 +18,7 @@ public interface IPhoneBasicService {
      * @param page
      * @return
      */
-    List<PhoneBasic> listBasicPhoneInfo(PhoneBasicQueryPage page);
+    Page<PhoneBasic> listBasicPhoneInfo(PhoneBasicQueryPage page);
 
 
     /**

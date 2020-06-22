@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.wechat;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.ex.TOperationWechatExMapper;
@@ -25,7 +26,7 @@ public class OperatorWechatServiceImpl implements IOperatorWechatService {
     private TOperationWechatExMapper operationWechatMapper;
 
     @Override
-    public List<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page) {
+    public Page<OperatorWechat> pageListOperateWechat(OperatorWechatQueryPage page) {
         return operationWechatMapper.pageList(page);
     }
 

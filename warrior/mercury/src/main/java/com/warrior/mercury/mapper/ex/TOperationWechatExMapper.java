@@ -1,5 +1,6 @@
 package com.warrior.mercury.mapper.ex;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TOperationWechatMapper;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.OperatorWechat;
@@ -20,7 +21,7 @@ public interface TOperationWechatExMapper extends TOperationWechatMapper {
      * @param page
      * @return
      */
-    List<OperatorWechat> pageList(OperatorWechatQueryPage page);
+    Page<OperatorWechat> pageList(OperatorWechatQueryPage page);
 
     /**
      * 查找所有的运营微信

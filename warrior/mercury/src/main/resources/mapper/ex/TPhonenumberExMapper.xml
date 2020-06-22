@@ -38,5 +38,6 @@
         ON phone.PhoneID = link.PhoneID
         LEFT JOIN t_operation_wechat wechat
         ON wechat.OperationWechatID = link.OperationWechatID
+        GROUP BY number.PhoneNumberID
     </select>
 </mapper>

@@ -130,6 +130,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'number.AppliedDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -148,21 +150,21 @@
             title: '手机号码',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'appliedDateTime',
             width: '10%',
             title: '购买时间',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'location',
             width: '10%',
             title: '归属地',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'phone',
             width: '10%',
@@ -170,7 +172,7 @@
             templet: '<div>{{d.phone === undefined ? "" : d.phone.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'operatingSystem',
             width: '10%',
@@ -178,14 +180,14 @@
             templet: '<div>{{d.wechat === undefined ? "" : d.wechat.name}}</div>',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'owner',
             width: '20%',
             title: '号码身份信息',
             minWidth: 100,
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         },{
             field: 'right',
             width: '20%',
@@ -206,7 +208,7 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort:'number.AppliedDateTime', order:'desc'}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

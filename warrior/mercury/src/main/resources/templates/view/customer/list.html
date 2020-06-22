@@ -124,6 +124,8 @@
 
     //监听表单提交事件
     hg.form.onsubmit('sreach', function (data) {
+        data.sort = 'customer.RecordedDateTime';
+        data.order = 'desc';
         table && table.reload(data);
     });
 
@@ -247,7 +249,7 @@
             width: '5%',
             title: '备注',
             style: 'color: #ff5722;',
-            sort: true
+            sort: false
         }, {
             field: 'right',
             width: '15%',
@@ -268,7 +270,8 @@
         }
     ];
     //基本数据表格
-    var table = hg.table.datatable('test', '用户管理', 'list', {}, tableCols, toolbar, true, 'full-210', ['filter', 'print', 'exports']);
+    var table = hg.table.datatable('test', '用户管理', 'list', {sort:'customer.RecordedDateTime', order:'desc'}, tableCols, toolbar,
+        true, 'full-210', ['filter', 'print', 'exports']);
 
 </script>
 

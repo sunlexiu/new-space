@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.ex.TPersonExMapper;
 import com.warrior.mercury.mapper.ex.TSignupExMapper;
+import com.warrior.mercury.model.dto.ManageUser;
 import com.warrior.mercury.model.entity.auto.TPerson;
 import com.warrior.mercury.model.entity.auto.TSignup;
 import com.warrior.mercury.model.entity.auto.TSignupExample;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements IUserService {
     private TPersonExMapper personMapper;
 
     @Override
-    public Page<TSignup> pageListSignUp(ManagerUserQueryPage page) {
+    public Page<ManageUser> pageListSignUp(ManagerUserQueryPage page) {
         return signUpExMapper.pageListSignUp(page);
     }
 

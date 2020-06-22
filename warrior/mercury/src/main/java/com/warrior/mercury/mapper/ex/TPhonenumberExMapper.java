@@ -1,5 +1,6 @@
 package com.warrior.mercury.mapper.ex;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TPhonenumberMapper;
 import com.warrior.mercury.model.dto.CommonSimpleDto;
 import com.warrior.mercury.model.dto.PhoneNumberInfo;
@@ -27,5 +28,5 @@ public interface TPhonenumberExMapper extends TPhonenumberMapper {
      * @param page
      * @return
      */
-    List<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page);
+    Page<PhoneNumberInfo> listPhoneNumberInfo(PhoneNumberInfoQuery page);
 }

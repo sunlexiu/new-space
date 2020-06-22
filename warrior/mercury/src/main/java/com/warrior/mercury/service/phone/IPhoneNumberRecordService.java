@@ -1,11 +1,10 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.model.dto.PhoneNumberRecord;
 import com.warrior.mercury.model.param.phone.PhoneNumberRecordAddParam;
 import com.warrior.mercury.model.param.phone.PhoneNumberRecordQueryPage;
 import com.warrior.mercury.model.param.phone.PhoneNumberRecordUpdateParam;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -19,7 +18,7 @@ public interface IPhoneNumberRecordService {
      * @param page
      * @return
      */
-    List<PhoneNumberRecord > listPhoneNumberUsingRecord(PhoneNumberRecordQueryPage page);
+    Page<PhoneNumberRecord > listPhoneNumberUsingRecord(PhoneNumberRecordQueryPage page);
 
 
     /**

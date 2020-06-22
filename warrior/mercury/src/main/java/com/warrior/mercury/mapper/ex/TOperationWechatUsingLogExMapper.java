@@ -1,10 +1,9 @@
 package com.warrior.mercury.mapper.ex;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.mapper.auto.TOperationWechatUsingLogMapper;
 import com.warrior.mercury.model.dto.WechatUsingRecord;
 import com.warrior.mercury.model.param.wechat.WechatUsingRecordQueryPage;
-
-import java.util.List;
 
 /**
  * @author:       Charon
@@ -18,7 +17,7 @@ public interface TOperationWechatUsingLogExMapper extends TOperationWechatUsingL
      * @param page
      * @return
      */
-    List<WechatUsingRecord> pageList(WechatUsingRecordQueryPage page);
+    Page<WechatUsingRecord> pageList(WechatUsingRecordQueryPage page);
 
     /**
      * 更新该微信上一次的使用记录结束时间

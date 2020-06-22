@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.customer;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.auto.TTitleMapper;
 import com.warrior.mercury.mapper.auto.TWeChatCustomerEvaluationMapper;
@@ -63,7 +64,7 @@ public class WechatCustomerServiceImpl implements IWechatCustomerService {
     private TOperationWechatCustomerExMapper operationWechatCustomerMapper;
 
     @Override
-    public List<WechatCustomer> pageList(WechatCustomerQueryPage page) {
+    public Page<WechatCustomer> pageList(WechatCustomerQueryPage page) {
         return weChatCustomerExMapper.pageList(page);
     }
 

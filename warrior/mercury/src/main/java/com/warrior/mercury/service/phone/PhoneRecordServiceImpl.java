@@ -1,5 +1,6 @@
 package com.warrior.mercury.service.phone;
 
+import com.github.pagehelper.Page;
 import com.warrior.mercury.common.exception.BusinessCode;
 import com.warrior.mercury.common.exception.BusinessException;
 import com.warrior.mercury.mapper.auto.TPhonestateMapper;
@@ -42,7 +43,7 @@ public class PhoneRecordServiceImpl implements IPhoneRecordService {
     private TPhoneExMapper phoneExMapper;
 
     @Override
-    public List<PhoneRecord> listPhoneUsingRecord(PhoneRecordQueryPage page) {
+    public Page<PhoneRecord> listPhoneUsingRecord(PhoneRecordQueryPage page) {
         return phoneUsingLogExMapper.listPhoneUsingRecord(page);
     }
 
